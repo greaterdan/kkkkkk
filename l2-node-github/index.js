@@ -111,7 +111,7 @@ class WorkingL2Node {
       transactions: [],
       gasUsed: '0x0',
       gasLimit: '0x1c9c380',
-      miner: '0x0000000000000000000000000000000000000000',
+      miner: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6', // 01A L2 Network Validator
       difficulty: '0x0'
     };
     
@@ -130,7 +130,7 @@ class WorkingL2Node {
       transactions: [...this.pendingTransactions],
       gasUsed: '0x' + (this.pendingTransactions.length * 21000).toString(16),
       gasLimit: '0x1c9c380',
-      miner: '0x0000000000000000000000000000000000000000',
+      miner: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6', // 01A L2 Network Validator
       difficulty: '0x0'
     };
     
