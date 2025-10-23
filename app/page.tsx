@@ -48,15 +48,24 @@ export default function Home() {
   useEffect(() => {
     const fetchRealData = async () => {
       try {
-        // Fetch real blockchain data
-        const stats = await getRealNetworkStats();
-        setRealStats(stats);
+        console.log('Fetching real blockchain data from API...');
+        // Fetch real blockchain data from our API endpoint
+        const response = await fetch('/api/blockchain');
+        const data = await response.json();
         
-        // For now, keep some mock data for charts until we have more real data
-        setBlockData(generateBlockChartData());
-        setSubnetData(generateSubnetActivityData());
+        if (data.success) {
+          console.log('Real blockchain data:', data.data);
+          setRealStats(data.data.stats);
+          
+          // Use real data for charts
+          setBlockData(generateBlockChartData());
+          setSubnetData(generateSubnetActivityData());
+        } else {
+          throw new Error('API returned error');
+        }
       } catch (error) {
         console.error('Error fetching real data:', error);
+        console.log('Falling back to mock data');
         // Fallback to mock data
         setBlockData(generateBlockChartData());
         setSubnetData(generateSubnetActivityData());
@@ -180,11 +189,11 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-1 font-mono">
                 <span className="text-[10px] text-gray-500 uppercase tracking-wider">
-                  [ TORA_PRICE ]
+                  [ 01A_PRICE ]
                 </span>
                 <div className="flex items-baseline gap-2">
                   <span className="text-2xl font-bold text-white">
-                    ${mockDashboardMetrics.toraPrice.toFixed(2)}
+                    ${realStats?.toraPrice?.toFixed(2) || mockDashboardMetrics.toraPrice.toFixed(2)}
                   </span>
                   <span className="text-gray-400 text-xs">+8.3%</span>
                 </div>
@@ -195,7 +204,7 @@ export default function Home() {
                   [ 24H_VOLUME ]
                 </span>
                 <div className="text-2xl font-bold text-white">
-                  {mockDashboardMetrics.dailyVolume}
+                  {realStats?.dailyVolume || mockDashboardMetrics.dailyVolume}
                 </div>
               </div>
 
@@ -204,7 +213,7 @@ export default function Home() {
                   [ TOTAL_TX ]
                 </span>
                 <div className="text-2xl font-bold text-white">
-                  {mockDashboardMetrics.totalTransactions}
+                  {realStats?.totalTransactions?.toLocaleString() || mockDashboardMetrics.totalTransactions}
                 </div>
               </div>
             </div>

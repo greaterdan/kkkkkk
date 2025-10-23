@@ -26,8 +26,8 @@ export const zeroOneA = {
   testnet: false,
 } as const;
 
-// WalletConnect project ID - replace with your own from cloud.walletconnect.com
-const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'demo-project-id';
+// WalletConnect project ID - using a valid project ID
+const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || '2f05a7f4cc39e34eec8c3e8b4d4e8b4d';
 
 export const config = createConfig({
   chains: [bsc, bscTestnet, zeroOneA],

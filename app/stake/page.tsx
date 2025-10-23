@@ -65,7 +65,7 @@ export default function StakePage() {
 
     // TODO: Implement actual staking contract interaction
     try {
-      // 1. Approve TORA tokens
+      // 1. Approve 01A tokens
       // await approve(stakingContractAddress, amount);
 
       // 2. Call staking contract
