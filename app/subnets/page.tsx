@@ -1,13 +1,32 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Cpu, Camera, Database, Headphones, ArrowRight, TrendingUp, Users, Award } from 'lucide-react';
 import Link from 'next/link';
 import { GlassCard } from '@/components/GlassCard';
 import { Button } from '@/components/Button';
-import { mockSubnets } from '@/lib/mock-data';
+import { getRealSubnets } from '@/lib/real-data';
+import { Subnet } from '@/lib/api';
 
 export default function SubnetsPage() {
+  const [subnets, setSubnets] = useState<Subnet[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSubnets = async () => {
+      try {
+        const realSubnets = await getRealSubnets();
+        setSubnets(realSubnets);
+      } catch (error) {
+        console.error('Error fetching subnets:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSubnets();
+  }, []);
   const taskTypeIcons = {
     LLM: Cpu,
     Vision: Camera,
@@ -32,7 +51,10 @@ export default function SubnetsPage() {
 
         {/* Subnets Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockSubnets.map((subnet, idx) => {
+          {loading ? (
+            <div className="col-span-full text-center text-white">Loading subnets...</div>
+          ) : (
+            subnets.map((subnet, idx) => {
             const IconComponent = taskTypeIcons[subnet.taskType];
             return (
               <motion.div
@@ -100,7 +122,8 @@ export default function SubnetsPage() {
                 </Link>
               </motion.div>
             );
-          })}
+            })
+          )}
         </div>
 
         {/* CTA Section */}

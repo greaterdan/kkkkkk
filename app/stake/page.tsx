@@ -7,6 +7,8 @@ import { GlassCard } from '@/components/GlassCard';
 import { useAccount, useBalance } from 'wagmi';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { getRealSubnets } from '@/lib/real-data';
+import { Subnet } from '@/lib/api';
 
 function StakePageContent() {
   const { address } = useAccount();
@@ -16,6 +18,8 @@ function StakePageContent() {
   const [amount, setAmount] = useState('');
   const [selectedSubnet, setSelectedSubnet] = useState('subnet-1');
   const [isStaking, setIsStaking] = useState(false);
+  const [subnets, setSubnets] = useState<Subnet[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // Get subnet from URL params if coming from subnet page
   useEffect(() => {
@@ -25,42 +29,23 @@ function StakePageContent() {
     }
   }, [searchParams]);
 
-  const minStake = 10000;
+  // Fetch real subnets data
+  useEffect(() => {
+    const fetchSubnets = async () => {
+      try {
+        const realSubnets = await getRealSubnets();
+        setSubnets(realSubnets);
+      } catch (error) {
+        console.error('Error fetching subnets:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const subnets = [
-    { 
-      id: 'subnet-1', 
-      name: 'GPT-4 Inference', 
-      type: 'LLM', 
-      apy: 45.2, 
-      validators: 128,
-      description: 'Large Language Model inference for text generation, completion, and conversation. Powers AI chatbots, content creation, and natural language processing tasks.'
-    },
-    { 
-      id: 'subnet-2', 
-      name: 'Vision Transformers', 
-      type: 'Vision', 
-      apy: 38.5, 
-      validators: 96,
-      description: 'Computer vision models for image recognition, object detection, and visual analysis. Handles image classification, facial recognition, and medical imaging tasks.'
-    },
-    { 
-      id: 'subnet-3', 
-      name: 'Embeddings Pro', 
-      type: 'Embedding', 
-      apy: 42.1, 
-      validators: 84,
-      description: 'Vector embeddings for semantic search, recommendation systems, and similarity matching. Powers search engines, content discovery, and AI-powered recommendations.'
-    },
-    { 
-      id: 'subnet-4', 
-      name: 'Audio Genesis', 
-      type: 'Audio', 
-      apy: 36.8, 
-      validators: 72,
-      description: 'Audio processing models for speech recognition, music generation, and sound analysis. Handles voice assistants, audio transcription, and sound synthesis tasks.'
-    },
-  ];
+    fetchSubnets();
+  }, []);
+
+  const minStake = 10000;
 
   const selectedSubnetData = subnets.find((s) => s.id === selectedSubnet);
 
