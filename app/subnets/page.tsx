@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Layers, TrendingUp, Users, Award, ArrowRight } from 'lucide-react';
+import { Layers, TrendingUp, Users, Award, ArrowRight, Cpu, Camera, Database, Headphones } from 'lucide-react';
 import Link from 'next/link';
 import { GlassCard } from '@/components/GlassCard';
 import { mockSubnets, Subnet } from '@/lib/mock-data';
@@ -14,10 +14,10 @@ const taskTypeColors = {
 };
 
 const taskTypeIcons = {
-  LLM: '🧠',
-  Vision: '👁️',
-  Embedding: '🔮',
-  Audio: '🎵',
+  LLM: Cpu,
+  Vision: Camera,
+  Embedding: Database,
+  Audio: Headphones,
 };
 
 export default function SubnetsPage() {
@@ -109,7 +109,12 @@ function SubnetCard({ subnet, delay }: { subnet: Subnet; delay: number }) {
             {/* Header */}
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
-                <div className="text-2xl">{taskTypeIcons[subnet.taskType]}</div>
+                <div className="p-2 border border-white/20 rounded">
+                  {(() => {
+                    const IconComponent = taskTypeIcons[subnet.taskType];
+                    return <IconComponent className="w-5 h-5 text-white" />;
+                  })()}
+                </div>
                 <div>
                   <h3 className="text-base font-bold text-white">{subnet.name}</h3>
                   <span className="inline-block px-2 py-0.5 border border-white/30 text-[10px] font-medium text-white mt-1">

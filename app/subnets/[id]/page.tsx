@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, TrendingUp, Users, Award, Zap, Trophy } from 'lucide-react';
+import { ArrowLeft, TrendingUp, Users, Award, Zap, Trophy, Cpu, Camera, Database, Headphones } from 'lucide-react';
 import Link from 'next/link';
 import { GlassCard } from '@/components/GlassCard';
 import { Button } from '@/components/Button';
@@ -62,14 +62,17 @@ export default function SubnetDetailPage({
           className="space-y-4"
         >
           <div className="flex items-center gap-4">
-            <div className="text-5xl">
-              {subnet.taskType === 'LLM'
-                ? '🧠'
-                : subnet.taskType === 'Vision'
-                ? '👁️'
-                : subnet.taskType === 'Embedding'
-                ? '🔮'
-                : '🎵'}
+            <div className="p-4 border border-white/20 rounded-lg">
+              {(() => {
+                const taskTypeIcons = {
+                  LLM: Cpu,
+                  Vision: Camera,
+                  Embedding: Database,
+                  Audio: Headphones,
+                };
+                const IconComponent = taskTypeIcons[subnet.taskType];
+                return <IconComponent className="w-12 h-12 text-white" />;
+              })()}
             </div>
             <div>
               <h1 className="text-5xl font-black gradient-text">{subnet.name}</h1>
