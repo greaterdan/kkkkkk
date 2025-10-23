@@ -16,7 +16,11 @@
     "dotenv": "^16.3.1",
     "ethers": "^6.8.1",
     "crypto": "^1.0.1",
-    "node-cron": "^3.0.3"
+    "node-cron": "^3.0.3",
+    "sqlite3": "^5.1.6",
+    "better-sqlite3": "^9.2.2",
+    "level": "^8.0.0",
+    "secp256k1": "^5.0.0"
   },
   "keywords": ["blockchain", "l2", "layer2", "01a", "consensus"],
   "author": "01A LABS",
