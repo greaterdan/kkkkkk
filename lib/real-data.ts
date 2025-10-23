@@ -1,5 +1,6 @@
 // Real blockchain data service - connects to your L2 node
 import { createPublicClient, http, formatUnits } from 'viem';
+import { ApiSubnet } from './api';
 
 // Real blockchain configuration - connect to your local L2 node
 const RPC_URLS = {
@@ -305,7 +306,7 @@ export const getRealValidators = async (): Promise<RealValidator[]> => {
   }
 };
 
-export const getRealSubnets = async (): Promise<Subnet[]> => {
+export const getRealSubnets = async (): Promise<ApiSubnet[]> => {
   try {
     // Return the 6 REAL AI subnets with accurate data
     return [
@@ -319,6 +320,7 @@ export const getRealSubnets = async (): Promise<Subnet[]> => {
         minerCount: 450,
         apy: 45.2,
         description: "Large language model inference and fine-tuning subnet for GPT-4 class models",
+        status: "active" as const,
       },
       {
         id: "subnet-2",
@@ -330,6 +332,7 @@ export const getRealSubnets = async (): Promise<Subnet[]> => {
         minerCount: 320,
         apy: 38.5,
         description: "Computer vision subnet for image classification, object detection, and segmentation",
+        status: "active" as const,
       },
       {
         id: "subnet-3",
@@ -341,6 +344,7 @@ export const getRealSubnets = async (): Promise<Subnet[]> => {
         minerCount: 280,
         apy: 42.1,
         description: "High-quality semantic embeddings for RAG and vector search applications",
+        status: "active" as const,
       },
       {
         id: "subnet-4",
@@ -352,6 +356,7 @@ export const getRealSubnets = async (): Promise<Subnet[]> => {
         minerCount: 240,
         apy: 36.8,
         description: "Audio generation, transcription, and voice cloning subnet",
+        status: "active" as const,
       },
       {
         id: "subnet-5",
@@ -363,6 +368,7 @@ export const getRealSubnets = async (): Promise<Subnet[]> => {
         minerCount: 400,
         apy: 41.3,
         description: "Specialized subnet for Llama 3.1 405B model serving and optimization",
+        status: "active" as const,
       },
       {
         id: "subnet-6",
@@ -374,6 +380,7 @@ export const getRealSubnets = async (): Promise<Subnet[]> => {
         minerCount: 310,
         apy: 39.7,
         description: "Multi-model vision subnet with SAM, CLIP, and DALL-E integration",
+        status: "active" as const,
       },
     ];
   } catch (error) {

@@ -8,7 +8,7 @@ import { useAccount, useBalance } from 'wagmi';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { getRealSubnets } from '@/lib/real-data';
-import { Subnet } from '@/lib/api';
+import { ApiSubnet } from '@/lib/api';
 
 function StakePageContent() {
   const { address } = useAccount();
@@ -18,7 +18,7 @@ function StakePageContent() {
   const [amount, setAmount] = useState('');
   const [selectedSubnet, setSelectedSubnet] = useState('subnet-1');
   const [isStaking, setIsStaking] = useState(false);
-  const [subnets, setSubnets] = useState<Subnet[]>([]);
+  const [subnets, setSubnets] = useState<ApiSubnet[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Get subnet from URL params if coming from subnet page
@@ -124,7 +124,7 @@ function StakePageContent() {
               <Users className="w-4 h-4 text-white mb-1" />
               <p className="text-[10px] text-gray-500 uppercase">TOTAL_VALIDATORS</p>
               <p className="text-lg font-bold text-white">
-                {subnets.reduce((acc, s) => acc + s.validators, 0)}
+                {subnets.reduce((acc, s) => acc + s.validatorCount, 0)}
               </p>
             </div>
           </GlassCard>
@@ -165,7 +165,7 @@ function StakePageContent() {
                             <div>
                               <p className="text-xs font-bold text-white">{subnet.name}</p>
                               <p className="text-[10px] text-gray-400 mt-0.5">
-                                [{subnet.type}]
+                                [{subnet.taskType}]
                               </p>
                             </div>
                             {selectedSubnet === subnet.id && (
@@ -174,7 +174,7 @@ function StakePageContent() {
                           </div>
                           <div className="flex items-center justify-between text-[10px]">
                             <span className="text-gray-500">APY: {subnet.apy}%</span>
-                            <span className="text-gray-500">{subnet.validators} validators</span>
+                            <span className="text-gray-500">{subnet.validatorCount} validators</span>
                           </div>
                         </button>
                         

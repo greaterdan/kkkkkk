@@ -7,10 +7,10 @@ import Link from 'next/link';
 import { GlassCard } from '@/components/GlassCard';
 import { Button } from '@/components/Button';
 import { getRealSubnets } from '@/lib/real-data';
-import { Subnet } from '@/lib/api';
+import { ApiSubnet } from '@/lib/api';
 
 export default function SubnetsPage() {
-  const [subnets, setSubnets] = useState<Subnet[]>([]);
+  const [subnets, setSubnets] = useState<ApiSubnet[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function SubnetsPage() {
             <div className="col-span-full text-center text-white">Loading subnets...</div>
           ) : (
             subnets.map((subnet, idx) => {
-            const IconComponent = taskTypeIcons[subnet.taskType];
+            const IconComponent = taskTypeIcons[subnet.taskType as keyof typeof taskTypeIcons];
             return (
               <motion.div
                 key={subnet.id}
