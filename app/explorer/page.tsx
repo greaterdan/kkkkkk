@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { SearchBar } from '@/components/SearchBar';
 import { GlassCard } from '@/components/GlassCard';
 import { StatusBadge } from '@/components/StatusBadge';
+import { BridgeTransactionCard } from '@/components/BridgeTransactionCard';
 import {
   generateMockBlocks,
   generateMockTransactions,
@@ -32,6 +33,7 @@ export default function ExplorerPage() {
   const [chartData, setChartData] = useState<any[]>([]);
   const [realBlocks, setRealBlocks] = useState<RealBlock[]>([]);
   const [realTransactions, setRealTransactions] = useState<RealTransaction[]>([]);
+  const [bridgeTransactions, setBridgeTransactions] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -39,15 +41,17 @@ export default function ExplorerPage() {
       try {
         console.log('Fetching real L2 blockchain data for explorer...');
         
-        const [blocksData, transactionsData] = await Promise.all([
+        const [blocksData, transactionsData, bridgeData] = await Promise.all([
           getRealBlocks(15),
-          getRealTransactions(15)
+          getRealTransactions(15),
+          fetch('/api/bridge/transactions?limit=15').then(res => res.json()).catch(() => ({ transactions: [] }))
         ]);
         
-        console.log('Real L2 data for explorer:', { blocksData, transactionsData });
+        console.log('Real L2 data for explorer:', { blocksData, transactionsData, bridgeData });
         
         setRealBlocks(blocksData);
         setRealTransactions(transactionsData);
+        setBridgeTransactions(bridgeData.transactions || []);
         
         // Convert real blocks to display format
         const displayBlocks = blocksData.map(block => ({
@@ -312,6 +316,16 @@ export default function ExplorerPage() {
                 <div className="text-center py-8 text-gray-400 font-mono">
                   Loading transactions from L2 network...
                 </div>
+              ) : txTab === 'deposits' ? (
+                bridgeTransactions.length > 0 ? (
+                  bridgeTransactions.map((tx, idx) => (
+                    <BridgeTransactionCard key={tx.id} tx={tx} delay={idx * 0.02} />
+                  ))
+                ) : (
+                  <div className="text-center py-8 text-gray-400 font-mono">
+                    No bridge transactions found
+                  </div>
+                )
               ) : transactions.length > 0 ? (
                 transactions.map((tx, idx) => (
                   <TransactionCard key={tx.hash} tx={tx} delay={idx * 0.02} />

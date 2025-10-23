@@ -737,6 +737,58 @@ app.get('/api/ai/stats', async (req, res) => {
   }
 });
 
+// Get bridge transactions
+app.get('/api/bridge/transactions', async (req, res) => {
+  try {
+    const { address, page = 1, limit = 20 } = req.query;
+    
+    // For now, return mock bridge transactions
+    // In production, this would query the bridge contract events
+    const mockBridgeTransactions = [
+      {
+        id: 'bridge-tx-1',
+        from: 'BNB Chain',
+        to: '01A Network',
+        amount: '1.5 BNB',
+        status: 'completed',
+        timestamp: Date.now() - 3600000,
+        txHashL1: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+        txHashL2: '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890',
+        userAddress: address || '0x0000000000000000000000000000000000000000'
+      },
+      {
+        id: 'bridge-tx-2',
+        from: '01A Network',
+        to: 'BNB Chain',
+        amount: '0.8 BNB',
+        status: 'pending',
+        timestamp: Date.now() - 1800000,
+        txHashL1: '',
+        txHashL2: '0xfedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321',
+        userAddress: address || '0x0000000000000000000000000000000000000000'
+      }
+    ];
+    
+    let transactions = mockBridgeTransactions;
+    if (address) {
+      transactions = transactions.filter(tx => tx.userAddress === address);
+    }
+    
+    const start = (page - 1) * limit;
+    const end = start + limit;
+    
+    res.json({
+      transactions: transactions.slice(start, end),
+      total: transactions.length,
+      page: parseInt(page),
+      limit: parseInt(limit)
+    });
+  } catch (error) {
+    console.error('Error fetching bridge transactions:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Search
 app.get('/api/search', async (req, res) => {
   try {

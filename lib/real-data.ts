@@ -202,9 +202,73 @@ export const getRealBlocks = async (limit: number = 20): Promise<RealBlock[]> =>
 
 export const getRealTransactions = async (limit: number = 20): Promise<RealTransaction[]> => {
   try {
-    // For now, return empty array since your L2 node doesn't have many transactions
-    // This will be populated when users start sending transactions
-    return [];
+    // Get current block number first
+    const response = await fetch(L2_RPC_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        method: 'eth_blockNumber',
+        params: [],
+        id: 1
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    if (data.error) {
+      throw new Error(`RPC Error: ${data.error.message}`);
+    }
+    
+    const blockNumber = parseInt(data.result, 16);
+    const transactions: RealTransaction[] = [];
+    
+    // Get transactions from recent blocks
+    for (let i = 0; i < limit && i < blockNumber; i++) {
+      const blockNum = blockNumber - i;
+      
+      try {
+        const blockResponse = await fetch(L2_RPC_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            method: 'eth_getBlockByNumber',
+            params: [`0x${blockNum.toString(16)}`, true],
+            id: 1
+          })
+        });
+        
+        if (blockResponse.ok) {
+          const blockData = await blockResponse.json();
+          if (blockData.result && blockData.result.transactions) {
+            // Add transactions from this block
+            for (const tx of blockData.result.transactions) {
+              if (transactions.length >= limit) break;
+              
+              transactions.push({
+                hash: tx.hash,
+                from: tx.from,
+                to: tx.to,
+                value: tx.value,
+                gasPrice: tx.gasPrice,
+                gasUsed: tx.gas || '0x5208', // Default gas used
+                status: 1, // Assume successful
+                timestamp: parseInt(blockData.result.timestamp, 16)
+              });
+            }
+          }
+        }
+      } catch (e) {
+        // Skip blocks that can't be fetched
+        continue;
+      }
+    }
+    
+    return transactions;
   } catch (error) {
     console.error('Error fetching real transactions:', error);
     return [];
