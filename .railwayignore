@@ -1,0 +1,9 @@
+backend/
+contracts/
+scripts/
+token-bridge/
+deploy-*.js
+deploy-*.sh
+*.sol
+foundry.toml
+foundry.lock
