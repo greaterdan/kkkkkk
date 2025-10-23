@@ -177,14 +177,24 @@ export const getRealTransactions = async (limit: number = 20): Promise<RealTrans
 
 export const getRealValidators = async (): Promise<RealValidator[]> => {
   try {
-    // If we have a staking contract deployed, call it
-    if (CONTRACT_ADDRESSES.staking) {
-      const client = getClient();
-      // TODO: Call staking contract to get real validators
-      // This would require the contract ABI and proper contract calls
+    // Fetch from backend API instead of direct blockchain calls
+    const response = await fetch('/api/validators');
+    const data = await response.json();
+    
+    if (data.validators && Array.isArray(data.validators)) {
+      return data.validators.map((v: any) => ({
+        address: v.address,
+        name: v.name,
+        stake: v.stake,
+        commission: v.commission,
+        uptime: v.uptime,
+        totalRewards: v.totalRewards,
+        subnetId: v.subnetId,
+        active: v.status === 'active',
+        rank: v.rank
+      }));
     }
     
-    // For now, return empty array - will be populated when contracts are deployed
     return [];
   } catch (error) {
     console.error('Error fetching real validators:', error);

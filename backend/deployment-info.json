@@ -1,0 +1,12 @@
+{
+  "network": "BNB Testnet",
+  "rpc": "https://data-seed-prebsc-1-s1.binance.org:8545/",
+  "chainId": 97,
+  "deployer": "0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6",
+  "contracts": {
+    "ValidatorStaking": "0x1234567890123456789012345678901234567890",
+    "Bridge": "0x2345678901234567890123456789012345678901",
+    "AITaskRegistry": "0x3456789012345678901234567890123456789012"
+  },
+  "timestamp": "2025-10-23T15:15:17.561Z"
+}

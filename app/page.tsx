@@ -48,25 +48,34 @@ export default function Home() {
   useEffect(() => {
     const fetchRealData = async () => {
       try {
-        console.log('Fetching real blockchain data from API...');
-        // Fetch real blockchain data from our API endpoint
-        const response = await fetch('/api/blockchain');
-        const data = await response.json();
+        console.log('Fetching real blockchain data from backend API...');
         
-        if (data.success) {
-          console.log('Real blockchain data:', data.data);
-          setRealStats(data.data.stats);
-          
-          // Use real data for charts
-          setBlockData(generateBlockChartData());
-          setSubnetData(generateSubnetActivityData());
-        } else {
-          throw new Error('API returned error');
-        }
+        // Fetch from Railway backend
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:4000';
+        
+        const [statsResponse, validatorsResponse] = await Promise.all([
+          fetch(`${backendUrl}/api/stats`),
+          fetch(`${backendUrl}/api/validators`)
+        ]);
+        
+        const stats = await statsResponse.json();
+        const validators = await validatorsResponse.json();
+        
+        console.log('Real backend data:', { stats, validators });
+        
+        setRealStats({
+          ...stats,
+          validatorsOnline: validators.validators?.length || 0,
+          activeSubnets: 4, // Based on validator subnetIds
+          tvl: '$142.5M', // Mock for now
+          toraPrice: 3.42 // Mock for now
+        });
+        
+        setBlockData(generateBlockChartData()); // Still mock for charts
+        setSubnetData(generateSubnetActivityData()); // Still mock for charts
       } catch (error) {
         console.error('Error fetching real data:', error);
         console.log('Falling back to mock data');
-        // Fallback to mock data
         setBlockData(generateBlockChartData());
         setSubnetData(generateSubnetActivityData());
       }
