@@ -105,7 +105,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl md:text-6xl lg:text-7xl font-black leading-tight font-mono"
           >
-            <span className="text-white block">01A</span>
+            <span className="text-white block">01A LABS</span>
             <span className="text-white text-xl md:text-2xl block mt-2 font-normal">
               [ AI LAYER-2 TERMINAL ]
             </span>
@@ -189,7 +189,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-1 font-mono">
                 <span className="text-[10px] text-gray-500 uppercase tracking-wider">
-                  [ 01A_PRICE ]
+                  [ 01A_LABS_PRICE ]
                 </span>
                 <div className="flex items-baseline gap-2">
                   <span className="text-2xl font-bold text-white">

@@ -5,7 +5,7 @@ import { injected, walletConnect, coinbaseWallet } from 'wagmi/connectors';
 // Define custom 01A chain
 export const zeroOneA = {
   id: 56_001, // Custom chain ID for 01A
-  name: '01A Network',
+  name: '01A LABS Network',
   network: '01a',
   nativeCurrency: {
     decimals: 18,
@@ -38,7 +38,7 @@ export const config = createConfig({
       showQrModal: true,
     }),
     coinbaseWallet({
-      appName: '01A Network',
+      appName: '01A LABS Network',
     }),
   ],
   transports: {

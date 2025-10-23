@@ -47,7 +47,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
             <span className="text-lg font-bold text-white font-mono tracking-wider border border-white px-2 py-1 hover:bg-primary-gold hover:text-black hover:border-primary-gold transition-all">
-              01A
+              01A LABS
             </span>
             <span className="text-xs text-gray-400 hidden md:inline-block font-mono">
               {/* AI_LAYER2_TERMINAL */}

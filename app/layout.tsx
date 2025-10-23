@@ -11,9 +11,9 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-  title: "01A | AI Layer-2 Terminal",
+  title: "01A LABS | AI Layer-2 Terminal",
   description: "Terminal interface for AI Layer-2 blockchain - Decentralized subnets for LLM, Vision, and Embedding tasks",
-  keywords: ["01A", "AI", "Layer-2", "BNB Chain", "Blockchain", "Terminal"],
+  keywords: ["01A LABS", "AI", "Layer-2", "BNB Chain", "Blockchain", "Terminal"],
 };
 
 export default function RootLayout({

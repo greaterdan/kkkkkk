@@ -91,7 +91,7 @@ export default function BridgePage() {
             [ CROSS-CHAIN_BRIDGE ]
           </h1>
           <p className="text-xs text-gray-400 font-mono">
-            {'>'} Transfer assets between BNB Chain and 01A Network
+            {'>'} Transfer assets between BNB Chain and 01A LABS Network
           </p>
         </motion.div>
 
@@ -123,7 +123,7 @@ export default function BridgePage() {
                       </div>
                       <div>
                         <p className="text-sm font-bold text-white">
-                          {fromChain === 'bnb' ? 'BNB Chain' : '01A Network'}
+                          {fromChain === 'bnb' ? 'BNB Chain' : '01A LABS Network'}
                         </p>
                         <p className="text-[10px] text-gray-400">
                           {fromChain === 'bnb' ? 'Layer 1' : 'Layer 2'}
@@ -174,7 +174,7 @@ export default function BridgePage() {
                       </div>
                       <div>
                         <p className="text-sm font-bold text-white">
-                          {toChain === 'bnb' ? 'BNB Chain' : '01A Network'}
+                          {toChain === 'bnb' ? 'BNB Chain' : '01A LABS Network'}
                         </p>
                         <p className="text-[10px] text-gray-400">
                           {toChain === 'bnb' ? 'Layer 1' : 'Layer 2'}
