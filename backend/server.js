@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to L2 network
-const L2_RPC_URL = process.env.L2_RPC_URL || 'http://localhost:8545';
+const L2_RPC_URL = process.env.L2_RPC_URL || 'https://l2-rpc-production.up.railway.app/rpc';
 const provider = new ethers.JsonRpcProvider(L2_RPC_URL, {
   name: '01A LABS L2',
   chainId: 26
@@ -38,6 +38,7 @@ const testConnection = async () => {
       setTimeout(testConnection, 5000);
     } else {
       console.log('⚠️  Using fallback mode - some features may be limited');
+      console.log('💡 To fix: Ensure your L2 node is running and accessible');
     }
     return false;
   }
