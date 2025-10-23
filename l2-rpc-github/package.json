@@ -1,0 +1,20 @@
+{
+  "name": "01a-l2-rpc",
+  "version": "1.0.0",
+  "description": "01A LABS L2 RPC Server",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js --dev"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "axios": "^1.6.0"
+  },
+  "keywords": ["rpc", "l2", "layer2", "01a"],
+  "author": "01A LABS",
+  "license": "MIT"
+}
