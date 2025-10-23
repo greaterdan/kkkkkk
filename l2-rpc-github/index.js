@@ -79,7 +79,6 @@ class L2RPC {
             result: `0x${this.chainId.toString(16)}`,
             id
           };
-          
         case 'net_version':
           return {
             jsonrpc: '2.0',
