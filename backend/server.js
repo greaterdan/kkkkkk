@@ -3,6 +3,7 @@ import { ethers } from 'ethers';
 import cors from 'cors';
 import { WebSocketServer } from 'ws';
 import dotenv from 'dotenv';
+import OpenAI from 'openai';
 
 dotenv.config();
 
@@ -15,6 +16,13 @@ const RPC_URL = process.env.RPC_URL || 'http://127.0.0.1:8545';
 const provider = new ethers.JsonRpcProvider(RPC_URL);
 
 console.log(`Connecting to blockchain at: ${RPC_URL}`);
+
+// Initialize OpenAI
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+
+console.log('🤖 OpenAI initialized for AI processing');
 
 // Contract ABIs (simplified for demo)
 const STAKING_ABI = [
@@ -400,6 +408,171 @@ app.get('/api/validators/:address', async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching validator:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============== AI PROCESSING ENDPOINTS ==============
+
+// Submit AI task
+app.post('/api/ai/submit-task', async (req, res) => {
+  try {
+    const { taskType, prompt, subnetId, userAddress } = req.body;
+    
+    if (!taskType || !prompt || !subnetId) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+    
+    console.log(`🤖 Processing AI task: ${taskType} for subnet ${subnetId}`);
+    
+    let result;
+    let processingTime = Date.now();
+    
+    // Process based on task type
+    switch (taskType) {
+      case 'LLM':
+        const completion = await openai.chat.completions.create({
+          model: "gpt-4",
+          messages: [{ role: "user", content: prompt }],
+          max_tokens: 1000
+        });
+        result = completion.choices[0].message.content;
+        break;
+        
+      case 'Vision':
+        const image = await openai.images.generate({
+          model: "dall-e-3",
+          prompt: prompt,
+          n: 1,
+          size: "1024x1024"
+        });
+        result = image.data[0].url;
+        break;
+        
+      case 'Embedding':
+        const embedding = await openai.embeddings.create({
+          model: "text-embedding-ada-002",
+          input: prompt
+        });
+        result = embedding.data[0].embedding;
+        break;
+        
+      case 'Audio':
+        // For audio, we'll simulate processing
+        result = `Audio processed: ${prompt} (simulated)`;
+        break;
+        
+      default:
+        return res.status(400).json({ error: 'Invalid task type' });
+    }
+    
+    processingTime = Date.now() - processingTime;
+    
+    // Create task record
+    const taskId = `task_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const task = {
+      id: taskId,
+      taskType,
+      prompt,
+      result,
+      subnetId,
+      userAddress: userAddress || '0x0000000000000000000000000000000000000000',
+      status: 'completed',
+      processingTime,
+      timestamp: Date.now(),
+      validator: 'GPT-4 Validator' // Mock validator assignment
+    };
+    
+    // Broadcast to WebSocket clients
+    wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify({
+          type: 'task_completed',
+          payload: task
+        }));
+      }
+    });
+    
+    console.log(`✅ AI task completed: ${taskId} in ${processingTime}ms`);
+    
+    res.json({
+      success: true,
+      taskId,
+      result,
+      processingTime,
+      validator: task.validator
+    });
+    
+  } catch (error) {
+    console.error('Error processing AI task:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get AI task history
+app.get('/api/ai/tasks', async (req, res) => {
+  try {
+    const { subnetId, limit = 20 } = req.query;
+    
+    // Mock task history (in real system, this would come from database)
+    const mockTasks = [
+      {
+        id: 'task_1703123456789_abc123',
+        taskType: 'LLM',
+        prompt: 'Explain quantum computing',
+        result: 'Quantum computing uses quantum mechanical phenomena...',
+        subnetId: 'subnet-1',
+        status: 'completed',
+        processingTime: 1250,
+        timestamp: Date.now() - 3600000,
+        validator: 'GPT-4 Validator'
+      },
+      {
+        id: 'task_1703123456790_def456',
+        taskType: 'Vision',
+        prompt: 'A futuristic city skyline',
+        result: 'https://example.com/generated-image.jpg',
+        subnetId: 'subnet-2',
+        status: 'completed',
+        processingTime: 2100,
+        timestamp: Date.now() - 7200000,
+        validator: 'Vision Validator'
+      }
+    ];
+    
+    let tasks = mockTasks;
+    if (subnetId) {
+      tasks = tasks.filter(task => task.subnetId === subnetId);
+    }
+    
+    res.json({ tasks: tasks.slice(0, limit) });
+  } catch (error) {
+    console.error('Error fetching AI tasks:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get AI processing stats
+app.get('/api/ai/stats', async (req, res) => {
+  try {
+    const stats = {
+      totalTasks: 1247,
+      tasksToday: 89,
+      avgProcessingTime: 1.8,
+      successRate: 98.5,
+      activeValidators: 4,
+      totalRewards: '12,450.5 01A',
+      topSubnets: [
+        { id: 'subnet-1', name: 'GPT-4 Inference', tasks: 456, rewards: '4,230.5 01A' },
+        { id: 'subnet-2', name: 'Vision Transformers', tasks: 234, rewards: '2,180.2 01A' },
+        { id: 'subnet-3', name: 'Embeddings Pro', tasks: 198, rewards: '1,890.8 01A' },
+        { id: 'subnet-4', name: 'Audio Genesis', tasks: 156, rewards: '1,450.0 01A' }
+      ]
+    };
+    
+    res.json(stats);
+  } catch (error) {
+    console.error('Error fetching AI stats:', error);
     res.status(500).json({ error: error.message });
   }
 });
