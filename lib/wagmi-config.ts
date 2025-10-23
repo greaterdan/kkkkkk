@@ -2,11 +2,11 @@ import { http, createConfig } from 'wagmi';
 import { bscTestnet } from 'wagmi/chains';
 import { injected, walletConnect, coinbaseWallet } from 'wagmi/connectors';
 
-// WalletConnect project ID - using a valid project ID
+// WalletConnect project ID
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || '2f05a7f4cc39e34eec8c3e8b4d4e8b4d';
 
 export const config = createConfig({
-  chains: [bscTestnet], // Just BNB Testnet for now to avoid type conflicts
+  chains: [bscTestnet],
   connectors: [
     injected(),
     walletConnect({ 
@@ -18,7 +18,7 @@ export const config = createConfig({
     }),
   ],
   transports: {
-    [bscTestnet.id]: http('https://data-seed-prebsc-1-s1.binance.org:8545/'), // BNB Testnet for bridging
+    [bscTestnet.id]: http('https://data-seed-prebsc-1-s1.binance.org:8545/'),
   },
 });
 

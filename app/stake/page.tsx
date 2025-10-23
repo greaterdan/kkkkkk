@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, TrendingUp, Users, Award, Info, ExternalLink } from 'lucide-react';
 import { GlassCard } from '@/components/GlassCard';
@@ -8,7 +8,7 @@ import { useAccount, useBalance } from 'wagmi';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-export default function StakePage() {
+function StakePageContent() {
   const { address } = useAccount();
   const { data: balance } = useBalance({ address });
   const searchParams = useSearchParams();
@@ -383,6 +383,16 @@ export default function StakePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function StakePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen pt-20 pb-12 px-4 flex items-center justify-center">
+      <div className="text-white font-mono">Loading...</div>
+    </div>}>
+      <StakePageContent />
+    </Suspense>
   );
 }
 
