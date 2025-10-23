@@ -42,12 +42,15 @@ export const getRealTokenPrices = async (): Promise<PriceDataResponse> => {
     const token01APrice = bnbData.usd * token01AMultiplier;
     const token01APriceChange = bnbData.usd_24h_change * 0.8; // Slightly different volatility
     
+    console.log('BNB Price:', bnbData.usd);
+    console.log('01A Price:', token01APrice);
+    
     return {
       token01APrice: {
-        price: token01APrice,
-        priceChange24h: token01APriceChange,
-        volume24h: `$${(bnbData.usd_24h_vol * token01AMultiplier / 1000000).toFixed(1)}M`,
-        marketCap: `$${(bnbData.usd_market_cap * token01AMultiplier / 1000000).toFixed(1)}M`,
+        price: 0, // Show 0 instead of calculated price
+        priceChange24h: 0, // Show 0 instead of calculated change
+        volume24h: '$0.0M', // Show 0 instead of calculated volume
+        marketCap: '$0.0M', // Show 0 instead of calculated market cap
         totalSupply: '1B 01A'
       },
       bnbPrice: {
