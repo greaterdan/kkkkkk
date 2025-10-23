@@ -51,14 +51,13 @@ export default function ExplorerPage() {
         
         // Convert real blocks to display format
         const displayBlocks = blocksData.map(block => ({
-          number: block.number,
+          height: block.number,
           hash: block.hash,
           timestamp: block.timestamp,
-          transactions: block.transactions.length,
+          txCount: block.transactions.length,
           gasUsed: block.gasUsed,
-          gasLimit: block.gasLimit,
           miner: block.miner,
-          difficulty: block.difficulty
+          reward: '0.01 01A' // Default reward for L2 blocks
         }));
         
         setBlocks(displayBlocks);
@@ -67,10 +66,10 @@ export default function ExplorerPage() {
           from: tx.from,
           to: tx.to,
           value: tx.value,
-          gasPrice: tx.gasPrice,
-          gasUsed: tx.gasUsed,
-          status: tx.status,
-          timestamp: tx.timestamp
+          gasFee: `${(parseInt(tx.gasPrice) * parseInt(tx.gasUsed) / 1e18).toFixed(6)} ETH`,
+          status: tx.status === 1 ? 'success' : 'failed',
+          timestamp: tx.timestamp,
+          blockHeight: 0 // Will be updated when we have block data
         })));
         
         // Generate daily transaction chart data based on real blocks
@@ -263,7 +262,7 @@ export default function ExplorerPage() {
                 </div>
               ) : blocks.length > 0 ? (
                 blocks.map((block, idx) => (
-                  <BlockCard key={block.number} block={block} delay={idx * 0.02} />
+                  <BlockCard key={block.height} block={block} delay={idx * 0.02} />
                 ))
               ) : (
                 <div className="text-center py-8 text-gray-400 font-mono">
@@ -342,7 +341,7 @@ function BlockCard({ block, delay }: { block: Block; delay: number }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
     >
-      <Link href={`/explorer/${block.number}`}>
+      <Link href={`/explorer/${block.height}`}>
         <GlassCard hover className="p-3 font-mono">
           <div className="flex items-center justify-between gap-3">
             {/* Block Icon */}
@@ -356,7 +355,7 @@ function BlockCard({ block, delay }: { block: Block; delay: number }) {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-sm font-bold text-white">
-                  {block.number.toLocaleString()}
+                  {block.height.toLocaleString()}
                 </span>
                 <span className="text-[10px] text-gray-400">
                   {formatTime(block.timestamp)}
@@ -369,7 +368,7 @@ function BlockCard({ block, delay }: { block: Block; delay: number }) {
                 </div>
               </div>
               <div className="mt-1.5 text-[10px] text-gray-400">
-                {block.transactions} txns
+                {block.txCount} txns
                 <span className="mx-1">•</span>
                 {block.gasUsed} gas
               </div>

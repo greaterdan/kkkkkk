@@ -39,7 +39,7 @@ export default function BridgePage() {
   };
 
   const handleBridge = async () => {
-    if (!address || !amount || parseFloat(amount) <= 0) return;
+    if (!address || !amount || parseFloat(amount) <= 0 || !walletClient) return;
 
     setBridgeStatus('pending');
 
@@ -272,9 +272,9 @@ export default function BridgePage() {
               {/* Bridge Button */}
               <button
                 onClick={handleBridge}
-                disabled={!address || !amount || parseFloat(amount) <= 0 || bridgeStatus === 'pending'}
+                disabled={!address || !amount || parseFloat(amount) <= 0 || !walletClient || bridgeStatus === 'pending'}
                 className={`w-full px-6 py-4 border transition-all text-sm font-bold ${
-                  !address || !amount || parseFloat(amount) <= 0
+                  !address || !amount || parseFloat(amount) <= 0 || !walletClient
                     ? 'border-white/20 text-gray-600 cursor-not-allowed'
                     : bridgeStatus === 'pending'
                     ? 'border-primary-gold text-primary-gold cursor-wait'
