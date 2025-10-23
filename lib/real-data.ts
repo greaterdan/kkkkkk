@@ -203,7 +203,8 @@ export const getRealBlocks = async (limit: number = 20): Promise<RealBlock[]> =>
 export const getRealTransactions = async (limit: number = 20): Promise<RealTransaction[]> => {
   try {
     // Get current block number first
-    const response = await fetch(L2_RPC_URL, {
+    const rpcUrl = process.env.NODE_ENV === 'production' ? RPC_URLS.l2 : RPC_URLS.localhost;
+    const response = await fetch(rpcUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -231,7 +232,7 @@ export const getRealTransactions = async (limit: number = 20): Promise<RealTrans
       const blockNum = blockNumber - i;
       
       try {
-        const blockResponse = await fetch(L2_RPC_URL, {
+        const blockResponse = await fetch(rpcUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
