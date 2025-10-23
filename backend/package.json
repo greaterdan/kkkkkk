@@ -19,12 +19,6 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@nomicfoundation/hardhat-chai-matchers": "^2.1.0",
-    "@nomicfoundation/hardhat-ethers": "^4.0.2",
-    "@nomicfoundation/hardhat-network-helpers": "^3.0.1",
-    "@nomicfoundation/hardhat-verify": "^3.0.4",
-    "@types/chai": "^5.2.3",
-    "chai": "^6.2.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "ethers": "^6.15.0",
@@ -33,7 +27,13 @@
     "ws": "^8.18.3"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.1.0",
+    "@nomicfoundation/hardhat-ethers": "^3.1.0",
+    "@nomicfoundation/hardhat-network-helpers": "^3.0.1",
+    "@nomicfoundation/hardhat-verify": "^3.0.4",
     "@nomicfoundation/hardhat-toolbox": "^6.1.0",
+    "@types/chai": "^5.2.3",
+    "chai": "^6.2.0",
     "hardhat": "^3.0.9"
   }
 }
