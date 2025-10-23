@@ -147,7 +147,7 @@ export default function BridgePage() {
             [ BNB ↔ 01A_BRIDGE ]
           </h1>
           <p className="text-xs text-gray-400 font-mono">
-            {'>'} Bridge BNB to 01A tokens on BNB Testnet • Real contracts deployed
+            {'>'} Bridge BNB to 01A tokens on BNB Testnet
           </p>
         </motion.div>
 
