@@ -1,48 +1,40 @@
-import { useEffect, useState } from 'react';
-import { wsClient } from '@/lib/api';
+'use client';
 
-// Hook for real-time blocks
-export function useRealTimeBlocks(callback: (block: any) => void) {
-  useEffect(() => {
-    wsClient.subscribe('new_block', callback);
-    return () => wsClient.unsubscribe('new_block', callback);
-  }, [callback]);
-}
+import { useState, useEffect } from 'react';
+import { getRealBlocks, getRealTransactions, getRealValidators, getRealNetworkStats, RealBlock, RealTransaction, RealValidator } from '../real-data';
 
-// Hook for real-time transactions
-export function useRealTimeTransactions(callback: (tx: any) => void) {
-  useEffect(() => {
-    wsClient.subscribe('new_transaction', callback);
-    return () => wsClient.unsubscribe('new_transaction', callback);
-  }, [callback]);
-}
-
-// Hook for network stats updates
-export function useRealTimeStats(callback: (stats: any) => void) {
-  useEffect(() => {
-    wsClient.subscribe('stats_update', callback);
-    return () => wsClient.unsubscribe('stats_update', callback);
-  }, [callback]);
-}
-
-// General hook for WebSocket connection
-export function useWebSocket() {
-  const [connected, setConnected] = useState(false);
+// Real-time data hooks for client components
+export const useRealTimeData = () => {
+  const [data, setData] = useState<{
+    blocks: RealBlock[];
+    transactions: RealTransaction[];
+    validators: RealValidator[];
+    stats: any;
+  }>({
+    blocks: [],
+    transactions: [],
+    validators: [],
+    stats: null
+  });
 
   useEffect(() => {
-    wsClient.connect();
+    const fetchData = async () => {
+      const [blocks, transactions, validators, stats] = await Promise.all([
+        getRealBlocks(20),
+        getRealTransactions(20),
+        getRealValidators(),
+        getRealNetworkStats()
+      ]);
 
-    const checkConnection = setInterval(() => {
-      // This is a simplified check - you'd need to expose connection state from wsClient
-      setConnected(true);
-    }, 1000);
-
-    return () => {
-      clearInterval(checkConnection);
-      wsClient.disconnect();
+      setData({ blocks, transactions, validators, stats });
     };
+
+    fetchData();
+    
+    // Set up real-time updates every 10 seconds
+    const interval = setInterval(fetchData, 10000);
+    return () => clearInterval(interval);
   }, []);
 
-  return { connected };
-}
-
+  return data;
+};

@@ -18,10 +18,38 @@ export default function StakePage() {
   const minStake = 10000;
 
   const subnets = [
-    { id: 'subnet-1', name: 'GPT-4 Inference', type: 'LLM', apy: 45.2, validators: 128 },
-    { id: 'subnet-2', name: 'Vision Transformers', type: 'Vision', apy: 38.5, validators: 96 },
-    { id: 'subnet-3', name: 'Embeddings Pro', type: 'Embedding', apy: 42.1, validators: 84 },
-    { id: 'subnet-4', name: 'Audio Genesis', type: 'Audio', apy: 36.8, validators: 72 },
+    { 
+      id: 'subnet-1', 
+      name: 'GPT-4 Inference', 
+      type: 'LLM', 
+      apy: 45.2, 
+      validators: 128,
+      description: 'Large Language Model inference for text generation, completion, and conversation. Powers AI chatbots, content creation, and natural language processing tasks.'
+    },
+    { 
+      id: 'subnet-2', 
+      name: 'Vision Transformers', 
+      type: 'Vision', 
+      apy: 38.5, 
+      validators: 96,
+      description: 'Computer vision models for image recognition, object detection, and visual analysis. Handles image classification, facial recognition, and medical imaging tasks.'
+    },
+    { 
+      id: 'subnet-3', 
+      name: 'Embeddings Pro', 
+      type: 'Embedding', 
+      apy: 42.1, 
+      validators: 84,
+      description: 'Vector embeddings for semantic search, recommendation systems, and similarity matching. Powers search engines, content discovery, and AI-powered recommendations.'
+    },
+    { 
+      id: 'subnet-4', 
+      name: 'Audio Genesis', 
+      type: 'Audio', 
+      apy: 36.8, 
+      validators: 72,
+      description: 'Audio processing models for speech recognition, music generation, and sound analysis. Handles voice assistants, audio transcription, and sound synthesis tasks.'
+    },
   ];
 
   const selectedSubnetData = subnets.find((s) => s.id === selectedSubnet);
@@ -127,33 +155,44 @@ export default function StakePage() {
                 {/* Subnet Selection */}
                 <div className="space-y-2">
                   <label className="text-[10px] text-gray-500 uppercase">SELECT_SUBNET</label>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 pb-4">
                     {subnets.map((subnet) => (
-                      <button
-                        key={subnet.id}
-                        onClick={() => setSelectedSubnet(subnet.id)}
-                        className={`p-3 border transition-all text-left ${
-                          selectedSubnet === subnet.id
-                            ? 'border-primary-gold bg-primary-gold/10'
-                            : 'border-white/20 hover:border-white/40'
-                        }`}
-                      >
-                        <div className="flex items-start justify-between mb-2">
-                          <div>
-                            <p className="text-xs font-bold text-white">{subnet.name}</p>
-                            <p className="text-[10px] text-gray-400 mt-0.5">
-                              [{subnet.type}]
-                            </p>
+                      <div key={subnet.id} className="relative group">
+                        <button
+                          onClick={() => setSelectedSubnet(subnet.id)}
+                          className={`w-full p-3 border transition-all text-left ${
+                            selectedSubnet === subnet.id
+                              ? 'border-primary-gold bg-primary-gold/10'
+                              : 'border-white/20 hover:border-white/40'
+                          }`}
+                        >
+                          <div className="flex items-start justify-between mb-2">
+                            <div>
+                              <p className="text-xs font-bold text-white">{subnet.name}</p>
+                              <p className="text-[10px] text-gray-400 mt-0.5">
+                                [{subnet.type}]
+                              </p>
+                            </div>
+                            {selectedSubnet === subnet.id && (
+                              <span className="text-primary-gold text-xs">✓</span>
+                            )}
                           </div>
-                          {selectedSubnet === subnet.id && (
-                            <span className="text-primary-gold text-xs">✓</span>
-                          )}
+                          <div className="flex items-center justify-between text-[10px]">
+                            <span className="text-gray-500">APY: {subnet.apy}%</span>
+                            <span className="text-gray-500">{subnet.validators} validators</span>
+                          </div>
+                        </button>
+                        
+                        {/* Tooltip */}
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-3 py-2 bg-black/90 border border-white/20 rounded text-xs text-white max-w-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">
+                          <div className="text-center">
+                            <p className="font-bold text-primary-gold mb-1">{subnet.name}</p>
+                            <p className="text-gray-300 text-[10px] leading-relaxed">{subnet.description}</p>
+                          </div>
+                          {/* Tooltip arrow */}
+                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-b-4 border-transparent border-b-black/90"></div>
                         </div>
-                        <div className="flex items-center justify-between text-[10px]">
-                          <span className="text-gray-500">APY: {subnet.apy}%</span>
-                          <span className="text-gray-500">{subnet.validators} validators</span>
-                        </div>
-                      </button>
+                      </div>
                     ))}
                   </div>
                 </div>

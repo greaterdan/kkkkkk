@@ -22,6 +22,7 @@ import {
   getRealBlocks,
   getRealTransactions,
 } from '@/lib/real-data';
+import { useRealTimeData } from '@/lib/hooks/useRealTimeData';
 import {
   generateBlockChartData,
   generateSubnetActivityData,

@@ -50,7 +50,7 @@ export function Navbar() {
               01A
             </span>
             <span className="text-xs text-gray-400 hidden md:inline-block font-mono">
-              // AI_LAYER2_TERMINAL
+              {/* AI_LAYER2_TERMINAL */}
             </span>
           </Link>
 
@@ -133,7 +133,7 @@ export function Navbar() {
                             onClick={openChainModal}
                             className="px-3 py-1.5 border border-white/30 text-white hover:bg-white hover:text-black transition-all text-xs font-mono"
                           >
-                            [{chain.name.toUpperCase().replace(/ /g, '_')}]
+                            [{chain.name?.toUpperCase().replace(/ /g, '_') || 'UNKNOWN'}]
                           </button>
                           <button
                             onClick={openAccountModal}
@@ -226,7 +226,7 @@ export function Navbar() {
                           onClick={openChainModal}
                           className="w-full px-4 py-3 border border-white/30 text-white hover:bg-white hover:text-black transition-all text-sm font-medium"
                         >
-                          [{chain.name.toUpperCase().replace(/ /g, '_')}]
+                          [{chain.name?.toUpperCase().replace(/ /g, '_') || 'UNKNOWN'}]
                         </button>
                         <button
                           onClick={openAccountModal}

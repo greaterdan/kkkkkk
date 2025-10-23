@@ -41,12 +41,14 @@ export function Button({
   };
 
   return (
-    <motion.button
+    <motion.div
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className={cn(baseStyles, variants[variant], sizes[size], className)}
-      {...props}
     >
+      <button
+        className={cn(baseStyles, variants[variant], sizes[size], className)}
+        {...props}
+      >
       {Icon && iconPosition === 'left' && (
         <Icon className={cn('w-5 h-5', children && 'mr-2')} />
       )}
@@ -54,7 +56,8 @@ export function Button({
       {Icon && iconPosition === 'right' && (
         <Icon className={cn('w-5 h-5', children && 'ml-2')} />
       )}
-    </motion.button>
+      </button>
+    </motion.div>
   );
 }
 

@@ -326,7 +326,7 @@ export default function BridgePage() {
               <div className="space-y-1">
                 <p className="text-[10px] text-gray-400">
                   <span className="text-white font-bold">Important:</span> Bridge transactions are
-                  irreversible. Make sure you're sending to the correct address. Bridging from L2
+                  irreversible. Make sure you&apos;re sending to the correct address. Bridging from L2
                   to L1 requires a longer wait time due to fraud proof windows.
                 </p>
                 <a

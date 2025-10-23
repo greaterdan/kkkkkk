@@ -1,7 +1,6 @@
 // Real blockchain data service - replaces mock data
 import { createPublicClient, http, formatUnits } from 'viem';
 import { bsc, bscTestnet } from 'viem/chains';
-import { useState, useEffect } from 'react';
 
 // Real blockchain configuration
 const RPC_URLS = {
@@ -35,7 +34,7 @@ export const getRealNetworkStats = async () => {
     
     // Get gas price
     const gasPrice = await client.getGasPrice();
-    const gasPriceGwei = formatUnits(gasPrice, 'gwei');
+    const gasPriceGwei = formatUnits(gasPrice, 9);
     
     return {
       totalBlocks: Number(blockNumber),
@@ -119,7 +118,7 @@ export const getRealBlocks = async (limit: number = 20): Promise<RealBlock[]> =>
           number: Number(block.number),
           hash: block.hash,
           timestamp: Number(block.timestamp),
-          transactions: block.transactions.map(tx => typeof tx === 'string' ? tx : tx.hash),
+          transactions: block.transactions.map(tx => typeof tx === 'string' ? tx : (tx as any).hash),
           gasUsed: block.gasUsed.toString(),
           gasLimit: block.gasLimit.toString(),
           miner: block.miner,
@@ -160,7 +159,7 @@ export const getRealTransactions = async (limit: number = 20): Promise<RealTrans
               value: tx.value.toString(),
               gasPrice: tx.gasPrice?.toString() || '0',
               gasUsed: receipt?.gasUsed.toString() || '0',
-              status: receipt?.status || 0,
+              status: receipt?.status === 'success' ? 1 : 0,
               timestamp: Number(block.timestamp)
             });
             txCount++;
@@ -194,36 +193,6 @@ export const getRealValidators = async (): Promise<RealValidator[]> => {
 };
 
 
-// Real-time data hooks
-export const useRealTimeData = () => {
-  const [data, setData] = useState({
-    blocks: [],
-    transactions: [],
-    validators: [],
-    stats: null
-  });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const [blocks, transactions, validators, stats] = await Promise.all([
-        getRealBlocks(20),
-        getRealTransactions(20),
-        getRealValidators(),
-        getRealNetworkStats()
-      ]);
-
-      setData({ blocks, transactions, validators, stats });
-    };
-
-    fetchData();
-    
-    // Set up real-time updates every 10 seconds
-    const interval = setInterval(fetchData, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return data;
-};
 
 // Contract interaction functions
 export const stakeTokens = async (amount: string, subnetId: string) => {

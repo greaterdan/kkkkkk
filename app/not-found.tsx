@@ -55,7 +55,7 @@ export default function NotFound() {
             <div className="space-y-4">
               <h2 className="text-4xl font-bold text-white">Page Not Found</h2>
               <p className="text-xl text-gray-300">
-                The page you're looking for doesn't exist in this dimension of the
+                The page you&apos;re looking for doesn&apos;t exist in this dimension of the
                 AI Layer-2.
               </p>
             </div>

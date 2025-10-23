@@ -29,14 +29,14 @@ export function SearchBar({
   const suggestionsRef = useRef<HTMLDivElement>(null);
 
   // Detect search type
-  const detectType = (value: string): 'block' | 'transaction' | 'address' | 'unknown' => {
+  const detectType = (value: string): 'block' | 'transaction' | 'address' | 'subnet' => {
     if (value.startsWith('0x')) {
       if (value.length === 66 || value.includes('...')) return 'transaction';
       if (value.length === 42 || value.includes('...')) return 'address';
     } else if (!isNaN(Number(value))) {
       return 'block';
     }
-    return 'unknown';
+    return 'subnet';
   };
 
   // Handle search
