@@ -5,19 +5,58 @@ import { Users, TrendingUp, Award, Shield, Trophy, Star } from 'lucide-react';
 import { GlassCard } from '@/components/GlassCard';
 import { Button } from '@/components/Button';
 import { generateMockValidators } from '@/lib/mock-data';
+import { getRealValidators } from '@/lib/real-data';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function ValidatorsPage() {
   const [sortBy, setSortBy] = useState<'stake' | 'uptime' | 'rewards'>('stake');
   const [allValidators, setAllValidators] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const validators = [
-      ...generateMockValidators(),
-      ...generateMockValidators(),
-      ...generateMockValidators(),
-    ].slice(0, 30);
-    setAllValidators(validators);
+    const fetchValidators = async () => {
+      try {
+        console.log('Fetching real validators...');
+        const realValidators = await getRealValidators();
+        console.log('Real validators:', realValidators);
+        
+        if (realValidators.length > 0) {
+          // Convert real validators to display format
+          const displayValidators = realValidators.map(validator => ({
+            id: validator.address,
+            name: validator.name,
+            address: validator.address,
+            stake: validator.stake,
+            commission: validator.commission,
+            uptime: validator.uptime,
+            totalRewards: validator.totalRewards,
+            subnetId: validator.subnetId,
+            location: validator.location,
+            active: validator.active,
+            rank: validator.rank
+          }));
+          
+          setAllValidators(displayValidators);
+          console.log('Set real validators:', displayValidators);
+        } else {
+          // Fallback to mock data if no real validators
+          const mockValidators = generateMockValidators().slice(0, 7);
+          setAllValidators(mockValidators);
+          console.log('Using mock validators as fallback');
+        }
+        
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching validators:', error);
+        // Fallback to mock data
+        const mockValidators = generateMockValidators().slice(0, 7);
+        setAllValidators(mockValidators);
+        setIsLoading(false);
+      }
+    };
+
+    fetchValidators();
   }, []);
 
   const sortedValidators = [...allValidators].sort((a, b) => {
@@ -120,10 +159,12 @@ export default function ValidatorsPage() {
                 {'>'} Stake 01A tokens | Min: 10,000 01A | Earn rewards
               </p>
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 border border-white text-white hover:bg-white hover:text-black transition-all text-xs">
-              <Shield className="w-3 h-3" />
-              [STAKE_NOW]
-            </button>
+            <Link href="/stake">
+              <button className="flex items-center gap-2 px-4 py-2 border border-white text-white hover:bg-white hover:text-black transition-all text-xs">
+                <Shield className="w-3 h-3" />
+                [STAKE_NOW]
+              </button>
+            </Link>
           </div>
         </GlassCard>
 
@@ -184,6 +225,9 @@ export default function ValidatorsPage() {
                     SUBNET
                   </th>
                   <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
+                    LOCATION
+                  </th>
+                  <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
                     STAKE
                   </th>
                   <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
@@ -198,7 +242,14 @@ export default function ValidatorsPage() {
                 </tr>
               </thead>
               <tbody>
-                {sortedValidators.map((validator, idx) => (
+                {isLoading ? (
+                  <tr>
+                    <td colSpan={8} className="py-8 text-center text-gray-400 font-mono">
+                      Loading real validators from L2 network...
+                    </td>
+                  </tr>
+                ) : sortedValidators.length > 0 ? (
+                  sortedValidators.map((validator, idx) => (
                   <motion.tr
                     key={`${validator.address}-${idx}`}
                     initial={{ opacity: 0, y: 20 }}
@@ -230,6 +281,11 @@ export default function ValidatorsPage() {
                       </span>
                     </td>
                     <td className="py-2 px-3">
+                      <span className="text-gray-300 text-xs font-mono">
+                        {validator.location}
+                      </span>
+                    </td>
+                    <td className="py-2 px-3">
                       <span className="text-white font-bold text-xs">{validator.stake}</span>
                     </td>
                     <td className="py-2 px-3">
@@ -256,7 +312,14 @@ export default function ValidatorsPage() {
                       </span>
                     </td>
                   </motion.tr>
-                ))}
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={8} className="py-8 text-center text-gray-400 font-mono">
+                      No validators found
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

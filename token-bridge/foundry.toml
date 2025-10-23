@@ -1,0 +1,13 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+solc = "0.8.19"
+optimizer = true
+optimizer_runs = 200
+
+[rpc_endpoints]
+bsc_testnet = "https://data-seed-prebsc-1-s1.binance.org:8545/"
+
+[etherscan]
+bsc_testnet = { key = "YourBSCScanAPIKey", url = "https://api-testnet.bscscan.com/api" }

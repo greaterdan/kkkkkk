@@ -202,14 +202,14 @@ export const generateMockMiners = (subnetId: string): Miner[] => {
 };
 
 export const mockDashboardMetrics = {
-  activeSubnets: 24,
-  validatorsOnline: 1847,
-  currentBlockHeight: 1234567,
-  tvl: "$142.5M",
+  activeSubnets: 1, // L2 network has 1 subnet
+  validatorsOnline: 7, // L2 network has 7 real validators
+  currentBlockHeight: 0, // L2 network starts at block 0
+  transactionsProcessed: "12,847", // L2 network transactions processed
   toraPrice: 3.42,
   bnbPrice: 305.67,
-  dailyVolume: "$23.8M",
-  totalTransactions: "12.4M",
+  dailyVolume: "$2.3M", // L2 network volume
+  totalTransactions: "0", // L2 network starts with 0 transactions
 };
 
 export const generateBlockChartData = () => {

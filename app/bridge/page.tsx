@@ -4,13 +4,14 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, ArrowRight, Info, ExternalLink, CheckCircle, Clock } from 'lucide-react';
 import { GlassCard } from '@/components/GlassCard';
-import { useAccount, useBalance, useSwitchChain } from 'wagmi';
-import { bsc } from 'wagmi/chains';
-import { zeroOneA } from '@/lib/wagmi-config';
+import { useAccount, useBalance, useSwitchChain, useWalletClient } from 'wagmi';
+import { bsc, bscTestnet } from 'wagmi/chains';
+import { ethers } from 'ethers';
 
 export default function BridgePage() {
   const { address, chain } = useAccount();
   const { switchChain } = useSwitchChain();
+  const { data: walletClient } = useWalletClient();
   
   const [fromChain, setFromChain] = useState<'bnb' | '01a'>('bnb');
   const [amount, setAmount] = useState('');
@@ -19,7 +20,7 @@ export default function BridgePage() {
   // Get balance for current chain
   const { data: balance } = useBalance({
     address,
-    chainId: fromChain === 'bnb' ? bsc.id : zeroOneA.id,
+    chainId: fromChain === 'bnb' ? bscTestnet.id : bscTestnet.id, // Both use BNB Testnet
   });
 
   const toChain = fromChain === 'bnb' ? '01a' : 'bnb';
@@ -42,20 +43,75 @@ export default function BridgePage() {
 
     setBridgeStatus('pending');
 
-    // TODO: Implement actual bridge contract interaction
-    // This is a placeholder for the bridge logic
     try {
-      // 1. Check if on correct chain
-      const correctChainId = fromChain === 'bnb' ? bsc.id : zeroOneA.id;
+      // 1. Check if on correct chain (BNB Testnet for both)
+      const correctChainId = bscTestnet.id;
       if (chain?.id !== correctChainId) {
         await switchChain({ chainId: correctChainId });
       }
 
-      // 2. Approve tokens (if needed)
-      // await approve(bridgeContractAddress, amount);
+      // 2. For BNB to 01A bridging
+      if (fromChain === 'bnb') {
+        // Bridge BNB to 01A tokens
+        const provider = new ethers.BrowserProvider(walletClient);
+        const signer = await provider.getSigner();
+        
+        const bridgeContract = new ethers.Contract(
+          '0xC5e9e02A9Df870368D28dC71F50eb0e17A3a9F4c', // Bridge address
+          [
+            'function bridgeBNBTo01A() external payable',
+            'function get01ABalance(address user) external view returns (uint256)'
+          ],
+          signer
+        );
 
-      // 3. Call bridge contract
-      // await bridgeContract.deposit(amount);
+        const tx = await bridgeContract.bridgeBNBTo01A({
+          value: ethers.parseEther(amount)
+        });
+        
+        await tx.wait();
+        console.log('✅ BNB bridged to 01A tokens on BNB Testnet');
+      } else {
+        // Bridge 01A tokens back to BNB
+        const provider = new ethers.BrowserProvider(walletClient);
+        const signer = await provider.getSigner();
+        
+        const tokenContract = new ethers.Contract(
+          '0x28EBd5A87ABA39F5f0D30b0843EaaaF890a785eb', // Token01A address
+          [
+            'function approve(address spender, uint256 amount) external returns (bool)',
+            'function balanceOf(address account) external view returns (uint256)'
+          ],
+          signer
+        );
+
+        const bridgeContract = new ethers.Contract(
+          '0xC5e9e02A9Df870368D28dC71F50eb0e17A3a9F4c', // Bridge address
+          [
+            'function bridge01AToBNB(uint256 tokenAmount) external',
+            'function getBridgeBNBBalance() external view returns (uint256)'
+          ],
+          signer
+        );
+
+        // First approve bridge to spend tokens
+        const approveTx = await tokenContract.approve(
+          '0xC5e9e02A9Df870368D28dC71F50eb0e17A3a9F4c',
+          ethers.parseEther(amount)
+        );
+        await approveTx.wait();
+        console.log('✅ Tokens approved for bridge');
+
+        // Then bridge tokens to BNB
+        const bridgeTx = await bridgeContract.bridge01AToBNB(ethers.parseEther(amount));
+        await bridgeTx.wait();
+        console.log('✅ 01A tokens bridged to BNB on BNB Testnet');
+      }
+
+      // 3. Log bridge transaction with real BNB Testnet contracts
+      console.log(`✅ Bridging ${amount} ${fromChain === 'bnb' ? 'BNB' : '01A'} to ${toChain === 'bnb' ? 'BNB' : '01A'} on BNB Testnet`);
+      console.log('📄 01A Token Contract (BNB Testnet):', '0x28EBd5A87ABA39F5f0D30b0843EaaaF890a785eb');
+      console.log('🌉 Bridge Contract (BNB Testnet):', '0xC5e9e02A9Df870368D28dC71F50eb0e17A3a9F4c');
 
       // Simulate bridge transaction
       await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -72,8 +128,8 @@ export default function BridgePage() {
     }
   };
 
-  const estimatedTime = fromChain === 'bnb' ? '~5 minutes' : '~1 hour';
-  const bridgeFee = '0.001 BNB';
+  const estimatedTime = '~30 seconds'; // BNB Testnet is fast
+  const bridgeFee = '0.001 BNB'; // Gas fee for BNB Testnet
 
   return (
     <div className="min-h-screen pt-20 pb-12 px-4">
@@ -88,10 +144,10 @@ export default function BridgePage() {
             <span className="text-white">$</span> bridge.init()
           </div>
           <h1 className="text-3xl md:text-4xl font-black text-white font-mono">
-            [ CROSS-CHAIN_BRIDGE ]
+            [ BNB ↔ 01A_BRIDGE ]
           </h1>
           <p className="text-xs text-gray-400 font-mono">
-            {'>'} Transfer assets between BNB Chain and 01A LABS Network
+            {'>'} Bridge BNB to 01A tokens on BNB Testnet • Real contracts deployed
           </p>
         </motion.div>
 
@@ -174,10 +230,10 @@ export default function BridgePage() {
                       </div>
                       <div>
                         <p className="text-sm font-bold text-white">
-                          {toChain === 'bnb' ? 'BNB Chain' : '01A LABS Network'}
+                          {toChain === 'bnb' ? 'BNB Testnet' : '01A Tokens'}
                         </p>
                         <p className="text-[10px] text-gray-400">
-                          {toChain === 'bnb' ? 'Layer 1' : 'Layer 2'}
+                          {toChain === 'bnb' ? 'Native BNB' : '01A Token Contract'}
                         </p>
                       </div>
                     </div>
@@ -272,7 +328,7 @@ export default function BridgePage() {
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-primary-gold mt-0.5">4.</span>
-                    <p>Wait for the bridge to process (5 min - 1 hour)</p>
+                    <p>Wait for the bridge to process (~30 seconds on BNB Testnet)</p>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-primary-gold mt-0.5">5.</span>
@@ -325,15 +381,18 @@ export default function BridgePage() {
               <Info className="w-4 h-4 text-primary-gold flex-shrink-0 mt-0.5" />
               <div className="space-y-1">
                 <p className="text-[10px] text-gray-400">
-                  <span className="text-white font-bold">Important:</span> Bridge transactions are
-                  irreversible. Make sure you&apos;re sending to the correct address. Bridging from L2
-                  to L1 requires a longer wait time due to fraud proof windows.
+                  <span className="text-white font-bold">Real Contracts Deployed:</span> 
+                  <br />• Token01A: <span className="text-primary-gold">0x28EBd5A87ABA39F5f0D30b0843EaaaF890a785eb</span>
+                  <br />• Bridge: <span className="text-primary-gold">0xC5e9e02A9Df870368D28dC71F50eb0e17A3a9F4c</span>
+                  <br />• Network: BNB Testnet (Chain ID: 97)
                 </p>
                 <a
-                  href="#"
+                  href="https://testnet.bscscan.com/address/0x28EBd5A87ABA39F5f0D30b0843EaaaF890a785eb"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-[10px] text-primary-gold hover:text-white transition-colors"
                 >
-                  Learn more about the bridge
+                  View Token01A on BSCScan Testnet
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </div>

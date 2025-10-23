@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Cpu, Upload, Zap, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import { GlassCard } from '@/components/GlassCard';
@@ -19,6 +19,7 @@ interface Task {
 export default function TasksPage() {
   const { address } = useAccount();
   const { data: balance } = useBalance({ address });
+  const [mounted, setMounted] = useState(false);
   
   const [taskType, setTaskType] = useState<TaskType>('llm');
   const [prompt, setPrompt] = useState('');
@@ -28,6 +29,10 @@ export default function TasksPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const taskTypes = [
     {
@@ -185,7 +190,7 @@ export default function TasksPage() {
               <Upload className="w-4 h-4 text-white mb-1" />
               <p className="text-[10px] text-gray-500 uppercase">BALANCE</p>
               <p className="text-lg font-bold text-white">
-                {balance ? parseFloat(balance.formatted).toFixed(2) : '0.00'}
+                {mounted && balance ? parseFloat(balance.formatted).toFixed(2) : '0.00'}
               </p>
             </div>
           </GlassCard>
@@ -250,7 +255,7 @@ export default function TasksPage() {
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <label className="text-[10px] text-gray-500 uppercase">
-                        TEMPERATURE: {modelParams.temperature}
+                        TEMPERATURE
                       </label>
                       <input
                         type="range"
@@ -267,7 +272,7 @@ export default function TasksPage() {
 
                     <div className="space-y-2">
                       <label className="text-[10px] text-gray-500 uppercase">
-                        MAX_TOKENS: {modelParams.maxTokens}
+                        MAX_TOKENS
                       </label>
                       <input
                         type="range"
@@ -309,16 +314,18 @@ export default function TasksPage() {
                 {/* Submit Button */}
                 <button
                   onClick={handleSubmitTask}
-                  disabled={!address || !prompt || isSubmitting}
+                  disabled={!mounted || !address || !prompt || isSubmitting}
                   className={`w-full px-6 py-4 border transition-all text-sm font-bold ${
-                    !address || !prompt
+                    !mounted || !address || !prompt
                       ? 'border-white/20 text-gray-600 cursor-not-allowed'
                       : isSubmitting
                       ? 'border-primary-gold text-primary-gold cursor-wait'
                       : 'border-primary-gold text-primary-gold hover:bg-primary-gold hover:text-black'
                   }`}
                 >
-                  {!address
+                  {!mounted
+                    ? '[LOADING...]'
+                    : !address
                     ? '[CONNECT_WALLET_TO_SUBMIT]'
                     : isSubmitting
                     ? '[SUBMITTING...]'

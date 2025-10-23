@@ -1,19 +1,29 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, TrendingUp, Users, Award, Info, ExternalLink } from 'lucide-react';
 import { GlassCard } from '@/components/GlassCard';
 import { useAccount, useBalance } from 'wagmi';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 export default function StakePage() {
   const { address } = useAccount();
   const { data: balance } = useBalance({ address });
+  const searchParams = useSearchParams();
   
   const [amount, setAmount] = useState('');
   const [selectedSubnet, setSelectedSubnet] = useState('subnet-1');
   const [isStaking, setIsStaking] = useState(false);
+
+  // Get subnet from URL params if coming from subnet page
+  useEffect(() => {
+    const subnetFromUrl = searchParams.get('subnet');
+    if (subnetFromUrl) {
+      setSelectedSubnet(subnetFromUrl);
+    }
+  }, [searchParams]);
 
   const minStake = 10000;
 

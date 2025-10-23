@@ -1,168 +1,137 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Layers, TrendingUp, Users, Award, ArrowRight, Cpu, Camera, Database, Headphones } from 'lucide-react';
+import { Cpu, Camera, Database, Headphones, ArrowRight, TrendingUp, Users, Award } from 'lucide-react';
 import Link from 'next/link';
 import { GlassCard } from '@/components/GlassCard';
-import { mockSubnets, Subnet } from '@/lib/mock-data';
-
-const taskTypeColors = {
-  LLM: 'from-blue-500 to-purple-500',
-  Vision: 'from-green-500 to-teal-500',
-  Embedding: 'from-orange-500 to-pink-500',
-  Audio: 'from-yellow-500 to-red-500',
-};
-
-const taskTypeIcons = {
-  LLM: Cpu,
-  Vision: Camera,
-  Embedding: Database,
-  Audio: Headphones,
-};
+import { Button } from '@/components/Button';
+import { mockSubnets } from '@/lib/mock-data';
 
 export default function SubnetsPage() {
+  const taskTypeIcons = {
+    LLM: Cpu,
+    Vision: Camera,
+    Embedding: Database,
+    Audio: Headphones,
+  };
+
   return (
-    <div className="min-h-screen pt-20 pb-12 px-4">
-      <div className="max-w-6xl mx-auto space-y-6">
+    <div className="min-h-screen pt-24 pb-16 px-4">
+      <div className="max-w-7xl mx-auto space-y-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="space-y-2"
+          className="text-center space-y-4"
         >
-          <div className="text-xs text-gray-500 font-mono">
-            <span className="text-white">$</span> subnets.list()
-          </div>
-          <h1 className="text-3xl md:text-4xl font-black text-white font-mono">
-            [ AI_SUBNETS ]
-          </h1>
-          <p className="text-xs text-gray-400 font-mono">
-            {'>'} Specialized networks for AI tasks | Join as miner or validator
+          <h1 className="text-6xl font-black gradient-text">AI Subnets</h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Specialized networks for different AI tasks. Choose your expertise and start earning rewards.
           </p>
         </motion.div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <GlassCard gradient delay={0}>
-            <div className="text-center space-y-1 font-mono">
-              <Layers className="w-5 h-5 text-white mx-auto" />
-              <p className="text-xl font-bold text-white">
-                {mockSubnets.length}
-              </p>
-              <p className="text-[10px] text-gray-400 uppercase">Subnets</p>
-            </div>
-          </GlassCard>
-          <GlassCard gradient delay={0.1}>
-            <div className="text-center space-y-1 font-mono">
-              <Users className="w-5 h-5 text-white mx-auto" />
-              <p className="text-xl font-bold text-white">
-                {mockSubnets.reduce((acc, s) => acc + s.validatorCount, 0)}
-              </p>
-              <p className="text-[10px] text-gray-400 uppercase">Validators</p>
-            </div>
-          </GlassCard>
-          <GlassCard gradient delay={0.2}>
-            <div className="text-center space-y-1 font-mono">
-              <Award className="w-5 h-5 text-white mx-auto" />
-              <p className="text-xl font-bold text-white">
-                {mockSubnets.reduce((acc, s) => acc + s.minerCount, 0)}
-              </p>
-              <p className="text-[10px] text-gray-400 uppercase">Miners</p>
-            </div>
-          </GlassCard>
-          <GlassCard gradient delay={0.3}>
-            <div className="text-center space-y-1 font-mono">
-              <TrendingUp className="w-5 h-5 text-white mx-auto" />
-              <p className="text-xl font-bold text-white">
-                {(
-                  mockSubnets.reduce((acc, s) => acc + s.apy, 0) /
-                  mockSubnets.length
-                ).toFixed(1)}
-                %
-              </p>
-              <p className="text-[10px] text-gray-400 uppercase">Avg APY</p>
-            </div>
-          </GlassCard>
+        {/* Subnets Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {mockSubnets.map((subnet, idx) => {
+            const IconComponent = taskTypeIcons[subnet.taskType];
+            return (
+              <motion.div
+                key={subnet.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                <Link href={`/subnets/${subnet.id}`}>
+                  <GlassCard className="h-full cursor-pointer hover:scale-105 transition-all duration-300" gradient>
+                    <div className="space-y-6">
+                      {/* Header */}
+                      <div className="flex items-center gap-4">
+                        <div className="p-3 border border-white/20 rounded-lg">
+                          <IconComponent className="w-8 h-8 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-bold text-white">{subnet.name}</h3>
+                          <p className="text-sm text-gray-400">{subnet.taskType} Tasks</p>
+                        </div>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-gray-300 text-sm leading-relaxed">
+                        {subnet.description}
+                      </p>
+
+                      {/* Metrics */}
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-1">
+                            <TrendingUp className="w-4 h-4 text-primary-accent" />
+                            <span className="text-xs text-gray-400">APY</span>
+                          </div>
+                          <p className="text-lg font-bold text-primary-accent">{subnet.apy}%</p>
+                        </div>
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-1">
+                            <Users className="w-4 h-4 text-primary-purple" />
+                            <span className="text-xs text-gray-400">Validators</span>
+                          </div>
+                          <p className="text-lg font-bold text-white">{subnet.validatorCount}</p>
+                        </div>
+                      </div>
+
+                      {/* Stats */}
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-400">Total Staked</span>
+                          <span className="text-white font-medium">{subnet.totalStaked}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-400">Epoch Reward</span>
+                          <span className="text-primary-purple font-medium">{subnet.epochReward}</span>
+                        </div>
+                      </div>
+
+                      {/* Click indicator */}
+                      <div className="flex items-center justify-center text-primary-accent text-sm font-medium">
+                        <ArrowRight className="w-4 h-4 mr-2" />
+                        Click to view subnet
+                      </div>
+                    </div>
+                  </GlassCard>
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Subnets Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {mockSubnets.map((subnet, idx) => (
-            <SubnetCard key={subnet.id} subnet={subnet} delay={idx * 0.1} />
-          ))}
-        </div>
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <GlassCard className="p-8 text-center" gradient>
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Ready to Start Mining?
+            </h2>
+            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+              Join the 01A LABS network and start earning rewards by contributing to AI tasks.
+              Choose your subnet and begin your journey as a validator or miner.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/stake">
+                <Button variant="primary" size="lg">
+                  Start Staking
+                </Button>
+              </Link>
+              <Link href="/validators">
+                <Button variant="outline" size="lg">
+                  View Validators
+                </Button>
+              </Link>
+            </div>
+          </GlassCard>
+        </motion.div>
       </div>
     </div>
   );
 }
-
-function SubnetCard({ subnet, delay }: { subnet: Subnet; delay: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay }}
-    >
-      <Link href={`/subnets/${subnet.id}`}>
-        <GlassCard hover className="p-4 h-full font-mono" gradient>
-          <div className="space-y-3">
-            {/* Header */}
-            <div className="flex items-start justify-between">
-              <div className="flex items-center gap-2">
-                <div className="p-2 border border-white/20 rounded">
-                  {(() => {
-                    const IconComponent = taskTypeIcons[subnet.taskType];
-                    return <IconComponent className="w-5 h-5 text-white" />;
-                  })()}
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-white">{subnet.name}</h3>
-                  <span className="inline-block px-2 py-0.5 border border-white/30 text-[10px] font-medium text-white mt-1">
-                    [{subnet.taskType}]
-                  </span>
-                </div>
-              </div>
-              <ArrowRight className="w-4 h-4 text-white flex-shrink-0" />
-            </div>
-
-            {/* Description */}
-            <p className="text-[10px] text-gray-400 leading-relaxed">
-              {subnet.description}
-            </p>
-
-            {/* Metrics */}
-            <div className="grid grid-cols-2 gap-2 text-[10px]">
-              <div className="space-y-0.5">
-                <p className="text-gray-500 uppercase">STAKED</p>
-                <p className="text-sm font-bold text-white">{subnet.totalStaked}</p>
-              </div>
-              <div className="space-y-0.5">
-                <p className="text-gray-500 uppercase">REWARD</p>
-                <p className="text-sm font-bold text-white">{subnet.epochReward}</p>
-              </div>
-              <div className="space-y-0.5">
-                <p className="text-gray-500 uppercase">VALIDATORS</p>
-                <p className="text-sm font-bold text-white">{subnet.validatorCount}</p>
-              </div>
-              <div className="space-y-0.5">
-                <p className="text-gray-500 uppercase">MINERS</p>
-                <p className="text-sm font-bold text-white">{subnet.minerCount}</p>
-              </div>
-            </div>
-
-            {/* APY Badge */}
-            <div className="pt-2 border-t border-white/10">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] text-gray-400">ANNUAL_APY</span>
-                <span className="text-lg font-bold text-white">
-                  {subnet.apy}%
-                </span>
-              </div>
-            </div>
-          </div>
-        </GlassCard>
-      </Link>
-    </motion.div>
-  );
-}
-

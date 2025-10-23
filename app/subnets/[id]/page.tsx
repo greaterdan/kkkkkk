@@ -177,9 +177,11 @@ export default function SubnetDetailPage({
               <Trophy className="w-6 h-6 text-yellow-400" />
               Top Miners
             </h3>
-            <Button variant="primary" size="sm">
-              Join as Miner
-            </Button>
+            <Link href={`/stake?subnet=${id}`}>
+              <Button variant="primary" size="sm">
+                Join as Miner
+              </Button>
+            </Link>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -264,9 +266,11 @@ export default function SubnetDetailPage({
               <Users className="w-6 h-6 text-primary-accent" />
               Top Validators
             </h3>
-            <Button variant="outline" size="sm">
-              Become Validator
-            </Button>
+            <Link href={`/stake?subnet=${id}`}>
+              <Button variant="outline" size="sm">
+                Become Validator
+              </Button>
+            </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {validators.slice(0, 6).map((validator, idx) => (
@@ -320,16 +324,19 @@ export default function SubnetDetailPage({
             Start earning rewards by contributing to the AI network
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="primary" size="lg">
-              Start Mining
-            </Button>
-            <Button variant="outline" size="lg">
-              Stake as Validator
-            </Button>
+            <Link href={`/stake?subnet=${id}`}>
+              <Button variant="primary" size="lg">
+                Start Mining
+              </Button>
+            </Link>
+            <Link href={`/stake?subnet=${id}`}>
+              <Button variant="outline" size="lg">
+                Stake as Validator
+              </Button>
+            </Link>
           </div>
         </GlassCard>
       </div>
     </div>
   );
 }
-

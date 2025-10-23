@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 
 const navLinks = [
   { href: '/', label: 'Dashboard' },
-  { href: '/explorer', label: 'Explorer', external: true },
+  { href: '/explorer', label: 'Explorer' },
   { href: '/subnets', label: 'Subnets' },
   { href: '/validators', label: 'Validators' },
   { href: '/stake', label: 'Stake' },

@@ -19,20 +19,24 @@ export const useRealTimeData = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [blocks, transactions, validators, stats] = await Promise.all([
-        getRealBlocks(20),
-        getRealTransactions(20),
-        getRealValidators(),
-        getRealNetworkStats()
-      ]);
+      try {
+        const [blocks, transactions, validators, stats] = await Promise.all([
+          getRealBlocks(20),
+          getRealTransactions(20),
+          getRealValidators(),
+          getRealNetworkStats()
+        ]);
 
-      setData({ blocks, transactions, validators, stats });
+        setData({ blocks, transactions, validators, stats });
+      } catch (error) {
+        console.error('Error fetching real-time data:', error);
+      }
     };
 
     fetchData();
     
-    // Set up real-time updates every 10 seconds
-    const interval = setInterval(fetchData, 10000);
+    // Set up real-time updates every 3 seconds (matching block time)
+    const interval = setInterval(fetchData, 3000);
     return () => clearInterval(interval);
   }, []);
 
