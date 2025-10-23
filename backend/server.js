@@ -1,7 +1,7 @@
 import express from 'express';
 import { ethers } from 'ethers';
 import cors from 'cors';
-import WebSocket from 'ws';
+import { WebSocketServer } from 'ws';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -414,7 +414,7 @@ const server = app.listen(PORT, () => {
 });
 
 // WebSocket server for real-time updates
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocketServer({ server });
 
 wss.on('connection', (ws) => {
   console.log('WebSocket client connected');
