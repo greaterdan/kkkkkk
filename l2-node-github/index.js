@@ -20,6 +20,13 @@ class L2Node {
     this.state = new Map(); // In-memory storage for now
     this.accounts = new Map();
     
+    // Native token configuration
+    this.nativeToken = {
+      name: '01A',
+      symbol: '01A',
+      decimals: 18
+    };
+    
     this.setupMiddleware();
     this.setupRoutes();
     this.setupWebSocket();
@@ -140,6 +147,10 @@ class L2Node {
       switch (method) {
         case 'eth_chainId':
           result = `0x${this.chainId.toString(16)}`;
+          break;
+          
+        case 'net_version':
+          result = this.chainId.toString();
           break;
           
         case 'eth_blockNumber':
