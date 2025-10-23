@@ -8,7 +8,7 @@ export interface TokenPriceData {
 }
 
 export interface PriceDataResponse {
-  toraPrice: TokenPriceData;
+  token01APrice: TokenPriceData;
   bnbPrice: TokenPriceData;
   lastUpdated: number;
 }
@@ -38,16 +38,16 @@ export const getRealTokenPrices = async (): Promise<PriceDataResponse> => {
     
     // Calculate 01A price based on BNB price with a multiplier
     // In production, this would be the actual 01A token price from DEX
-    const toraMultiplier = 0.011; // 01A = 0.011 * BNB (example)
-    const toraPrice = bnbData.usd * toraMultiplier;
-    const toraPriceChange = bnbData.usd_24h_change * 0.8; // Slightly different volatility
+    const token01AMultiplier = 0.011; // 01A = 0.011 * BNB (example)
+    const token01APrice = bnbData.usd * token01AMultiplier;
+    const token01APriceChange = bnbData.usd_24h_change * 0.8; // Slightly different volatility
     
     return {
-      toraPrice: {
-        price: toraPrice,
-        priceChange24h: toraPriceChange,
-        volume24h: `$${(bnbData.usd_24h_vol * toraMultiplier / 1000000).toFixed(1)}M`,
-        marketCap: `$${(bnbData.usd_market_cap * toraMultiplier / 1000000).toFixed(1)}M`,
+      token01APrice: {
+        price: token01APrice,
+        priceChange24h: token01APriceChange,
+        volume24h: `$${(bnbData.usd_24h_vol * token01AMultiplier / 1000000).toFixed(1)}M`,
+        marketCap: `$${(bnbData.usd_market_cap * token01AMultiplier / 1000000).toFixed(1)}M`,
         totalSupply: '1B 01A'
       },
       bnbPrice: {
@@ -63,7 +63,7 @@ export const getRealTokenPrices = async (): Promise<PriceDataResponse> => {
     
     // Return zero values if API fails - no mock data
     return {
-      toraPrice: {
+      token01APrice: {
         price: 0,
         priceChange24h: 0,
         volume24h: '$0.0M',

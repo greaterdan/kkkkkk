@@ -1,4 +1,4 @@
-// Payment processing for AI tasks using TORA tokens
+// Payment processing for AI tasks using 01A tokens
 import { ethers } from 'ethers';
 
 export interface PaymentConfig {
@@ -14,23 +14,23 @@ export interface PaymentResult {
   error?: string;
 }
 
-// Pricing configuration (in TORA tokens)
+// Pricing configuration (in 01A tokens)
 const TASK_PRICING = {
   LLM: {
-    baseCost: ethers.parseEther('0.002'), // 0.002 TORA
-    perTokenCost: ethers.parseEther('0.000001'), // 0.000001 TORA per token
+    baseCost: ethers.parseEther('0.002'), // 0.002 01A
+    perTokenCost: ethers.parseEther('0.000001'), // 0.000001 01A per token
   },
   Vision: {
-    baseCost: ethers.parseEther('0.005'), // 0.005 TORA
-    perTokenCost: ethers.parseEther('0.000002'), // 0.000002 TORA per token
+    baseCost: ethers.parseEther('0.005'), // 0.005 01A
+    perTokenCost: ethers.parseEther('0.000002'), // 0.000002 01A per token
   },
   Embedding: {
-    baseCost: ethers.parseEther('0.001'), // 0.001 TORA
-    perTokenCost: ethers.parseEther('0.0000005'), // 0.0000005 TORA per token
+    baseCost: ethers.parseEther('0.001'), // 0.001 01A
+    perTokenCost: ethers.parseEther('0.0000005'), // 0.0000005 01A per token
   },
   Audio: {
-    baseCost: ethers.parseEther('0.003'), // 0.003 TORA
-    perTokenCost: ethers.parseEther('0.0000015'), // 0.0000015 TORA per token
+    baseCost: ethers.parseEther('0.003'), // 0.003 01A
+    perTokenCost: ethers.parseEther('0.0000015'), // 0.0000015 01A per token
   },
 };
 
@@ -49,16 +49,16 @@ export function calculateTaskCost(taskType: keyof typeof TASK_PRICING, prompt: s
 // Process payment for AI task
 export async function processTaskPayment(config: PaymentConfig): Promise<PaymentResult> {
   try {
-    // Check if user has enough TORA tokens
+    // Check if user has enough 01A tokens
     const cost = calculateTaskCost(config.taskType, config.prompt);
     const costWei = ethers.parseEther(cost);
     
     // In a real implementation, this would:
-    // 1. Check user's TORA balance
+    // 1. Check user's 01A balance
     // 2. Transfer tokens to the task contract
     // 3. Record the payment on-chain
     
-    console.log(`💰 Processing payment: ${cost} TORA for ${config.taskType} task`);
+    console.log(`💰 Processing payment: ${cost} 01A for ${config.taskType} task`);
     
     // For now, simulate successful payment
     return {
@@ -79,9 +79,9 @@ export async function processTaskPayment(config: PaymentConfig): Promise<Payment
 // Check if user has sufficient balance
 export async function checkBalance(userAddress: string, requiredAmount: string): Promise<boolean> {
   try {
-    // In a real implementation, this would check the user's TORA balance
+    // In a real implementation, this would check the user's 01A balance
     // For now, assume user has sufficient balance
-    console.log(`🔍 Checking balance for ${userAddress}: ${requiredAmount} TORA required`);
+    console.log(`🔍 Checking balance for ${userAddress}: ${requiredAmount} 01A required`);
     return true;
   } catch (error) {
     console.error('Balance check error:', error);
@@ -89,12 +89,12 @@ export async function checkBalance(userAddress: string, requiredAmount: string):
   }
 }
 
-// Get user's TORA balance
+// Get user's 01A balance
 export async function getUserBalance(userAddress: string): Promise<string> {
   try {
-    // In a real implementation, this would query the TORA token contract
+    // In a real implementation, this would query the 01A token contract
     // For now, return a mock balance
-    return '10.0'; // 10 TORA
+    return '10.0'; // 10 01A
   } catch (error) {
     console.error('Balance fetch error:', error);
     return '0';

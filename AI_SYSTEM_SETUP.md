@@ -9,7 +9,7 @@ The AI system provides:
 - **Vision Processing**: DALL-E 3 image generation from text prompts
 - **Embedding Processing**: Text embeddings using OpenAI's text-embedding-ada-002
 - **Audio Processing**: Audio processing (currently simulated)
-- **Payment Processing**: TORA token payments for AI tasks
+- **Payment Processing**: 01A token payments for AI tasks
 - **Blockchain Integration**: Task submission and results recorded on-chain
 
 ## 🚀 Quick Setup
@@ -104,11 +104,11 @@ Click "Connect Wallet" and connect your MetaMask or other Web3 wallet
 
 ## 💰 Payment System
 
-The system uses TORA tokens for payments:
-- **LLM**: 0.002 TORA base + 0.000001 TORA per token
-- **Vision**: 0.005 TORA base + 0.000002 TORA per token
-- **Embedding**: 0.001 TORA base + 0.0000005 TORA per token
-- **Audio**: 0.003 TORA base + 0.0000015 TORA per token
+The system uses 01A tokens for payments:
+- **LLM**: 0.002 01A base + 0.000001 01A per token
+- **Vision**: 0.005 01A base + 0.000002 01A per token
+- **Embedding**: 0.001 01A base + 0.0000005 01A per token
+- **Audio**: 0.003 01A base + 0.0000015 01A per token
 
 ## 🔧 API Endpoints
 
@@ -161,7 +161,7 @@ L2 Blockchain
 - Verify L2 node is running before deployment
 
 ### Payment Issues
-- Ensure user has sufficient TORA tokens
+- Ensure user has sufficient 01A tokens
 - Check that payment processing is working
 
 ## 📊 Monitoring

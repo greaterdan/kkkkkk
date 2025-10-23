@@ -224,11 +224,11 @@ export default function Home() {
                 </span>
                 <div className="flex items-baseline gap-2">
                   <span className="text-2xl font-bold text-white">
-                    ${realPriceData?.toraPrice?.price?.toFixed(2) || '0.00'}
+                    ${realPriceData?.token01APrice?.price?.toFixed(2) || '0.00'}
                   </span>
-                  <span className={`text-xs ${(realPriceData?.toraPrice?.priceChange24h || 0) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                    {realPriceData?.toraPrice?.priceChange24h ? 
-                      `${(realPriceData.toraPrice.priceChange24h >= 0 ? '+' : '')}${realPriceData.toraPrice.priceChange24h.toFixed(1)}%` : 
+                  <span className={`text-xs ${(realPriceData?.token01APrice?.priceChange24h || 0) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                    {realPriceData?.token01APrice?.priceChange24h ? 
+                      `${(realPriceData.token01APrice.priceChange24h >= 0 ? '+' : '')}${realPriceData.token01APrice.priceChange24h.toFixed(1)}%` : 
                       '0.0%'
                     }
                   </span>
@@ -240,7 +240,7 @@ export default function Home() {
                   [ 24H_VOLUME ]
                 </span>
                 <div className="text-2xl font-bold text-white">
-                  {realPriceData?.toraPrice?.volume24h || '$0.0M'}
+                  {realPriceData?.token01APrice?.volume24h || '$0.0M'}
                 </div>
               </div>
 

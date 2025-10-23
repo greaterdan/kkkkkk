@@ -523,7 +523,7 @@ app.post('/api/ai/submit-task', async (req, res) => {
     const { calculateTaskCost, processTaskPayment } = require('../lib/payment');
     const cost = calculateTaskCost(taskType, prompt);
     
-    console.log(`💰 Task cost: ${cost} TORA`);
+    console.log(`💰 Task cost: ${cost} 01A`);
     
     const paymentResult = await processTaskPayment({
       taskType,

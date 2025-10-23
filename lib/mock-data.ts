@@ -206,7 +206,7 @@ export const mockDashboardMetrics = {
   validatorsOnline: 7, // L2 network has 7 real validators
   currentBlockHeight: 0, // L2 network starts at block 0
   transactionsProcessed: "12,847", // L2 network transactions processed
-  toraPrice: 3.42,
+  token01APrice: 3.42,
   bnbPrice: 305.67,
   dailyVolume: "$2.3M", // L2 network volume
   totalTransactions: "0", // L2 network starts with 0 transactions

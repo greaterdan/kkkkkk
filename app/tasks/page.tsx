@@ -36,7 +36,7 @@ export default function TasksPage() {
       name: 'LLM Inference',
       icon: '🤖',
       description: 'Text generation, completion, chat',
-      costPer1k: '0.002 TORA',
+      costPer1k: '0.002 01A',
       avgTime: '~5s',
     },
     {
@@ -44,7 +44,7 @@ export default function TasksPage() {
       name: 'Vision',
       icon: '👁️',
       description: 'Image classification, detection, segmentation',
-      costPer1k: '0.005 TORA',
+      costPer1k: '0.005 01A',
       avgTime: '~10s',
     },
     {
@@ -52,7 +52,7 @@ export default function TasksPage() {
       name: 'Embeddings',
       icon: '🔢',
       description: 'Text/image embeddings for RAG',
-      costPer1k: '0.001 TORA',
+      costPer1k: '0.001 01A',
       avgTime: '~2s',
     },
     {
@@ -60,7 +60,7 @@ export default function TasksPage() {
       name: 'Audio',
       icon: '🎵',
       description: 'Transcription, generation, TTS',
-      costPer1k: '0.003 TORA',
+      costPer1k: '0.003 01A',
       avgTime: '~7s',
     },
   ];
@@ -102,7 +102,7 @@ export default function TasksPage() {
         type: taskType,
         status: 'completed',
         createdAt: Date.now(),
-        cost: `${estimatedCost} TORA`,
+        cost: `${estimatedCost} 01A`,
       };
 
       setTasks([newTask, ...tasks]);
@@ -259,7 +259,7 @@ export default function TasksPage() {
                       <div>
                         <p className="text-[10px] text-gray-500 uppercase">ESTIMATED_COST</p>
                         <p className="text-xl font-bold text-primary-gold mt-1">
-                          {estimatedCost} TORA
+                          {estimatedCost} 01A
                         </p>
                       </div>
                       <div className="text-right">
