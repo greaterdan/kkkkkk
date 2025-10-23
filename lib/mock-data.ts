@@ -202,7 +202,7 @@ export const generateMockMiners = (subnetId: string): Miner[] => {
 };
 
 export const mockDashboardMetrics = {
-  activeSubnets: 1, // L2 network has 1 subnet
+  activeSubnets: 6, // L2 network has 6 active subnets
   validatorsOnline: 7, // L2 network has 7 real validators
   currentBlockHeight: 0, // L2 network starts at block 0
   transactionsProcessed: "12,847", // L2 network transactions processed

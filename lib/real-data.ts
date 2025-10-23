@@ -80,7 +80,7 @@ export const getRealNetworkStats = async () => {
       totalAddresses: 0, // Would need to track unique addresses
       totalStaked: '1,000,000 01A', // L2 network staking
       totalRewards: '0', // Would need to query rewards
-      activeSubnets: 1, // L2 network subnet count
+      activeSubnets: 6, // L2 network subnet count
       validatorsOnline: 1, // L2 network validator count
       blockHeight: blockNumber,
       networkStatus: 'online'
@@ -95,7 +95,7 @@ export const getRealNetworkStats = async () => {
       totalAddresses: 0,
       totalStaked: '1,000,000 01A', // L2 network staking
       totalRewards: '0',
-      activeSubnets: 1, // L2 network subnet count
+      activeSubnets: 6, // L2 network subnet count
       validatorsOnline: 1, // L2 network validator count
       blockHeight: 0,
       networkStatus: 'online' // L2 network is online
