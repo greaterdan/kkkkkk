@@ -1,6 +1,7 @@
 {
   "name": "01a-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "01A Labs Backend API and Smart Contracts",
   "main": "server.js",
   "scripts": {
@@ -12,7 +13,9 @@
     "express": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
-    "ws": "^8.18.3"
+    "ws": "^8.18.3",
+    "ethers": "^6.15.0",
+    "openai": "^6.6.0"
   },
   "engines": {
     "node": ">=18.0.0",

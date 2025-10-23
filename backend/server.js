@@ -125,6 +125,15 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: Date.now() });
 });
 
+// Root endpoint for basic healthcheck
+app.get('/', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    service: '01A Labs Backend API',
+    timestamp: Date.now() 
+  });
+});
+
 // Token info endpoint
 app.get('/api/token', async (req, res) => {
   try {
