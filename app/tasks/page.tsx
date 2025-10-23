@@ -23,10 +23,6 @@ export default function TasksPage() {
   
   const [taskType, setTaskType] = useState<TaskType>('llm');
   const [prompt, setPrompt] = useState('');
-  const [modelParams, setModelParams] = useState({
-    temperature: 0.7,
-    maxTokens: 1000,
-  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
 
@@ -71,7 +67,7 @@ export default function TasksPage() {
 
   const selectedTask = taskTypes.find((t) => t.id === taskType);
   const estimatedCost = selectedTask 
-    ? (parseFloat(selectedTask.costPer1k.split(' ')[0]) * (modelParams.maxTokens / 1000)).toFixed(4)
+    ? parseFloat(selectedTask.costPer1k.split(' ')[0]).toFixed(4)
     : '0';
 
   const handleSubmitTask = async () => {
@@ -250,44 +246,6 @@ export default function TasksPage() {
                   />
                 </div>
 
-                {/* Model Parameters */}
-                {taskType === 'llm' && (
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <label className="text-[10px] text-gray-500 uppercase">
-                        TEMPERATURE
-                      </label>
-                      <input
-                        type="range"
-                        value={modelParams.temperature}
-                        onChange={(e) =>
-                          setModelParams({ ...modelParams, temperature: parseFloat(e.target.value) })
-                        }
-                        min="0"
-                        max="2"
-                        step="0.1"
-                        className="w-full"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="text-[10px] text-gray-500 uppercase">
-                        MAX_TOKENS
-                      </label>
-                      <input
-                        type="range"
-                        value={modelParams.maxTokens}
-                        onChange={(e) =>
-                          setModelParams({ ...modelParams, maxTokens: parseInt(e.target.value) })
-                        }
-                        min="100"
-                        max="4000"
-                        step="100"
-                        className="w-full"
-                      />
-                    </div>
-                  </div>
-                )}
 
                 {/* Cost Estimate */}
                 {prompt && (
