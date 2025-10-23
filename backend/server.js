@@ -485,7 +485,7 @@ app.post('/api/ai/submit-task', async (req, res) => {
     
     // Broadcast to WebSocket clients
     wss.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
+      if (client.readyState === 1) { // WebSocket.OPEN = 1
         client.send(JSON.stringify({
           type: 'task_completed',
           payload: task
@@ -661,7 +661,7 @@ provider.on('block', async (blockNumber) => {
     const block = await provider.getBlock(blockNumber);
     
     wss.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
+      if (client.readyState === 1) { // WebSocket.OPEN = 1
         client.send(JSON.stringify({
           type: 'new_block',
           payload: {
