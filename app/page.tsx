@@ -73,8 +73,6 @@ export default function Home() {
           ...realNetworkStats,
           validatorsOnline: 7, // L2 network has 7 real validators
           activeSubnets: 1, // L2 network has 1 subnet
-          toraPrice: priceData.toraPrice.price,
-          dailyVolume: priceData.toraPrice.volume24h,
           totalTransactions: txCount
         });
         
@@ -181,33 +179,33 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             <MetricCard
               title="Active Subnets"
-              value={realStats?.activeSubnets || mockDashboardMetrics.activeSubnets}
+              value={realStats?.activeSubnets || 1}
               icon={Layers}
-              change="+3 this week"
+              change="L2 Network Active"
               changeType="positive"
               delay={0}
             />
             <MetricCard
               title="Validators Online"
-              value={realStats?.validatorsOnline?.toLocaleString() || mockDashboardMetrics.validatorsOnline.toLocaleString()}
+              value={realStats?.validatorsOnline?.toLocaleString() || '7'}
               icon={Users}
-              change="99.8% uptime"
+              change="L2 Network Validators"
               changeType="positive"
               delay={0.1}
             />
             <MetricCard
               title="Block Height"
-              value={realStats?.blockHeight?.toLocaleString() || mockDashboardMetrics.currentBlockHeight.toLocaleString()}
+              value={realStats?.blockHeight?.toLocaleString() || '0'}
               icon={Box}
-              change={isMining ? "⛏️ Mining..." : "3s avg block time"}
+              change={isMining ? "⛏️ Mining..." : "L2 Network"}
               changeType={isMining ? "positive" : "neutral"}
               delay={0.2}
             />
             <MetricCard
               title="Transactions Processed"
-              value={realStats?.transactionsProcessed || mockDashboardMetrics.transactionsProcessed}
+              value={realTxCount?.toLocaleString() || '0'}
               icon={Activity}
-              change="+2.1k this hour"
+              change="L2 Network Txs"
               changeType="positive"
               delay={0.3}
             />
@@ -226,12 +224,12 @@ export default function Home() {
                 </span>
                 <div className="flex items-baseline gap-2">
                   <span className="text-2xl font-bold text-white">
-                    ${realPriceData?.toraPrice?.price?.toFixed(2) || realStats?.toraPrice?.toFixed(2) || mockDashboardMetrics.toraPrice.toFixed(2)}
+                    ${realPriceData?.toraPrice?.price?.toFixed(2) || '0.00'}
                   </span>
                   <span className={`text-xs ${(realPriceData?.toraPrice?.priceChange24h || 0) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                     {realPriceData?.toraPrice?.priceChange24h ? 
                       `${(realPriceData.toraPrice.priceChange24h >= 0 ? '+' : '')}${realPriceData.toraPrice.priceChange24h.toFixed(1)}%` : 
-                      '+8.3%'
+                      '0.0%'
                     }
                   </span>
                 </div>
@@ -242,7 +240,7 @@ export default function Home() {
                   [ 24H_VOLUME ]
                 </span>
                 <div className="text-2xl font-bold text-white">
-                  {realPriceData?.toraPrice?.volume24h || realStats?.dailyVolume || mockDashboardMetrics.dailyVolume}
+                  {realPriceData?.toraPrice?.volume24h || '$0.0M'}
                 </div>
               </div>
 
@@ -251,7 +249,7 @@ export default function Home() {
                   [ TOTAL_TX ]
                 </span>
                 <div className="text-2xl font-bold text-white">
-                  {realTxCount?.toLocaleString() || realStats?.totalTransactions?.toLocaleString() || mockDashboardMetrics.totalTransactions}
+                  {realTxCount?.toLocaleString() || '0'}
                 </div>
               </div>
             </div>

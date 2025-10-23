@@ -94,10 +94,10 @@ export const getRealNetworkStats = async () => {
       gasTracker: '1.0 Gwei',
       avgBlockTime: 3,
       totalAddresses: 0,
-      totalStaked: '1,000,000 01A', // L2 network staking
+      totalStaked: '0 01A', // No staking until real data is available
       totalRewards: '0',
-      activeSubnets: 6, // L2 network subnet count
-      validatorsOnline: 1, // L2 network validator count
+      activeSubnets: 1, // L2 network has 1 subnet
+      validatorsOnline: 7, // L2 network has 7 validators
       blockHeight: 0,
       networkStatus: 'online' // L2 network is online
     };

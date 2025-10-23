@@ -519,6 +519,22 @@ app.post('/api/ai/submit-task', async (req, res) => {
     
     console.log(`🤖 Processing AI task: ${taskType} for subnet ${subnetId}`);
     
+    // Process payment first
+    const { calculateTaskCost, processTaskPayment } = require('../lib/payment');
+    const cost = calculateTaskCost(taskType, prompt);
+    
+    console.log(`💰 Task cost: ${cost} TORA`);
+    
+    const paymentResult = await processTaskPayment({
+      taskType,
+      prompt,
+      userAddress: userAddress || '0x0000000000000000000000000000000000000000'
+    });
+    
+    if (!paymentResult.success) {
+      return res.status(402).json({ error: `Payment failed: ${paymentResult.error}` });
+    }
+    
     let result;
     let processingTime = Date.now();
     
@@ -599,7 +615,9 @@ app.post('/api/ai/submit-task', async (req, res) => {
       taskId,
       result,
       processingTime,
-      validator: task.validator
+      validator: task.validator,
+      cost: cost,
+      txHash: paymentResult.txHash
     });
     
   } catch (error) {

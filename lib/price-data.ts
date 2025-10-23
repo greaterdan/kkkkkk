@@ -61,20 +61,20 @@ export const getRealTokenPrices = async (): Promise<PriceDataResponse> => {
   } catch (error) {
     console.error('Error fetching real price data:', error);
     
-    // Fallback to mock data if API fails
+    // Return zero values if API fails - no mock data
     return {
       toraPrice: {
-        price: 3.42,
-        priceChange24h: 8.3,
-        volume24h: '$2.3M',
-        marketCap: '$3.4B',
+        price: 0,
+        priceChange24h: 0,
+        volume24h: '$0.0M',
+        marketCap: '$0.0M',
         totalSupply: '1B 01A'
       },
       bnbPrice: {
-        price: 305.67,
-        priceChange24h: 2.1,
-        volume24h: '$1.2B',
-        marketCap: '$45.2B'
+        price: 0,
+        priceChange24h: 0,
+        volume24h: '$0.0M',
+        marketCap: '$0.0M'
       },
       lastUpdated: Date.now()
     };
@@ -104,10 +104,10 @@ export const getRealTransactionCount = async (): Promise<number> => {
       return blockNumber * 2.5;
     }
     
-    return 4498; // Fallback
+    return 0; // Return 0 if no real data available
   } catch (error) {
     console.error('Error fetching transaction count:', error);
-    return 4498; // Fallback
+    return 0; // Return 0 if no real data available
   }
 };
 

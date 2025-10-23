@@ -76,40 +76,41 @@ export default function TasksPage() {
     setIsSubmitting(true);
 
     try {
-      // TODO: Implement actual task submission to network
-      // 1. Pay for task
-      // 2. Submit to subnet
-      // 3. Wait for result
+      // Submit task to backend API
+      const response = await fetch('/api/ai/submit-task', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          taskType: taskType.toUpperCase(),
+          prompt: prompt,
+          subnetId: `subnet-${taskType === 'llm' ? '1' : taskType === 'vision' ? '2' : taskType === 'embedding' ? '3' : '4'}`,
+          userAddress: address,
+        }),
+      });
 
-      // Simulate task submission
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      // Create task record with real data
       const newTask: Task = {
-        id: `task-${Date.now()}`,
+        id: result.taskId,
         type: taskType,
-        status: 'pending',
+        status: 'completed',
         createdAt: Date.now(),
         cost: `${estimatedCost} TORA`,
       };
 
       setTasks([newTask, ...tasks]);
-      
-      // Simulate processing
-      setTimeout(() => {
-        setTasks((prev) =>
-          prev.map((t) =>
-            t.id === newTask.id ? { ...t, status: 'processing' } : t
-          )
-        );
-      }, 1000);
-
-      setTimeout(() => {
-        setTasks((prev) =>
-          prev.map((t) =>
-            t.id === newTask.id ? { ...t, status: 'completed' } : t
-          )
-        );
-      }, 5000);
-
       setPrompt('');
+
+      // Show success message with result
+      alert(`Task completed! Result: ${result.result.substring(0, 100)}...`);
+
     } catch (error) {
       console.error('Task submission error:', error);
       alert('Failed to submit task. Please try again.');
