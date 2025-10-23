@@ -314,71 +314,55 @@ app.get('/api/stats/chart/:type', async (req, res) => {
 // Get validators
 app.get('/api/validators', async (req, res) => {
   try {
-    if (!stakingContract) {
-      // Return mock validators for now since contracts aren't deployed
-      const mockValidators = [
-        {
-          address: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6',
-          name: 'GPT-4 Validator',
-          stake: '15000.0 01A',
-          commission: 5.0,
-          subnetId: 'subnet-1',
-          uptime: 99.8,
-          totalRewards: '2340.5 01A',
-          rank: 1,
-          status: 'active'
-        },
-        {
-          address: '0x8a2d35Cc6634C0532925a3b8D4C9db96C4b4d8b7',
-          name: 'Vision Validator',
-          stake: '12000.0 01A',
-          commission: 7.5,
-          subnetId: 'subnet-2',
-          uptime: 99.2,
-          totalRewards: '1890.2 01A',
-          rank: 2,
-          status: 'active'
-        },
-        {
-          address: '0x9b3d35Cc6634C0532925a3b8D4C9db96C4b4d8b8',
-          name: 'Embedding Validator',
-          stake: '8500.0 01A',
-          commission: 10.0,
-          subnetId: 'subnet-3',
-          uptime: 98.5,
-          totalRewards: '1456.8 01A',
-          rank: 3,
-          status: 'active'
-        },
-        {
-          address: '0xac4d35Cc6634C0532925a3b8D4C9db96C4b4d8b9',
-          name: 'Audio Validator',
-          stake: '6200.0 01A',
-          commission: 12.5,
-          subnetId: 'subnet-4',
-          uptime: 97.8,
-          totalRewards: '1123.4 01A',
-          rank: 4,
-          status: 'active'
-        }
-      ];
-      return res.json({ validators: mockValidators });
-    }
+    // Always return mock validators since contracts aren't deployed yet
+    const mockValidators = [
+      {
+        address: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6',
+        name: 'GPT-4 Validator',
+        stake: '15000.0 01A',
+        commission: 5.0,
+        subnetId: 'subnet-1',
+        uptime: 99.8,
+        totalRewards: '2340.5 01A',
+        rank: 1,
+        status: 'active'
+      },
+      {
+        address: '0x8a2d35Cc6634C0532925a3b8D4C9db96C4b4d8b7',
+        name: 'Vision Validator',
+        stake: '12000.0 01A',
+        commission: 7.5,
+        subnetId: 'subnet-2',
+        uptime: 99.2,
+        totalRewards: '1890.2 01A',
+        rank: 2,
+        status: 'active'
+      },
+      {
+        address: '0x9b3d35Cc6634C0532925a3b8D4C9db96C4b4d8b8',
+        name: 'Embedding Validator',
+        stake: '8500.0 01A',
+        commission: 10.0,
+        subnetId: 'subnet-3',
+        uptime: 98.5,
+        totalRewards: '1456.8 01A',
+        rank: 3,
+        status: 'active'
+      },
+      {
+        address: '0xac4d35Cc6634C0532925a3b8D4C9db96C4b4d8b9',
+        name: 'Audio Validator',
+        stake: '6200.0 01A',
+        commission: 12.5,
+        subnetId: 'subnet-4',
+        uptime: 97.8,
+        totalRewards: '1123.4 01A',
+        rank: 4,
+        status: 'active'
+      }
+    ];
     
-    const validators = await stakingContract.getAllValidators();
-    const formattedValidators = validators.map((v, index) => ({
-      address: v.addr,
-      name: v.name,
-      stake: ethers.formatEther(v.stake) + " 01A",
-      commission: Number(v.commission) / 100,
-      subnetId: v.subnetId,
-      uptime: Number(v.uptime) / 100,
-      totalRewards: ethers.formatEther(v.totalRewards) + " 01A",
-      rank: index + 1,
-      status: v.active ? "active" : "inactive"
-    }));
-    
-    res.json({ validators: formattedValidators });
+    res.json({ validators: mockValidators });
   } catch (error) {
     console.error('Error fetching validators:', error);
     res.status(500).json({ error: error.message });
