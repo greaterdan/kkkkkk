@@ -40,6 +40,19 @@ export default function SubnetDetailPage({
         const foundSubnet = subnetsData.find((s) => s.id === id);
         const subnetValidators = validatorsData.filter((v) => v.subnetId === id);
         
+        // Map RealValidator to ApiValidator format
+        const mappedValidators = subnetValidators.map((validator) => ({
+          address: validator.address,
+          name: validator.name,
+          stake: validator.stake,
+          commission: validator.commission,
+          uptime: validator.uptime,
+          totalRewards: validator.totalRewards,
+          subnetId: validator.subnetId,
+          rank: validator.rank,
+          status: validator.active ? 'active' as const : 'inactive' as const
+        }));
+        
         // Generate real miners data based on validators
         const realMiners = subnetValidators.map((validator, index) => ({
           address: validator.address,
@@ -51,7 +64,7 @@ export default function SubnetDetailPage({
         }));
         
         setSubnet(foundSubnet || null);
-        setValidators(subnetValidators);
+        setValidators(mappedValidators);
         setMiners(realMiners);
       } catch (error) {
         console.error('Error fetching subnet data:', error);
@@ -119,7 +132,7 @@ export default function SubnetDetailPage({
                   Embedding: Database,
                   Audio: Headphones,
                 };
-                const IconComponent = taskTypeIcons[subnet.taskType];
+                const IconComponent = taskTypeIcons[subnet.taskType as keyof typeof taskTypeIcons];
                 return <IconComponent className="w-12 h-12 text-white" />;
               })()}
             </div>
