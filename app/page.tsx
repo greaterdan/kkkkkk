@@ -161,7 +161,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-start gap-2 pt-2 font-mono"
           >
-            <Link href="/explorer" target="_blank" rel="noopener noreferrer">
+            <Link href="/explorer">
               <button className="px-4 py-2 border border-primary-gold text-white hover:bg-primary-gold hover:text-black hover:border-primary-gold transition-all text-xs">
                 [EXPLORE_NETWORK]
               </button>
