@@ -1,8 +1,10 @@
-const express = require('express');
-const { ethers } = require('ethers');
-const cors = require('cors');
-const WebSocket = require('ws');
-require('dotenv').config();
+import express from 'express';
+import { ethers } from 'ethers';
+import cors from 'cors';
+import WebSocket from 'ws';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 app.use(cors());
@@ -457,4 +459,7 @@ provider.on('block', async (blockNumber) => {
 });
 
 console.log('✅ WebSocket server ready for real-time updates');
+
+// Export for ES modules
+export default app;
 
