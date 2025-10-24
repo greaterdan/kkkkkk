@@ -125,12 +125,13 @@ export default function BridgePage() {
       setBridgeStatus('error');
       
       // Show user-friendly error messages
-      if (error.message.includes('insufficient funds')) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes('insufficient funds')) {
         alert('Insufficient BNB balance. Please add BNB to your wallet.');
-      } else if (error.message.includes('Insufficient bridge balance')) {
+      } else if (errorMessage.includes('Insufficient bridge balance')) {
         alert('Insufficient balance in bridge. Please deposit BNB first.');
       } else {
-        alert(`Bridge transaction failed: ${error.message}`);
+        alert(`Bridge transaction failed: ${errorMessage}`);
       }
       
       setTimeout(() => setBridgeStatus('idle'), 3000);
