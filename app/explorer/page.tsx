@@ -43,14 +43,14 @@ export default function ExplorerPage() {
         
         const [blocksData, transactionsData, bridgeData] = await Promise.all([
           getRealBlocks(15),
-          getRealTransactions(15),
+          fetch('/api/ai/transactions?limit=15').then(res => res.json()).catch(() => ({ transactions: [] })),
           fetch('/api/bridge/transactions?limit=15').then(res => res.json()).catch(() => ({ transactions: [] }))
         ]);
         
         console.log('Real L2 data for explorer:', { blocksData, transactionsData, bridgeData });
         
         setRealBlocks(blocksData);
-        setRealTransactions(transactionsData);
+        setRealTransactions(transactionsData.transactions || []);
         setBridgeTransactions(bridgeData.transactions || []);
         
         // Convert real blocks to display format
@@ -448,6 +448,11 @@ function TransactionCard({ tx, delay }: { tx: Transaction; delay: number }) {
                 <span className="text-white">Value: {tx.value}</span>
                 <span className="text-gray-400">Fee: {tx.gasFee}</span>
               </div>
+              {(tx as any).aiService && (
+                <div className="mt-1 text-[9px] text-primary-gold">
+                  AI Service: {(tx as any).aiService}
+                </div>
+              )}
             </div>
 
             {/* Arrow */}

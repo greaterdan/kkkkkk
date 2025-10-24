@@ -737,6 +737,50 @@ app.get('/api/ai/stats', async (req, res) => {
   }
 });
 
+// Generate AI transactions for explorer
+app.get('/api/ai/transactions', async (req, res) => {
+  try {
+    const { limit = 20 } = req.query;
+    
+    // Generate realistic AI transactions
+    const transactions = [];
+    const aiServices = [
+      'GPT-4 Inference',
+      'DALL-E 3 Image Generation',
+      'Claude Text Processing',
+      'Whisper Audio Transcription',
+      'Embedding Calculation',
+      'Vision Analysis',
+      'Code Generation',
+      'Language Translation'
+    ];
+    
+    for (let i = 0; i < limit; i++) {
+      const timestamp = Math.floor(Date.now() / 1000) - Math.random() * 3600;
+      const value = Math.floor(Math.random() * 1000000000000000000); // Random value in wei
+      const gasPrice = Math.floor(Math.random() * 1000000000);
+      const gasUsed = Math.floor(Math.random() * 100000);
+      
+      transactions.push({
+        hash: `0x${Math.random().toString(16).slice(2, 66)}`,
+        from: `0x${Math.random().toString(16).slice(2, 42).padEnd(42, '0')}`,
+        to: `0x${Math.random().toString(16).slice(2, 42).padEnd(42, '0')}`,
+        value: `0x${value.toString(16)}`,
+        gasPrice: `0x${gasPrice.toString(16)}`,
+        gasUsed: `0x${gasUsed.toString(16)}`,
+        status: 1,
+        timestamp: timestamp,
+        aiService: aiServices[Math.floor(Math.random() * aiServices.length)]
+      });
+    }
+    
+    res.json({ transactions });
+  } catch (error) {
+    console.error('Error generating AI transactions:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Get bridge transactions
 app.get('/api/bridge/transactions', async (req, res) => {
   try {
