@@ -15,7 +15,7 @@ const navLinks = [
   { href: '/validators', label: 'Validators' },
   { href: '/stake', label: 'Stake' },
   { href: '/tasks', label: 'AI Tasks' },
-  { href: '#', label: 'Docs', external: true },
+  { href: '/docs', label: 'Docs' },
 ];
 
 export function Navbar() {
