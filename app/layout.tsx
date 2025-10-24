@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   title: "01A LABS | AI Layer-2 Terminal",
   description: "Terminal interface for AI Layer-2 blockchain - Decentralized subnets for LLM, Vision, and Embedding tasks",
   keywords: ["01A LABS", "AI", "Layer-2", "BNB Chain", "Blockchain", "Terminal"],
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
