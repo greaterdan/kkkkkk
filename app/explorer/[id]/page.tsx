@@ -144,7 +144,7 @@ export default function DetailPage({ params }: { params: { id: string } }) {
     };
 
     fetchData();
-  }, [id, isTx, isBlock]);
+  }, [id, isTx, isBlock, isAddress]);
 
   if (loading) {
     return (
@@ -716,7 +716,7 @@ export default function DetailPage({ params }: { params: { id: string } }) {
                               <div>
                                 <span className="text-sm text-gray-400 font-mono block mb-1">Topics:</span>
                                 <div className="space-y-1">
-                                  {log.topics.map((topic, topicIdx) => (
+                                  {log.topics.map((topic: string, topicIdx: number) => (
                                     <div key={topicIdx} className="flex items-center gap-2">
                                       <span className="text-xs text-gray-500 font-mono w-8">[{topicIdx}]</span>
                                       <span className="text-white font-mono text-xs break-all">{topic}</span>

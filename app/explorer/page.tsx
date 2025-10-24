@@ -125,7 +125,7 @@ export default function ExplorerPage() {
         }));
         
         setBlocks(displayBlocks);
-        setTransactions(transactionsData.map(tx => ({
+        setTransactions(transactionsData.map((tx: any) => ({
           hash: tx.hash,
           from: tx.from,
           to: tx.to,
