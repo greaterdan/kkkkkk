@@ -105,29 +105,6 @@ export function AddNetworkButton({ isTestnet = false, className = '' }: AddNetwo
             </div>
           </div>
 
-          {/* Explorer Links */}
-          <div className="pt-3 border-t border-white/10">
-            <div className="flex flex-wrap gap-2">
-              <a
-                href={networkConfig.explorer}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 px-3 py-1 text-xs bg-primary-gold/10 border border-primary-gold/30 text-primary-gold hover:bg-primary-gold hover:text-black transition-colors rounded"
-              >
-                <ExternalLink className="w-3 h-3" />
-                View Explorer
-              </a>
-              <a
-                href="https://docs.01a.network"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 px-3 py-1 text-xs bg-white/10 border border-white/30 text-white hover:bg-white hover:text-black transition-colors rounded"
-              >
-                <ExternalLink className="w-3 h-3" />
-                Documentation
-              </a>
-            </div>
-          </div>
         </motion.div>
       )}
     </div>
