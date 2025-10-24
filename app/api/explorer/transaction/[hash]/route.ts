@@ -19,23 +19,38 @@ export async function GET(
       'AI_Request', 'Model_Deploy', 'Inference_Call', 'Data_Upload'
     ];
     
-    const isAITransaction = Math.random() > 0.3;
-    const selectedService = aiServices[Math.floor(Math.random() * aiServices.length)];
-    const selectedMethod = isAITransaction ? 'AI_Request' : methods[Math.floor(Math.random() * methods.length)];
+    // Generate REALISTIC transaction data based on hash
+    const hashSeed = parseInt(hash.slice(2, 10), 16);
+    const isAITransaction = hashSeed % 3 === 0; // 33% AI transactions
+    const selectedService = aiServices[hashSeed % aiServices.length];
+    const selectedMethod = isAITransaction ? 'AI_Request' : methods[hashSeed % methods.length];
+    
+    // Generate realistic addresses based on hash
+    const fromAddress = `0x${hash.slice(2, 42)}`;
+    const toAddress = isAITransaction 
+      ? `0x${(hashSeed + 1).toString(16).padStart(40, '0')}` 
+      : `0x${(hashSeed + 2).toString(16).padStart(40, '0')}`;
+    
+    // Generate realistic values based on hash
+    const value = (hashSeed % 10000 + 100).toFixed(4); // 100 to 10,100 01A
+    const gasPrice = `0x${(hashSeed % 100 + 10).toString(16)}`; // 10-110 Gwei
+    const gasUsed = isAITransaction ? `0x${(hashSeed % 50000 + 100000).toString(16)}` : `0x${(hashSeed % 10000 + 21000).toString(16)}`;
+    const gasLimit = gasUsed;
+    const transactionFee = (parseFloat(value) * 0.001).toFixed(6); // 0.1% of value
     
     const transactionData = {
       hash: hash,
-      status: Math.random() > 0.05 ? 'Success' : 'Failed',
-      blockNumber: Math.floor(Math.random() * 1000000) + 1000000,
-      timestamp: Math.floor(Date.now() / 1000) - Math.random() * 3600,
-      from: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
-      to: isAITransaction ? '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce' : '0x1234567890123456789012345678901234567890',
-      value: (Math.random() * 100).toFixed(4),
-      gasPrice: '0x5d21dba00', // 25 Gwei
-      gasUsed: isAITransaction ? '0x186a0' : '0x5208', // 100,000 for AI, 21,000 for transfer
-      gasLimit: isAITransaction ? '0x186a0' : '0x5208',
-      nonce: Math.floor(Math.random() * 1000),
-      transactionFee: (Math.random() * 0.01).toFixed(6),
+      status: hashSeed % 20 === 0 ? 'Failed' : 'Success', // 5% failure rate
+      blockNumber: hashSeed % 100000 + 1000000, // Block 1M to 1.1M
+      timestamp: Math.floor(Date.now() / 1000) - (hashSeed % 86400), // 0 to 24 hours ago
+      from: fromAddress,
+      to: toAddress,
+      value: value,
+      gasPrice: gasPrice,
+      gasUsed: gasUsed,
+      gasLimit: gasUsed,
+      nonce: hashSeed % 1000,
+      transactionFee: transactionFee,
       aiService: isAITransaction ? selectedService : undefined,
       method: selectedMethod,
       input: isAITransaction 
@@ -77,16 +92,16 @@ export async function GET(
           data: '0x0000000000000000000000000000000000000000000000000de0b6b3a7640000'
         }
       ],
-      internalTransactions: [
+      internalTransactions: hashSeed % 3 === 0 ? [
         {
-          from: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
-          to: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
-          value: '0.001',
-          gas: '21000',
+          from: fromAddress,
+          to: toAddress,
+          value: (hashSeed % 100 + 1).toFixed(6),
+          gas: (hashSeed % 50000 + 21000).toString(),
           type: 'CALL'
         }
-      ],
-      confirmations: Math.floor(Math.random() * 100) + 1
+      ] : [],
+      confirmations: hashSeed % 100 + 1
     };
 
     return NextResponse.json(transactionData);
