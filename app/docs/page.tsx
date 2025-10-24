@@ -936,7 +936,7 @@ function RoadmapSection() {
       <div>
         <h1 className="text-3xl font-black text-white mb-4">[ ROADMAP ]</h1>
         <p className="text-gray-300 text-sm leading-relaxed">
-          The 01A Labs Network roadmap outlines our vision for building the world's most advanced 
+          The 01A Labs Network roadmap outlines our vision for building the world&apos;s most advanced 
           decentralized AI infrastructure.
         </p>
       </div>
@@ -1146,7 +1146,7 @@ function GettingStartedSection() {
       <div>
         <h1 className="text-3xl font-black text-white mb-4">[ GETTING_STARTED ]</h1>
         <p className="text-gray-300 text-sm leading-relaxed">
-          Get started with the 01A Labs Network in just a few simple steps. Whether you're a developer, 
+          Get started with the 01A Labs Network in just a few simple steps. Whether you&apos;re a developer, 
           validator, or user, we have everything you need.
         </p>
       </div>
