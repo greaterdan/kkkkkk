@@ -4,7 +4,8 @@ import { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, TrendingUp, Users, Award, Info, ExternalLink } from 'lucide-react';
 import { GlassCard } from '@/components/GlassCard';
-import { useAccount, useBalance } from 'wagmi';
+import { useAccount, useBalance, useWalletClient } from 'wagmi';
+import { ethers } from 'ethers';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { getRealSubnets } from '@/lib/real-data';
@@ -13,6 +14,7 @@ import { ApiSubnet } from '@/lib/api';
 function StakePageContent() {
   const { address } = useAccount();
   const { data: balance } = useBalance({ address });
+  const { data: walletClient } = useWalletClient();
   const searchParams = useSearchParams();
   
   const [amount, setAmount] = useState('');
@@ -20,6 +22,8 @@ function StakePageContent() {
   const [isStaking, setIsStaking] = useState(false);
   const [subnets, setSubnets] = useState<ApiSubnet[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isValidator, setIsValidator] = useState(false);
+  const [validatorInfo, setValidatorInfo] = useState<any>(null);
 
   // Get subnet from URL params if coming from subnet page
   useEffect(() => {
@@ -45,6 +49,43 @@ function StakePageContent() {
     fetchSubnets();
   }, []);
 
+  // Check if user is already a validator
+  useEffect(() => {
+    const checkValidatorStatus = async () => {
+      if (!address || !walletClient) return;
+
+      try {
+        const provider = new ethers.BrowserProvider(walletClient);
+        const signer = await provider.getSigner();
+        
+        const stakingContract = new ethers.Contract(
+          '0x055491ceb4eC353ceEE6F59CD189Bc8ef799610c',
+          [
+            'function getValidator(address validator) external view returns (address, string memory, uint256, uint256, string memory, bool, uint256, uint256, uint256)'
+          ],
+          signer
+        );
+
+        const validatorData = await stakingContract.getValidator(address);
+        if (validatorData && validatorData[5]) { // active field
+          setIsValidator(true);
+          setValidatorInfo({
+            name: validatorData[1],
+            stake: ethers.formatEther(validatorData[2]),
+            commission: validatorData[3],
+            subnetId: validatorData[4],
+            uptime: validatorData[6],
+            totalRewards: ethers.formatEther(validatorData[7])
+          });
+        }
+      } catch (error) {
+        console.log('Not a validator or contract error:', error.message);
+      }
+    };
+
+    checkValidatorStatus();
+  }, [address, walletClient]);
+
   const minStake = 10000;
 
   const selectedSubnetData = subnets.find((s) => s.id === selectedSubnet);
@@ -54,26 +95,65 @@ function StakePageContent() {
     : '0';
 
   const handleStake = async () => {
-    if (!address || !amount || parseFloat(amount) < minStake) return;
+    if (!address || !amount || parseFloat(amount) < minStake || !walletClient) return;
 
     setIsStaking(true);
 
-    // TODO: Implement actual staking contract interaction
     try {
-      // 1. Approve 01A tokens
-      // await approve(stakingContractAddress, amount);
+      // Connect to BNB Testnet
+      const provider = new ethers.BrowserProvider(walletClient);
+      const signer = await provider.getSigner();
+      
+      // Get the staking contract
+      const stakingContract = new ethers.Contract(
+        '0x055491ceb4eC353ceEE6F59CD189Bc8ef799610c', // ValidatorStaking address
+        [
+          'function registerValidator(string memory name, string memory subnetId, uint256 commission) external payable',
+          'function getValidator(address validator) external view returns (address, string memory, uint256, uint256, string memory, bool, uint256, uint256, uint256)',
+          'function getValidatorCount() external view returns (uint256)'
+        ],
+        signer
+      );
 
-      // 2. Call staking contract
-      // await stakingContract.stake(selectedSubnet, amount, commission);
+      // Get validator name and commission
+      const validatorName = `Validator-${address.slice(0, 6)}`;
+      const commission = 500; // 5% commission in basis points
+      
+      console.log('🚀 Registering validator...');
+      console.log('📝 Name:', validatorName);
+      console.log('🌐 Subnet:', selectedSubnet);
+      console.log('💰 Amount:', amount, '01A');
+      console.log('📊 Commission:', commission / 100, '%');
 
-      // Simulate staking
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-
-      alert('Successfully staked! You are now a validator.');
+      // Register as validator with staking
+      const tx = await stakingContract.registerValidator(
+        validatorName,
+        selectedSubnet,
+        commission,
+        {
+          value: ethers.parseEther(amount)
+        }
+      );
+      
+      console.log('⏳ Transaction sent:', tx.hash);
+      await tx.wait();
+      
+      console.log('✅ Successfully registered as validator!');
+      alert(`Successfully staked ${amount} 01A! You are now a validator on ${selectedSubnet}.`);
       setAmount('');
+      
     } catch (error) {
       console.error('Staking error:', error);
-      alert('Staking failed. Please try again.');
+      
+      if (error.message.includes('insufficient funds')) {
+        alert('Insufficient BNB balance. Please add BNB to your wallet for gas fees.');
+      } else if (error.message.includes('Already registered')) {
+        alert('You are already registered as a validator.');
+      } else if (error.message.includes('Insufficient stake')) {
+        alert(`Minimum stake required is ${minStake} 01A tokens.`);
+      } else {
+        alert(`Staking failed: ${error.message}`);
+      }
     } finally {
       setIsStaking(false);
     }
@@ -98,6 +178,30 @@ function StakePageContent() {
             {'>'} Stake 01A tokens | Secure the network | Earn rewards
           </p>
         </motion.div>
+
+        {/* Validator Status */}
+        {isValidator && validatorInfo && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <GlassCard className="p-4 border border-green-500/30" gradient>
+              <div className="flex items-center gap-3 text-xs font-mono">
+                <div className="w-4 h-4 border border-green-500 flex items-center justify-center">
+                  <span className="text-green-500">✓</span>
+                </div>
+                <div>
+                  <p className="text-green-400 font-bold">YOU ARE A VALIDATOR!</p>
+                  <p className="text-gray-300">
+                    Name: {validatorInfo.name} | Stake: {validatorInfo.stake} 01A | 
+                    Subnet: {validatorInfo.subnetId} | Commission: {validatorInfo.commission / 100}%
+                  </p>
+                </div>
+              </div>
+            </GlassCard>
+          </motion.div>
+        )}
 
         {/* Stats Overview */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -142,7 +246,8 @@ function StakePageContent() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Staking Form */}
-          <div className="lg:col-span-2 space-y-4">
+          {!isValidator ? (
+            <div className="lg:col-span-2 space-y-4">
             <GlassCard className="p-6" gradient>
               <div className="space-y-6 font-mono">
                 <h2 className="text-lg font-bold text-white">[ STAKE_CONFIGURATION ]</h2>
@@ -281,6 +386,41 @@ function StakePageContent() {
               </div>
             </GlassCard>
           </div>
+          ) : (
+            <div className="lg:col-span-2 space-y-4">
+              <GlassCard className="p-6" gradient>
+                <div className="space-y-6 font-mono text-center">
+                  <h2 className="text-lg font-bold text-white">[ VALIDATOR_DASHBOARD ]</h2>
+                  <div className="space-y-4">
+                    <p className="text-green-400 font-bold">✓ You are already a validator!</p>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <p className="text-gray-500">Name:</p>
+                        <p className="text-white">{validatorInfo?.name}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500">Stake:</p>
+                        <p className="text-white">{validatorInfo?.stake} 01A</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500">Subnet:</p>
+                        <p className="text-white">{validatorInfo?.subnetId}</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-500">Commission:</p>
+                        <p className="text-white">{validatorInfo?.commission / 100}%</p>
+                      </div>
+                    </div>
+                    <Link href="/validators">
+                      <button className="w-full px-4 py-2 border border-white text-white hover:bg-white hover:text-black transition-all text-sm">
+                        [VIEW_VALIDATORS]
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </GlassCard>
+            </div>
+          )}
 
           {/* Info Sidebar */}
           <div className="space-y-4">
