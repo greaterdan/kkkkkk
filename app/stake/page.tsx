@@ -79,7 +79,8 @@ function StakePageContent() {
           });
         }
       } catch (error) {
-        console.log('Not a validator or contract error:', error.message);
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        console.log('Not a validator or contract error:', errorMessage);
       }
     };
 
