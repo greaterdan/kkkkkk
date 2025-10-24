@@ -1,4 +1,31 @@
-// SPDX-License-Identifier: MIT
+const { ethers } = require('ethers');
+
+async function deployNewBridge() {
+    // Connect to BNB Testnet
+    const provider = new ethers.JsonRpcProvider('https://data-seed-prebsc-1-s1.binance.org:8545/');
+    const wallet = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80', provider);
+    
+    console.log('📡 Connected to BNB Testnet');
+    console.log('💰 Deployer address:', wallet.address);
+    
+    // Get balance
+    const balance = await provider.getBalance(wallet.address);
+    console.log('💰 Balance:', ethers.formatEther(balance), 'BNB');
+    
+    // Deploy TokenBridge contract
+    console.log('🌉 Deploying TokenBridge...');
+    const bridgeFactory = new ethers.ContractFactory(
+        [
+            'constructor(address _token)',
+            'function bridgeBNBTo01A() external payable',
+            'function bridge01AToBNB(uint256 tokenAmount) external',
+            'function getBridgeBalance(address user) external view returns (uint256)',
+            'function getPendingWithdrawal(address user) external view returns (uint256)',
+            'function getContractBNBBalance() external view returns (uint256)',
+            'function addBNBToBridge() external payable',
+            'function withdrawBNB(uint256 amount) external'
+        ],
+        `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
 interface IERC20 {
@@ -86,4 +113,47 @@ contract TokenBridge {
     function getContractBNBBalance() external view returns (uint256) {
         return address(this).balance;
     }
+}`,
+        wallet
+    );
+    
+    // Deploy with Token01A address
+    const tokenAddress = '0x055491ceb4eC353ceEE6F59CD189Bc8ef799610c';
+    const bridge = await bridgeFactory.deploy(tokenAddress);
+    await bridge.waitForDeployment();
+    
+    const bridgeAddress = await bridge.getAddress();
+    console.log('🌉 TokenBridge deployed to:', bridgeAddress);
+    
+    // Add some BNB to the bridge for testing
+    console.log('💰 Adding 1 BNB to bridge for testing...');
+    await bridge.addBNBToBridge({ value: ethers.parseEther('1') });
+    
+    const bridgeBalance = await bridge.getContractBNBBalance();
+    console.log('💰 Bridge BNB balance:', ethers.formatEther(bridgeBalance), 'BNB');
+    
+    // Update deployment info
+    const fs = require('fs');
+    const deploymentInfo = {
+        network: "BNB Testnet",
+        deployer: wallet.address,
+        contracts: {
+            "Token01A": tokenAddress,
+            "TokenBridge": bridgeAddress,
+            "ValidatorStaking": "0x055491ceb4eC353ceEE6F59CD189Bc8ef799610c",
+            "Bridge": "0x7985466c60A4875300a2A88Cbe50fc262F9be054",
+            "AITaskRegistry": "0xbe813dC65A5132fA8c02B3C32f64758263e69F78"
+        },
+        timestamp: Date.now().toString(),
+        status: "Successfully deployed TokenBridge with 1 BNB for testing"
+    };
+    
+    fs.writeFileSync('./backend/deployment-info.json', JSON.stringify(deploymentInfo, null, 2));
+    console.log('📄 Updated deployment-info.json');
+    
+    console.log('✅ TokenBridge deployment complete!');
+    console.log('🔗 Bridge Address:', bridgeAddress);
+    console.log('🔗 Token Address:', tokenAddress);
 }
+
+deployNewBridge().catch(console.error);

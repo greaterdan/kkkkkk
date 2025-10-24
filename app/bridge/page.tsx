@@ -57,61 +57,60 @@ export default function BridgePage() {
         const signer = await provider.getSigner();
         
         const bridgeContract = new ethers.Contract(
-          '0xC5e9e02A9Df870368D28dC71F50eb0e17A3a9F4c', // Bridge address
+          '0x7985466c60A4875300a2A88Cbe50fc262F9be054', // Actual Bridge address
           [
-            'function bridgeBNBTo01A() external payable',
-            'function get01ABalance(address user) external view returns (uint256)'
+            'function deposit() external payable',
+            'function getBalance(address user) external view returns (uint256)'
           ],
           signer
         );
 
-        const tx = await bridgeContract.bridgeBNBTo01A({
+        // Deposit BNB to bridge
+        const tx = await bridgeContract.deposit({
           value: ethers.parseEther(amount)
         });
         
         await tx.wait();
-        console.log('✅ BNB bridged to 01A tokens on BNB Testnet');
+        console.log('✅ BNB deposited to bridge');
+        
+        // Note: Current bridge contract only records deposits
+        // In a full implementation, this would mint 01A tokens
+        console.log('⚠️ Note: Current bridge contract only records deposits');
+        console.log('📝 For full functionality, the bridge needs to mint 01A tokens');
       } else {
         // Bridge 01A tokens back to BNB
         const provider = new ethers.BrowserProvider(walletClient);
         const signer = await provider.getSigner();
         
-        const tokenContract = new ethers.Contract(
-          '0x28EBd5A87ABA39F5f0D30b0843EaaaF890a785eb', // Token01A address
-          [
-            'function approve(address spender, uint256 amount) external returns (bool)',
-            'function balanceOf(address account) external view returns (uint256)'
-          ],
-          signer
-        );
-
         const bridgeContract = new ethers.Contract(
-          '0xC5e9e02A9Df870368D28dC71F50eb0e17A3a9F4c', // Bridge address
+          '0x7985466c60A4875300a2A88Cbe50fc262F9be054', // Actual Bridge address
           [
-            'function bridge01AToBNB(uint256 tokenAmount) external',
-            'function getBridgeBNBBalance() external view returns (uint256)'
+            'function withdraw(uint256 amount) external',
+            'function getBalance(address user) external view returns (uint256)'
           ],
           signer
         );
 
-        // First approve bridge to spend tokens
-        const approveTx = await tokenContract.approve(
-          '0xC5e9e02A9Df870368D28dC71F50eb0e17A3a9F4c',
-          ethers.parseEther(amount)
-        );
-        await approveTx.wait();
-        console.log('✅ Tokens approved for bridge');
+        // Check balance first
+        const balance = await bridgeContract.getBalance(address);
+        if (balance < ethers.parseEther(amount)) {
+          throw new Error('Insufficient bridge balance');
+        }
 
-        // Then bridge tokens to BNB
-        const bridgeTx = await bridgeContract.bridge01AToBNB(ethers.parseEther(amount));
+        // Withdraw from bridge
+        const bridgeTx = await bridgeContract.withdraw(ethers.parseEther(amount));
         await bridgeTx.wait();
-        console.log('✅ 01A tokens bridged to BNB on BNB Testnet');
+        console.log('✅ BNB withdrawn from bridge');
+        
+        // Note: Current bridge contract only handles BNB deposits/withdrawals
+        console.log('⚠️ Note: Current bridge contract only handles BNB deposits/withdrawals');
+        console.log('📝 For full token bridging, the bridge needs to handle 01A tokens');
       }
 
       // 3. Log bridge transaction with real BNB Testnet contracts
       console.log(`✅ Bridging ${amount} ${fromChain === 'bnb' ? 'BNB' : '01A'} to ${toChain === 'bnb' ? 'BNB' : '01A'} on BNB Testnet`);
-      console.log('📄 01A Token Contract (BNB Testnet):', '0x28EBd5A87ABA39F5f0D30b0843EaaaF890a785eb');
-      console.log('🌉 Bridge Contract (BNB Testnet):', '0xC5e9e02A9Df870368D28dC71F50eb0e17A3a9F4c');
+      console.log('📄 01A Token Contract (BNB Testnet):', '0x055491ceb4eC353ceEE6F59CD189Bc8ef799610c');
+      console.log('🌉 Bridge Contract (BNB Testnet):', '0x7985466c60A4875300a2A88Cbe50fc262F9be054');
 
       // Simulate bridge transaction
       await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -124,6 +123,16 @@ export default function BridgePage() {
     } catch (error) {
       console.error('Bridge error:', error);
       setBridgeStatus('error');
+      
+      // Show user-friendly error messages
+      if (error.message.includes('insufficient funds')) {
+        alert('Insufficient BNB balance. Please add BNB to your wallet.');
+      } else if (error.message.includes('Insufficient bridge balance')) {
+        alert('Insufficient balance in bridge. Please deposit BNB first.');
+      } else {
+        alert(`Bridge transaction failed: ${error.message}`);
+      }
+      
       setTimeout(() => setBridgeStatus('idle'), 3000);
     }
   };
