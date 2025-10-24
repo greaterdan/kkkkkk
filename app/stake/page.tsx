@@ -24,6 +24,7 @@ function StakePageContent() {
   const [loading, setLoading] = useState(true);
   const [isValidator, setIsValidator] = useState(false);
   const [validatorInfo, setValidatorInfo] = useState<any>(null);
+  const [stakingStats, setStakingStats] = useState<any>(null);
 
   // Get subnet from URL params if coming from subnet page
   useEffect(() => {
@@ -47,6 +48,23 @@ function StakePageContent() {
     };
 
     fetchSubnets();
+  }, []);
+
+  // Fetch real staking statistics
+  useEffect(() => {
+    const fetchStakingStats = async () => {
+      try {
+        const response = await fetch('/api/staking/stats');
+        if (response.ok) {
+          const data = await response.json();
+          setStakingStats(data);
+        }
+      } catch (error) {
+        console.error('Error fetching staking stats:', error);
+      }
+    };
+
+    fetchStakingStats();
   }, []);
 
   // Check if user is already a validator
@@ -87,7 +105,7 @@ function StakePageContent() {
     checkValidatorStatus();
   }, [address, walletClient]);
 
-  const minStake = 10000;
+  const minStake = stakingStats?.minStake || 10000;
 
   const selectedSubnetData = subnets.find((s) => s.id === selectedSubnet);
 
@@ -210,17 +228,19 @@ function StakePageContent() {
           <GlassCard className="p-3" delay={0}>
             <div className="space-y-1 font-mono">
               <Shield className="w-4 h-4 text-white mb-1" />
-              <p className="text-[10px] text-gray-500 uppercase">MIN_STAKE</p>
-              <p className="text-lg font-bold text-white">{minStake.toLocaleString()} 01A</p>
+              <p className="text-[10px] text-gray-500 uppercase">TOTAL_STAKED</p>
+              <p className="text-lg font-bold text-white">
+                {stakingStats?.totalStaked?.toLocaleString() || '0'} 01A
+              </p>
             </div>
           </GlassCard>
 
           <GlassCard className="p-3" delay={0.05}>
             <div className="space-y-1 font-mono">
               <TrendingUp className="w-4 h-4 text-white mb-1" />
-              <p className="text-[10px] text-gray-500 uppercase">AVG_APY</p>
+              <p className="text-[10px] text-gray-500 uppercase">APY</p>
               <p className="text-lg font-bold text-white">
-                {(subnets.reduce((acc, s) => acc + s.apy, 0) / subnets.length).toFixed(1)}%
+                {stakingStats?.apy || '0.0'}%
               </p>
             </div>
           </GlassCard>
@@ -228,9 +248,9 @@ function StakePageContent() {
           <GlassCard className="p-3" delay={0.1}>
             <div className="space-y-1 font-mono">
               <Users className="w-4 h-4 text-white mb-1" />
-              <p className="text-[10px] text-gray-500 uppercase">TOTAL_VALIDATORS</p>
+              <p className="text-[10px] text-gray-500 uppercase">VALIDATORS</p>
               <p className="text-lg font-bold text-white">
-                {subnets.reduce((acc, s) => acc + s.validatorCount, 0)}
+                {stakingStats?.totalValidators || '0'}
               </p>
             </div>
           </GlassCard>
@@ -238,9 +258,9 @@ function StakePageContent() {
           <GlassCard className="p-3" delay={0.15}>
             <div className="space-y-1 font-mono">
               <Award className="w-4 h-4 text-white mb-1" />
-              <p className="text-[10px] text-gray-500 uppercase">YOUR_BALANCE</p>
+              <p className="text-[10px] text-gray-500 uppercase">EPOCH_REWARD</p>
               <p className="text-lg font-bold text-white">
-                {balance ? parseFloat(balance.formatted).toFixed(2) : '0.00'}
+                {stakingStats?.epochReward?.toLocaleString() || '0'} 01A
               </p>
             </div>
           </GlassCard>
