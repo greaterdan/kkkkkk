@@ -486,25 +486,27 @@ export default function DetailPage({ params }: { params: { id: string } }) {
                         </div>
                       </div>
 
-                      <div className="p-4 bg-black/20 rounded border border-white/10">
-                        <h4 className="text-sm font-bold text-white font-mono mb-3">Contract Info</h4>
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-400 font-mono text-sm">Contract Name:</span>
-                            <span className="text-white font-mono text-sm">{addressData.contractInfo.name}</span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-400 font-mono text-sm">Compiler:</span>
-                            <span className="text-white font-mono text-sm">{addressData.contractInfo.compiler}</span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-400 font-mono text-sm">Verified:</span>
-                            <span className={`font-mono text-sm ${addressData.contractInfo.verified ? 'text-green-400' : 'text-red-400'}`}>
-                              {addressData.contractInfo.verified ? 'Yes' : 'No'}
-                            </span>
+                      {addressData.contractInfo && (
+                        <div className="p-4 bg-black/20 rounded border border-white/10">
+                          <h4 className="text-sm font-bold text-white font-mono mb-3">Contract Info</h4>
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-400 font-mono text-sm">Contract Name:</span>
+                              <span className="text-white font-mono text-sm">{addressData.contractInfo.name}</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-400 font-mono text-sm">Compiler:</span>
+                              <span className="text-white font-mono text-sm">{addressData.contractInfo.compiler}</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-400 font-mono text-sm">Verified:</span>
+                              <span className={`font-mono text-sm ${addressData.contractInfo.verified ? 'text-green-400' : 'text-red-400'}`}>
+                                {addressData.contractInfo.verified ? 'Yes' : 'No'}
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 )}
