@@ -109,11 +109,11 @@ function OverviewSection() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="p-4 border border-white/20 bg-white/5">
           <h3 className="text-lg font-bold text-white mb-2">Performance</h3>
-          <p className="text-gray-300 text-xs">100x faster than Ethereum for AI workloads</p>
+          <p className="text-gray-300 text-xs">44x faster than Ethereum for AI workloads</p>
         </div>
         <div className="p-4 border border-white/20 bg-white/5">
           <h3 className="text-lg font-bold text-white mb-2">Cost</h3>
-          <p className="text-gray-300 text-xs">99% cheaper than traditional cloud AI services</p>
+          <p className="text-gray-300 text-xs">65% cheaper than traditional cloud AI services</p>
         </div>
         <div className="p-4 border border-white/20 bg-white/5">
           <h3 className="text-lg font-bold text-white mb-2">Scalability</h3>
@@ -1073,7 +1073,7 @@ function ComparisonSection() {
               <h3 className="font-bold text-primary-gold mb-3">01A Labs Network</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• AI-native architecture</li>
-                <li>• 100x faster for AI workloads</li>
+                <li>• 44x faster for AI workloads</li>
                 <li>• Specialized AI subnets</li>
                 <li>• Decentralized AI services</li>
                 <li>• Token-based pricing</li>
@@ -1099,7 +1099,7 @@ function ComparisonSection() {
               <h3 className="font-bold text-primary-gold mb-3">01A Labs Network</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• Decentralized infrastructure</li>
-                <li>• 99% cost reduction</li>
+                <li>• 65% cost reduction</li>
                 <li>• No vendor lock-in</li>
                 <li>• Global accessibility</li>
                 <li>• Transparent pricing</li>
@@ -1123,11 +1123,11 @@ function ComparisonSection() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
               <h3 className="font-bold text-primary-gold mb-2">Speed</h3>
-              <p className="text-gray-300 text-sm">100x faster than Ethereum</p>
+              <p className="text-gray-300 text-sm">44x faster than Ethereum</p>
             </div>
             <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
               <h3 className="font-bold text-primary-gold mb-2">Cost</h3>
-              <p className="text-gray-300 text-sm">99% cheaper than cloud AI</p>
+              <p className="text-gray-300 text-sm">65% cheaper than cloud AI</p>
             </div>
             <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
               <h3 className="font-bold text-primary-gold mb-2">Scalability</h3>
