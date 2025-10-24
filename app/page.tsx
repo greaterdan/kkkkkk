@@ -49,9 +49,62 @@ export default function Home() {
   const [realTxCount, setRealTxCount] = useState<number>(0);
   const [isMining, setIsMining] = useState(false);
   const [lastBlockTime, setLastBlockTime] = useState<number>(Date.now());
+  const [blockProductionData, setBlockProductionData] = useState<any[]>([]);
+  
+  // Network statistics - same as explorer
+  const [networkStats, setNetworkStats] = useState({
+    totalBlocks: 0,
+    totalTxns: 0,
+    gasTracker: 0.08,
+    avgBlockTime: 3,
+    addresses: 0,
+    txns24h: 0
+  });
 
   // Use real-time data hook
   const { blocks, transactions, validators, stats } = useRealTimeData();
+
+  // Network statistics fetching - same as explorer
+  useEffect(() => {
+    const fetchNetworkStats = async () => {
+      try {
+        const response = await fetch('/api/explorer/network-stats');
+        if (response.ok) {
+          const data = await response.json();
+          setNetworkStats(data);
+        }
+      } catch (error) {
+        console.error('Error fetching network stats:', error);
+      }
+    };
+
+    fetchNetworkStats();
+    
+    // Update network stats every 5 seconds
+    const interval = setInterval(fetchNetworkStats, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Block production data fetching
+  useEffect(() => {
+    const fetchBlockProduction = async () => {
+      try {
+        const response = await fetch('/api/explorer/block-production');
+        if (response.ok) {
+          const data = await response.json();
+          setBlockProductionData(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching block production data:', error);
+      }
+    };
+
+    fetchBlockProduction();
+    
+    // Update block production every 30 seconds
+    const interval = setInterval(fetchBlockProduction, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const fetchRealData = async () => {
@@ -195,7 +248,7 @@ export default function Home() {
             />
             <MetricCard
               title="Block Height"
-              value={realStats?.blockHeight?.toLocaleString() || '0'}
+              value={networkStats?.totalBlocks?.toLocaleString() || '0'}
               icon={Box}
               change={isMining ? "⛏️ Mining..." : "L2 Network"}
               changeType={isMining ? "positive" : "neutral"}
@@ -203,7 +256,7 @@ export default function Home() {
             />
             <MetricCard
               title="Transactions Processed"
-              value={realTxCount?.toLocaleString() || '0'}
+              value={networkStats?.totalTxns?.toLocaleString() || '0'}
               icon={Activity}
               change="L2 Network Txs"
               changeType="positive"
@@ -249,7 +302,7 @@ export default function Home() {
                   [ TOTAL_TX ]
                 </span>
                 <div className="text-2xl font-bold text-white">
-                  {realTxCount?.toLocaleString() || '0'}
+                  {networkStats?.totalTxns?.toLocaleString() || '0'}
                 </div>
               </div>
             </div>
@@ -266,10 +319,10 @@ export default function Home() {
               [ DAILY_BLOCK_PRODUCTION ]
             </h3>
             <ResponsiveContainer width="100%" height={200}>
-              <LineChart data={blockData}>
+              <LineChart data={blockProductionData.length > 0 ? blockProductionData : blockData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                 <XAxis
-                  dataKey="date"
+                  dataKey="time"
                   stroke="rgba(255,255,255,0.5)"
                   style={{ fontSize: '12px' }}
                 />
@@ -282,6 +335,10 @@ export default function Home() {
                     backdropFilter: 'blur(20px)',
                   }}
                   labelStyle={{ color: '#fff' }}
+                  formatter={(value: any, name: string) => [
+                    `${value} blocks`,
+                    'Block Production'
+                  ]}
                 />
                 <Line
                   type="monotone"
@@ -289,6 +346,7 @@ export default function Home() {
                   stroke="#ffffff"
                   strokeWidth={2}
                   dot={false}
+                  activeDot={{ r: 4, stroke: '#ffffff', strokeWidth: 2 }}
                 />
               </LineChart>
             </ResponsiveContainer>

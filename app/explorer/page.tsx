@@ -35,6 +35,66 @@ export default function ExplorerPage() {
   const [realTransactions, setRealTransactions] = useState<RealTransaction[]>([]);
   const [bridgeTransactions, setBridgeTransactions] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Real-time transaction counting
+  const [timeFilter, setTimeFilter] = useState<'1h' | '5m' | '24h' | '7d'>('24h');
+  const [liveTxCount, setLiveTxCount] = useState(0);
+  const [txRate, setTxRate] = useState(0);
+  
+  // Network statistics
+  const [networkStats, setNetworkStats] = useState({
+    totalBlocks: 0,
+    totalTxns: 0,
+    gasTracker: 0.08,
+    avgBlockTime: 3,
+    addresses: 247,
+    txns24h: 0
+  });
+
+  // Real-time transaction counting - always running
+  useEffect(() => {
+    const fetchLiveTransactionData = async () => {
+      try {
+        const response = await fetch(`/api/explorer/live-transactions?filter=${timeFilter}`);
+        if (response.ok) {
+          const data = await response.json();
+          setChartData(data.data);
+          setLiveTxCount(data.totalTxns);
+          setTxRate(data.txRate);
+        }
+      } catch (error) {
+        console.error('Error fetching live transaction data:', error);
+      }
+    };
+
+    fetchLiveTransactionData();
+    
+    // Update every 3 seconds continuously
+    const interval = setInterval(fetchLiveTransactionData, 3000);
+
+    return () => clearInterval(interval);
+  }, [timeFilter]);
+
+  // Network statistics fetching
+  useEffect(() => {
+    const fetchNetworkStats = async () => {
+      try {
+        const response = await fetch('/api/explorer/network-stats');
+        if (response.ok) {
+          const data = await response.json();
+          setNetworkStats(data);
+        }
+      } catch (error) {
+        console.error('Error fetching network stats:', error);
+      }
+    };
+
+    fetchNetworkStats();
+    
+    // Update network stats every 5 seconds
+    const interval = setInterval(fetchNetworkStats, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const fetchRealData = async () => {
@@ -103,12 +163,13 @@ export default function ExplorerPage() {
     return () => clearInterval(interval);
   }, []);
 
-  // Calculate metrics from real L2 data
-  const totalBlocks = realBlocks.length > 0 ? realBlocks[0].number : 0;
-  const totalTxns = realTransactions.length;
-  const avgBlockTime = 3.0; // L2 block time
-  const gasTracker = 0.08;
-  const totalAddresses = 247;
+  // Use real network statistics
+  const totalBlocks = networkStats.totalBlocks;
+  const totalTxns = networkStats.totalTxns;
+  const avgBlockTime = networkStats.avgBlockTime;
+  const gasTracker = networkStats.gasTracker;
+  const totalAddresses = networkStats.addresses;
+  const txns24h = networkStats.txns24h;
 
   return (
     <div className="min-h-screen pt-20 pb-12 px-4">
@@ -197,23 +258,71 @@ export default function ExplorerPage() {
                 <TrendingUp className="w-3.5 h-3.5 text-white" />
                 <span className="text-[10px] text-gray-500 uppercase">24H_TXNS</span>
               </div>
-              <p className="text-lg font-bold text-white">{chartData[chartData.length - 1]?.txns.toLocaleString() || '0'}</p>
+              <p className="text-lg font-bold text-white">{txns24h.toLocaleString()}</p>
             </div>
           </GlassCard>
         </div>
 
-        {/* Daily Transaction Chart - Full Width */}
+        {/* Real-time Transaction Chart - Full Width */}
         <GlassCard className="p-4" gradient>
-          <div className="space-y-2 font-mono">
-            <div className="flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-white" />
-              <h3 className="text-sm font-bold text-white">[ DAILY_TRANSACTIONS ]</h3>
+          <div className="space-y-4 font-mono">
+            {/* Header with controls */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-white" />
+                <h3 className="text-sm font-bold text-white">[ LIVE_TRANSACTIONS ]</h3>
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-green-400">LIVE</span>
+                </div>
+              </div>
+              
+              {/* Time filter buttons */}
+              <div className="flex gap-1">
+                {(['5m', '1h', '24h', '7d'] as const).map((filter) => (
+                  <button
+                    key={filter}
+                    onClick={() => setTimeFilter(filter)}
+                    className={`px-2 py-1 text-xs font-mono transition-all ${
+                      timeFilter === filter
+                        ? 'bg-white text-black'
+                        : 'text-gray-400 hover:text-white border border-white/20 hover:border-white/40'
+                    }`}
+                  >
+                    {filter}
+                  </button>
+                ))}
+              </div>
             </div>
-            <ResponsiveContainer width="100%" height={120}>
+
+            {/* Live stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-3 bg-black/20 rounded border border-white/10">
+                <div className="text-xs text-gray-400 font-mono mb-1">Total Transactions</div>
+                <div className="text-lg font-bold text-white font-mono">
+                  {liveTxCount.toLocaleString()}
+                </div>
+              </div>
+              <div className="p-3 bg-black/20 rounded border border-white/10">
+                <div className="text-xs text-gray-400 font-mono mb-1">Rate ({timeFilter})</div>
+                <div className="text-lg font-bold text-white font-mono">
+                  {txRate.toFixed(1)}/hr
+                </div>
+              </div>
+              <div className="p-3 bg-black/20 rounded border border-white/10">
+                <div className="text-xs text-gray-400 font-mono mb-1">Status</div>
+                <div className="text-lg font-bold text-green-400 font-mono">
+                  ACTIVE
+                </div>
+              </div>
+            </div>
+
+            {/* Chart */}
+            <ResponsiveContainer width="100%" height={200}>
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                 <XAxis
-                  dataKey="day"
+                  dataKey="time"
                   stroke="rgba(255,255,255,0.3)"
                   fontSize={9}
                   tickLine={false}
@@ -233,16 +342,32 @@ export default function ExplorerPage() {
                     backdropFilter: 'blur(20px)',
                   }}
                   labelStyle={{ color: '#fff', fontSize: '10px' }}
+                  formatter={(value: any, name: string) => [
+                    `${value} transactions`,
+                    'Count'
+                  ]}
                 />
                 <Line
                   type="monotone"
                   dataKey="txns"
                   stroke="#ffffff"
-                  strokeWidth={1.5}
-                  dot={false}
+                  strokeWidth={2}
+                  dot={{ fill: '#ffffff', strokeWidth: 2, r: 3 }}
+                  activeDot={{ r: 5, stroke: '#ffffff', strokeWidth: 2 }}
                 />
               </LineChart>
             </ResponsiveContainer>
+
+            {/* Live status */}
+            <div className="flex items-center justify-between">
+              <div className="text-xs text-gray-400 font-mono">
+                Last updated: <span suppressHydrationWarning>{new Date().toLocaleTimeString()}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-xs text-green-400 font-mono">LIVE</span>
+              </div>
+            </div>
           </div>
         </GlassCard>
 
