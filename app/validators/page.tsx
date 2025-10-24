@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Users, TrendingUp, Award, Shield, Trophy, Star } from 'lucide-react';
 import { GlassCard } from '@/components/GlassCard';
 import { Button } from '@/components/Button';
+import { ValidatorChat } from '@/components/ValidatorChat';
 import { generateMockValidators } from '@/lib/mock-data';
 import { getRealValidators } from '@/lib/real-data';
 import { useState, useEffect } from 'react';
@@ -209,121 +210,136 @@ export default function ValidatorsPage() {
           </div>
         </div>
 
-        {/* Validators Table */}
-        <GlassCard gradient>
-          <div className="overflow-x-auto font-mono">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-white/10">
-                  <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
-                    RANK
-                  </th>
-                  <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
-                    VALIDATOR
-                  </th>
-                  <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
-                    SUBNET
-                  </th>
-                  <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
-                    LOCATION
-                  </th>
-                  <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
-                    STAKE
-                  </th>
-                  <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
-                    COMMISSION
-                  </th>
-                  <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
-                    UPTIME
-                  </th>
-                  <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
-                    REWARDS
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {isLoading ? (
-                  <tr>
-                    <td colSpan={8} className="py-8 text-center text-gray-400 font-mono">
-                      Loading real validators from L2 network...
-                    </td>
-                  </tr>
-                ) : sortedValidators.length > 0 ? (
-                  sortedValidators.map((validator, idx) => (
-                  <motion.tr
-                    key={`${validator.address}-${idx}`}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.02 }}
-                    className="border-b border-white/5 hover:bg-white/5 transition-colors"
-                  >
-                    <td className="py-2 px-3">
-                      <div className="flex items-center gap-1">
-                        {idx < 3 && (
-                          <Star className="w-3 h-3 text-primary-gold fill-primary-gold" />
-                        )}
-                        <span className={`font-bold text-xs ${idx === 0 ? 'text-primary-gold' : 'text-white'}`}>
-                          #{validator.rank}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="py-2 px-3">
-                      <div>
-                        <p className="text-white font-bold text-xs">{validator.name}</p>
-                        <p className="text-[10px] text-gray-400 mt-0.5">
-                          {validator.address}
-                        </p>
-                      </div>
-                    </td>
-                    <td className="py-2 px-3">
-                      <span className="inline-block px-2 py-0.5 border border-white/30 text-[10px] font-medium text-white">
-                        {validator.subnetId}
-                      </span>
-                    </td>
-                    <td className="py-2 px-3">
-                      <span className="text-gray-300 text-xs font-mono">
-                        {validator.location}
-                      </span>
-                    </td>
-                    <td className="py-2 px-3">
-                      <span className="text-white font-bold text-xs">{validator.stake}</span>
-                    </td>
-                    <td className="py-2 px-3">
-                      <span className="text-gray-300 text-xs">
-                        {validator.commission.toFixed(1)}%
-                      </span>
-                    </td>
-                    <td className="py-2 px-3">
-                      <div className="flex items-center gap-2">
-                        <div className="flex-1 h-1.5 bg-white/10 overflow-hidden">
-                          <div
-                            className="h-full bg-white"
-                            style={{ width: `${validator.uptime}%` }}
-                          />
-                        </div>
-                        <span className="text-[10px] text-white font-medium">
-                          {validator.uptime.toFixed(1)}%
-                        </span>
-                      </div>
-                    </td>
-                    <td className="py-2 px-3">
-                      <span className="text-white font-bold text-xs">
-                        {validator.totalRewards}
-                      </span>
-                    </td>
-                  </motion.tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={8} className="py-8 text-center text-gray-400 font-mono">
-                      No validators found
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Validators Table */}
+          <div className="lg:col-span-2">
+            <GlassCard className="h-[600px]" gradient>
+              <div className="h-full flex flex-col">
+                <div className="flex-1 overflow-x-auto font-mono">
+                  <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-white/10">
+                      <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
+                        RANK
+                      </th>
+                      <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
+                        VALIDATOR
+                      </th>
+                      <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
+                        SUBNET
+                      </th>
+                      <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
+                        LOCATION
+                      </th>
+                      <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
+                        STAKE
+                      </th>
+                      <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
+                        COMMISSION
+                      </th>
+                      <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
+                        UPTIME
+                      </th>
+                      <th className="text-left py-2 px-3 text-[10px] text-gray-500 font-medium uppercase tracking-wider">
+                        REWARDS
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {isLoading ? (
+                      <tr>
+                        <td colSpan={8} className="py-8 text-center text-gray-400 font-mono">
+                          Loading real validators from L2 network...
+                        </td>
+                      </tr>
+                    ) : sortedValidators.length > 0 ? (
+                      sortedValidators.map((validator, idx) => (
+                      <motion.tr
+                        key={`${validator.address}-${idx}`}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.02 }}
+                        className="border-b border-white/5 hover:bg-white/5 transition-colors"
+                      >
+                        <td className="py-2 px-3">
+                          <div className="flex items-center gap-1">
+                            {idx < 3 && (
+                              <Star className="w-3 h-3 text-primary-gold fill-primary-gold" />
+                            )}
+                            <span className={`font-bold text-xs ${idx === 0 ? 'text-primary-gold' : 'text-white'}`}>
+                              #{validator.rank}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="py-2 px-3">
+                          <div>
+                            <p className="text-white font-bold text-xs">{validator.name}</p>
+                            <p className="text-[10px] text-gray-400 mt-0.5">
+                              {validator.address}
+                            </p>
+                          </div>
+                        </td>
+                        <td className="py-2 px-3">
+                          <span className="inline-block px-2 py-0.5 border border-white/30 text-[10px] font-medium text-white">
+                            {validator.subnetId}
+                          </span>
+                        </td>
+                        <td className="py-2 px-3">
+                          <span className="text-gray-300 text-xs font-mono">
+                            {validator.location}
+                          </span>
+                        </td>
+                        <td className="py-2 px-3">
+                          <span className="text-white font-bold text-xs">{validator.stake}</span>
+                        </td>
+                        <td className="py-2 px-3">
+                          <span className="text-gray-300 text-xs">
+                            {validator.commission.toFixed(1)}%
+                          </span>
+                        </td>
+                        <td className="py-2 px-3">
+                          <div className="flex items-center gap-2">
+                            <div className="flex-1 h-1.5 bg-white/10 overflow-hidden">
+                              <div
+                                className="h-full bg-white"
+                                style={{ width: `${validator.uptime}%` }}
+                              />
+                            </div>
+                            <span className="text-[10px] text-white font-medium">
+                              {validator.uptime.toFixed(1)}%
+                            </span>
+                          </div>
+                        </td>
+                        <td className="py-2 px-3">
+                          <span className="text-white font-bold text-xs">
+                            {validator.totalRewards}
+                          </span>
+                        </td>
+                      </motion.tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={8} className="py-8 text-center text-gray-400 font-mono">
+                          No validators found
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+                </div>
+              </div>
+            </GlassCard>
           </div>
-        </GlassCard>
+
+          {/* Validator Chat */}
+          <div className="lg:col-span-1">
+            <ValidatorChat 
+              validatorData={allValidators} 
+              transactionData={[]} 
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

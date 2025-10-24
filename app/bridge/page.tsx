@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, ArrowRight, Info, ExternalLink, CheckCircle, Clock } from 'lucide-react';
 import { GlassCard } from '@/components/GlassCard';
+import { AddNetworkButton } from '@/components/AddNetworkButton';
 import { useAccount, useBalance, useSwitchChain, useWalletClient } from 'wagmi';
 import { bsc, bscTestnet } from 'wagmi/chains';
 import { ethers } from 'ethers';
@@ -309,13 +310,33 @@ export default function BridgePage() {
           </GlassCard>
         </motion.div>
 
+        {/* Add 01A Network to MetaMask */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <GlassCard className="p-6" gradient>
+            <div className="space-y-4 font-mono">
+              <div className="flex items-center gap-2 text-white">
+                <ExternalLink className="w-4 h-4 text-primary-gold" />
+                <h3 className="text-sm font-bold">[ ADD_01A_NETWORK_TO_METAMASK ]</h3>
+              </div>
+              <p className="text-xs text-gray-400">
+                Follow the manual setup instructions below to add the 01A Labs Network to your MetaMask wallet
+              </p>
+              <AddNetworkButton isTestnet={false} />
+            </div>
+          </GlassCard>
+        </motion.div>
+
         {/* Info Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* How it Works */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.3 }}
           >
             <GlassCard className="p-4 h-full">
               <div className="space-y-3 font-mono">
@@ -353,7 +374,7 @@ export default function BridgePage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.4 }}
           >
             <GlassCard className="p-4 h-full">
               <div className="space-y-3 font-mono">
