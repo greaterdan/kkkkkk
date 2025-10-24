@@ -146,14 +146,15 @@ function StakePageContent() {
     } catch (error) {
       console.error('Staking error:', error);
       
-      if (error.message.includes('insufficient funds')) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes('insufficient funds')) {
         alert('Insufficient BNB balance. Please add BNB to your wallet for gas fees.');
-      } else if (error.message.includes('Already registered')) {
+      } else if (errorMessage.includes('Already registered')) {
         alert('You are already registered as a validator.');
-      } else if (error.message.includes('Insufficient stake')) {
+      } else if (errorMessage.includes('Insufficient stake')) {
         alert(`Minimum stake required is ${minStake} 01A tokens.`);
       } else {
-        alert(`Staking failed: ${error.message}`);
+        alert(`Staking failed: ${errorMessage}`);
       }
     } finally {
       setIsStaking(false);
