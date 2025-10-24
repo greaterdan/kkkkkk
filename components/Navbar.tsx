@@ -60,8 +60,8 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                target={link.external ? '_blank' : undefined}
-                rel={link.external ? 'noopener noreferrer' : undefined}
+                target={(link as any).external ? '_blank' : undefined}
+                rel={(link as any).external ? 'noopener noreferrer' : undefined}
                 className={cn(
                   'px-3 py-1.5 rounded-none text-xs font-medium transition-all duration-200',
                   pathname === link.href
@@ -178,8 +178,8 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  target={link.external ? '_blank' : undefined}
-                  rel={link.external ? 'noopener noreferrer' : undefined}
+                  target={(link as any).external ? '_blank' : undefined}
+                  rel={(link as any).external ? 'noopener noreferrer' : undefined}
                   onClick={() => setIsOpen(false)}
                   className={cn(
                     'block px-4 py-3 rounded-lg text-base font-medium transition-all',
