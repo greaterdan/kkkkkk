@@ -34,7 +34,7 @@ export default function TasksPage() {
     {
       id: 'llm' as TaskType,
       name: 'LLM Inference',
-      icon: '🤖',
+      icon: '',
       description: 'Text generation, completion, chat',
       costPer1k: '0.002 01A',
       avgTime: '~5s',
@@ -42,7 +42,7 @@ export default function TasksPage() {
     {
       id: 'vision' as TaskType,
       name: 'Vision',
-      icon: '👁️',
+      icon: '',
       description: 'Image classification, detection, segmentation',
       costPer1k: '0.005 01A',
       avgTime: '~10s',
@@ -50,7 +50,7 @@ export default function TasksPage() {
     {
       id: 'embedding' as TaskType,
       name: 'Embeddings',
-      icon: '🔢',
+      icon: '',
       description: 'Text/image embeddings for RAG',
       costPer1k: '0.001 01A',
       avgTime: '~2s',
@@ -58,7 +58,7 @@ export default function TasksPage() {
     {
       id: 'audio' as TaskType,
       name: 'Audio',
-      icon: '🎵',
+      icon: '',
       description: 'Transcription, generation, TTS',
       costPer1k: '0.003 01A',
       avgTime: '~7s',
@@ -214,7 +214,6 @@ export default function TasksPage() {
                             : 'border-white/20 hover:border-white/40'
                         }`}
                       >
-                        <div className="text-2xl mb-2">{task.icon}</div>
                         <p className="text-xs font-bold text-white">{task.name}</p>
                         <p className="text-[10px] text-gray-400 mt-1">{task.avgTime}</p>
                       </button>
@@ -360,7 +359,6 @@ export default function TasksPage() {
                       className="flex items-center justify-between p-2 border border-white/10"
                     >
                       <div className="flex items-center gap-2">
-                        <span>{task.icon}</span>
                         <span className="text-[10px] text-white">{task.name}</span>
                       </div>
                       <span className="text-[10px] text-gray-400">{task.costPer1k}/1K</span>
