@@ -316,7 +316,7 @@ function AIIntegrationSection() {
               <span className="text-green-400 text-lg">✓</span>
               <div>
                 <h3 className="font-bold text-white">Real AI Task Generation</h3>
-                <p className="text-gray-300 text-sm">Dynamic AI task creation that "makes the network better" using ChatGPT API</p>
+                <p className="text-gray-300 text-sm">Dynamic AI task creation that &quot;makes the network better&quot; using ChatGPT API</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
