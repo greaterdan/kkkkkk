@@ -243,7 +243,7 @@ export default function KMeansChart({ subnetTasks = [] }: KMeansChartProps) {
 
   return (
     <motion.div
-      className="relative bg-black/80 backdrop-blur-md rounded-lg border border-orange-500/50 p-4"
+      className="relative bg-black/80 backdrop-blur-md rounded-lg border border-[#0201ff]/50 p-4"
       initial={{ opacity: 0, x: 20 }}
       whileInView={{ opacity: 1, x: 0 }}
       onViewportEnter={() => setIsVisible(true)}
@@ -261,10 +261,10 @@ export default function KMeansChart({ subnetTasks = [] }: KMeansChartProps) {
       
       {/* Legend - Below Chart */}
       <div className="mt-3 flex justify-center">
-        <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 border border-orange-500/20">
+        <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 border border-[#0201ff]/20">
           <div className="flex gap-6">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-orange-400 rounded-full shadow-lg shadow-orange-500/30"></div>
+              <div className="w-3 h-3 bg-gradient-to-r from-[#0201ff] to-[#0100cc] rounded-full shadow-lg shadow-[#0201ff]/30"></div>
               <span className="text-xs text-white font-medium">Processing</span>
             </div>
             <div className="flex items-center gap-2">
@@ -272,8 +272,8 @@ export default function KMeansChart({ subnetTasks = [] }: KMeansChartProps) {
               <span className="text-xs text-white font-medium">Completed</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 border-2 border-orange-500 rounded-full flex items-center justify-center">
-                <div className="w-1 h-1 bg-orange-500 rounded-full animate-pulse"></div>
+              <div className="w-3 h-3 border-2 border-[#0201ff] rounded-full flex items-center justify-center">
+                <div className="w-1 h-1 bg-[#0201ff] rounded-full animate-pulse"></div>
               </div>
               <span className="text-xs text-white font-medium">Centroids</span>
             </div>

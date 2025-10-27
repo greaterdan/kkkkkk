@@ -179,7 +179,7 @@ export default function LinearRegressionChart({ subnetTasks = [] }: LinearRegres
 
   return (
     <motion.div
-      className="relative bg-black/80 backdrop-blur-md rounded-lg border border-orange-500/50 p-4"
+      className="relative bg-black/80 backdrop-blur-md rounded-lg border border-[#0201ff]/50 p-4"
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       onViewportEnter={() => setIsVisible(true)}
@@ -197,7 +197,7 @@ export default function LinearRegressionChart({ subnetTasks = [] }: LinearRegres
         {/* Legend */}
         <div className="absolute top-2 right-2 flex flex-col gap-1">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+            <div className="w-3 h-3 bg-[#0201ff] rounded-full"></div>
             <span className="text-xs text-gray-300">Task Progress</span>
           </div>
           <div className="flex items-center gap-2">

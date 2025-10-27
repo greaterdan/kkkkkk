@@ -398,8 +398,8 @@ export default function DetailPage({ params }: { params: { id: string } }) {
                 {isAddress && addressData && (
                   <div className="space-y-4">
                     {/* Address Information */}
-                    <div className="p-4 bg-gradient-to-r from-orange-900/20 to-amber-900/20 rounded border border-orange-500/20">
-                      <h4 className="text-sm font-bold text-orange-200 font-mono mb-3">Address Information</h4>
+                    <div className="p-4 bg-gradient-to-r from-[#0201ff]/20 to-[#0100cc]/20 rounded border border-[#0201ff]/20">
+                      <h4 className="text-sm font-bold text-[#0201ff] font-mono mb-3">Address Information</h4>
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="text-gray-400 font-mono text-sm">Address:</span>
