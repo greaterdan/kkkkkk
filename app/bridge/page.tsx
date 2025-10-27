@@ -104,7 +104,7 @@ export default function BridgePage() {
         console.log('✅ ETH withdrawn from bridge');
         
         // Note: Current bridge contract only handles ETH deposits/withdrawals
-        console.log('⚠️ Note: Current bridge contract only handles BNB deposits/withdrawals');
+        console.log('⚠️ Note: Current bridge contract only handles ETH deposits/withdrawals');
         console.log('📝 For full token bridging, the bridge needs to handle 01A tokens');
       }
 
@@ -193,7 +193,7 @@ export default function BridgePage() {
                           {fromChain === 'eth' ? 'Base Sepolia' : '01A LABS Network'}
                         </p>
                         <p className="text-[10px] text-gray-400">
-                          {fromChain === 'bnb' ? 'Layer 1' : 'Layer 2'}
+                          {fromChain === 'eth' ? 'Layer 1' : 'Layer 2'}
                         </p>
                       </div>
                     </div>

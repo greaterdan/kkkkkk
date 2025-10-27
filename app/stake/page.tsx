@@ -119,7 +119,7 @@ function StakePageContent() {
     setIsStaking(true);
 
     try {
-      // Connect to BNB Testnet
+      // Connect to Base Sepolia
       const provider = new ethers.BrowserProvider(walletClient);
       const signer = await provider.getSigner();
       
@@ -166,7 +166,7 @@ function StakePageContent() {
       
       const errorMessage = error instanceof Error ? error.message : String(error);
       if (errorMessage.includes('insufficient funds')) {
-        alert('Insufficient BNB balance. Please add BNB to your wallet for gas fees.');
+        alert('Insufficient ETH balance. Please add ETH to your wallet for gas fees.');
       } else if (errorMessage.includes('Already registered')) {
         alert('You are already registered as a validator.');
       } else if (errorMessage.includes('Insufficient stake')) {

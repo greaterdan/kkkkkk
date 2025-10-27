@@ -1,6 +1,6 @@
 # 01A Network - AI Layer-2 Blockchain Explorer
 
-A production-ready Next.js 14 application for the 01A Network, an AI-focused Layer-2 blockchain built on BNB Chain. Features a minimalist black & white terminal-style UI with gold accents.
+A production-ready Next.js 14 application for the 01A Network, an AI-focused Layer-2 blockchain built on Base Chain. Features a minimalist black & white terminal-style UI with blue accents.
 
 ![01A Network](https://img.shields.io/badge/01A-Network-gold)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black)
@@ -19,11 +19,11 @@ A production-ready Next.js 14 application for the 01A Network, an AI-focused Lay
 
 #### 🔗 Wallet Integration
 - **RainbowKit Integration**: Support for MetaMask, Coinbase Wallet, WalletConnect
-- **Multi-Chain**: BNB Chain, BNB Testnet, and custom 01A Network
+- **Multi-Chain**: Base Chain, Base Sepolia, and custom 01A Network
 - **Custom Styled**: Terminal-style wallet UI matching the theme
 
 #### 🌉 Bridge
-- **Cross-Chain Bridge**: Transfer assets between BNB Chain and 01A Network
+- **Cross-Chain Bridge**: Transfer assets between Base Chain and 01A Network
 - **Real-time Estimates**: Dynamic cost and time calculations
 - **Bridge History**: Track your bridge transactions
 - **User Guide**: Step-by-step instructions
@@ -208,7 +208,7 @@ npm run lint --fix
 
 ### 🏠 Dashboard (`/`)
 - Network overview metrics
-- Price information (TORA, BNB)
+- Price information (TORA, ETH)
 - Block production chart
 - Subnet activity chart
 - Call-to-action sections
@@ -242,7 +242,7 @@ npm run lint --fix
 - Requirements and guide
 
 ### 🌉 Bridge (`/bridge`)
-- BNB ↔ 01A transfers
+- ETH ↔ 01A transfers
 - Amount input with max button
 - Fee estimation
 - Bridge history
@@ -285,8 +285,8 @@ The app supports multiple wallets through RainbowKit:
 - Injected wallets
 
 ### Supported Networks
-- BNB Chain (56)
-- BNB Testnet (97)
+- Base Chain (8453)
+- Base Sepolia (84532)
 - 01A Network (56001) - Custom configuration
 
 ---
@@ -392,7 +392,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Next.js team for the amazing framework
 - Wagmi and RainbowKit for wallet integration
 - Framer Motion for smooth animations
-- BNB Chain for the Layer-1 infrastructure
+- Base Chain for the Layer-1 infrastructure
 
 ---
 

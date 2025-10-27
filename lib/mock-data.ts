@@ -84,7 +84,7 @@ export const generateMockTransactions = (count: number = 50): Transaction[] => {
       from: `0x${Math.random().toString(16).slice(2, 10)}...${Math.random().toString(16).slice(2, 6)}`,
       to: `0x${Math.random().toString(16).slice(2, 10)}...${Math.random().toString(16).slice(2, 6)}`,
       value: `${(Math.random() * 10).toFixed(4)} 01A`,
-      gasFee: `${(Math.random() * 0.01).toFixed(6)} BNB`,
+      gasFee: `${(Math.random() * 0.01).toFixed(6)} ETH`,
       status: statuses[Math.floor(Math.random() * statuses.length)],
       timestamp: now - i * 2000,
       blockHeight: 1234567 - Math.floor(i / 5),
@@ -207,7 +207,7 @@ export const mockDashboardMetrics = {
   currentBlockHeight: 0, // L2 network starts at block 0
   transactionsProcessed: "12,847", // L2 network transactions processed
   token01APrice: 3.42,
-  bnbPrice: 305.67,
+  ethPrice: 305.67,
   dailyVolume: "$2.3M", // L2 network volume
   totalTransactions: "0", // L2 network starts with 0 transactions
 };

@@ -9,14 +9,14 @@ export interface TokenPriceData {
 
 export interface PriceDataResponse {
   token01APrice: TokenPriceData;
-  bnbPrice: TokenPriceData;
+  ethPrice: TokenPriceData;
   lastUpdated: number;
 }
 
 // CoinGecko API for real price data
 const COINGECKO_API = 'https://api.coingecko.com/api/v3';
 
-// For now, we'll use BNB as a proxy for 01A token price since 01A is not listed
+// For now, we'll use ETH as a proxy for 01A token price since 01A is not listed
 // In production, you would:
 // 1. List 01A token on a DEX (PancakeSwap, Uniswap, etc.)
 // 2. Use DEX APIs to get real price data
@@ -24,9 +24,9 @@ const COINGECKO_API = 'https://api.coingecko.com/api/v3';
 
 export const getRealTokenPrices = async (): Promise<PriceDataResponse> => {
   try {
-    // Fetch BNB price as proxy for 01A token
+    // Fetch ETH price as proxy for 01A token
     const response = await fetch(
-      `${COINGECKO_API}/simple/price?ids=binancecoin&vs_currencies=usd&include_24hr_change=true&include_24hr_vol=true&include_market_cap=true`
+      `${COINGECKO_API}/simple/price?ids=ethereum&vs_currencies=usd&include_24hr_change=true&include_24hr_vol=true&include_market_cap=true`
     );
     
     if (!response.ok) {
@@ -34,15 +34,15 @@ export const getRealTokenPrices = async (): Promise<PriceDataResponse> => {
     }
     
     const data = await response.json();
-    const bnbData = data.binancecoin;
+    const ethData = data.ethereum;
     
-    // Calculate 01A price based on BNB price with a multiplier
+    // Calculate 01A price based on ETH price with a multiplier
     // In production, this would be the actual 01A token price from DEX
-    const token01AMultiplier = 0.011; // 01A = 0.011 * BNB (example)
-    const token01APrice = bnbData.usd * token01AMultiplier;
-    const token01APriceChange = bnbData.usd_24h_change * 0.8; // Slightly different volatility
+    const token01AMultiplier = 0.011; // 01A = 0.011 * ETH (example)
+    const token01APrice = ethData.usd * token01AMultiplier;
+    const token01APriceChange = ethData.usd_24h_change * 0.8; // Slightly different volatility
     
-    console.log('BNB Price:', bnbData.usd);
+    console.log('ETH Price:', ethData.usd);
     console.log('01A Price:', token01APrice);
     
     return {
@@ -53,11 +53,11 @@ export const getRealTokenPrices = async (): Promise<PriceDataResponse> => {
         marketCap: '$0.0M', // Show 0 instead of calculated market cap
         totalSupply: '1B 01A'
       },
-      bnbPrice: {
-        price: bnbData.usd,
-        priceChange24h: bnbData.usd_24h_change,
-        volume24h: `$${(bnbData.usd_24h_vol / 1000000).toFixed(1)}M`,
-        marketCap: `$${(bnbData.usd_market_cap / 1000000).toFixed(1)}M`
+      ethPrice: {
+        price: ethData.usd,
+        priceChange24h: ethData.usd_24h_change,
+        volume24h: `$${(ethData.usd_24h_vol / 1000000).toFixed(1)}M`,
+        marketCap: `$${(ethData.usd_market_cap / 1000000).toFixed(1)}M`
       },
       lastUpdated: Date.now()
     };
@@ -73,7 +73,7 @@ export const getRealTokenPrices = async (): Promise<PriceDataResponse> => {
         marketCap: '$0.0M',
         totalSupply: '1B 01A'
       },
-      bnbPrice: {
+      ethPrice: {
         price: 0,
         priceChange24h: 0,
         volume24h: '$0.0M',

@@ -101,7 +101,7 @@ function OverviewSection() {
         <h1 className="text-3xl font-black text-white mb-4">[ 01A_LABS_NETWORK ]</h1>
         <p className="text-gray-300 text-sm leading-relaxed">
           The 01A Labs Network is a revolutionary Layer 2 blockchain specifically designed for AI workloads. 
-          Built on top of BNB Chain, it provides a high-performance, cost-effective platform for running 
+          Built on top of Base Chain, it provides a high-performance, cost-effective platform for running 
           AI inference, training, and data processing at scale.
         </p>
       </div>
@@ -138,7 +138,7 @@ function OverviewSection() {
           </div>
           <div className="flex items-start gap-3">
             <span className="text-green-400 mt-1">✓</span>
-            <p><strong>Cross-Chain Bridge:</strong> BNB to 01A token bridging with MetaMask network integration</p>
+            <p><strong>Cross-Chain Bridge:</strong> ETH to 01A token bridging with MetaMask network integration</p>
           </div>
           <div className="flex items-start gap-3">
             <span className="text-green-400 mt-1">✓</span>
@@ -679,7 +679,7 @@ function BridgeSection() {
       <div>
         <h1 className="text-3xl font-black text-white mb-4">[ CROSS_CHAIN_BRIDGE ]</h1>
         <p className="text-gray-300 text-sm leading-relaxed">
-          The 01A Labs Bridge enables seamless transfer of assets between BNB Chain and the 01A Labs Network, 
+          The 01A Labs Bridge enables seamless transfer of assets between Base Chain and the 01A Labs Network, 
           maintaining security and decentralization.
         </p>
       </div>
@@ -705,8 +705,8 @@ function BridgeSection() {
             <div className="flex items-start gap-3">
               <span className="text-green-400 text-lg">✓</span>
               <div>
-                <h3 className="font-bold text-white">BNB to 01A Token Bridging</h3>
-                <p className="text-gray-300 text-sm">Seamless conversion of BNB tokens to 01A tokens with real-time processing</p>
+                <h3 className="font-bold text-white">ETH to 01A Token Bridging</h3>
+                <p className="text-gray-300 text-sm">Seamless conversion of ETH tokens to 01A tokens with real-time processing</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
@@ -723,10 +723,10 @@ function BridgeSection() {
           <h2 className="text-xl font-bold text-white mb-4">Bridge Architecture</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-bold text-[#0201ff] mb-3">BNB Chain Side</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">Base Chain Side</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• Smart contract handles deposits</li>
-                <li>• Validates and locks BNB</li>
+                <li>• Validates and locks ETH</li>
                 <li>• Emits bridge events</li>
                 <li>• Manages withdrawal requests</li>
               </ul>
@@ -749,8 +749,8 @@ function BridgeSection() {
             <div>
               <h3 className="font-bold text-green-400 mb-2">Network Configuration</h3>
               <ul className="text-gray-300 text-sm space-y-1">
-                <li>• Chain ID: 97 (BNB Testnet)</li>
-                <li>• RPC URL: Working BNB Testnet endpoints</li>
+                <li>• Chain ID: 84532 (Base Sepolia)</li>
+                <li>• RPC URL: Working Base Sepolia endpoints</li>
                 <li>• Native Currency: 01A token</li>
                 <li>• Block Explorer: 01A-specific explorer</li>
                 <li>• Automatic network detection</li>
@@ -1310,7 +1310,7 @@ function RoadmapSection() {
               <span className="text-green-400 text-lg">✓</span>
               <div>
                 <h3 className="font-bold text-white">Cross-Chain Bridge</h3>
-                <p className="text-gray-300 text-sm">MetaMask integration with BNB to 01A token bridging</p>
+                <p className="text-gray-300 text-sm">MetaMask integration with ETH to 01A token bridging</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
@@ -1507,7 +1507,7 @@ function GettingStartedSection() {
               <span className="text-[#0201ff] text-lg">2.</span>
               <div>
                 <h3 className="font-bold text-white">Get 01A Tokens</h3>
-                <p className="text-gray-300 text-sm">Bridge BNB or buy 01A tokens from exchanges</p>
+                <p className="text-gray-300 text-sm">Bridge ETH or buy 01A tokens from exchanges</p>
               </div>
             </div>
             <div className="flex items-start gap-3">

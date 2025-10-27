@@ -421,7 +421,7 @@ app.get('/api/stats', async (req, res) => {
       networkHashrate: "0.1 TH/s", // L2 network hashrate
       currentBlockHeight: blockNumber,
       toraPrice: 3.42,
-      bnbPrice: 305.67,
+      ethPrice: 305.67,
       dailyVolume: "$2.3M", // L2 network volume
       tvl: "$14.2M" // L2 network TVL
     });
@@ -455,7 +455,7 @@ app.get('/api/stats/chart/:type', async (req, res) => {
 // Get validators
 app.get('/api/validators', async (req, res) => {
   try {
-    // Get real validator data from BNB Testnet
+    // Get real validator data from Base Sepolia
     const blockNumber = await provider.getBlockNumber();
     
     // Generate real validators based on actual blockchain data
@@ -514,7 +514,7 @@ app.get('/api/validators', async (req, res) => {
       }
     ];
     
-    console.log(`📊 Returning ${realValidators.length} real validators from BNB Testnet (block ${blockNumber})`);
+    console.log(`📊 Returning ${realValidators.length} real validators from Base Sepolia (block ${blockNumber})`);
     res.json({ validators: realValidators });
   } catch (error) {
     console.error('Error fetching validators:', error);
@@ -791,9 +791,9 @@ app.get('/api/bridge/transactions', async (req, res) => {
     const mockBridgeTransactions = [
       {
         id: 'bridge-tx-1',
-        from: 'BNB Chain',
+        from: 'Base Chain',
         to: '01A Network',
-        amount: '1.5 BNB',
+        amount: '1.5 ETH',
         status: 'completed',
         timestamp: Date.now() - 3600000,
         txHashL1: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
@@ -803,8 +803,8 @@ app.get('/api/bridge/transactions', async (req, res) => {
       {
         id: 'bridge-tx-2',
         from: '01A Network',
-        to: 'BNB Chain',
-        amount: '0.8 BNB',
+        to: 'Base Chain',
+        amount: '0.8 ETH',
         status: 'pending',
         timestamp: Date.now() - 1800000,
         txHashL1: '',
