@@ -181,7 +181,7 @@ export default function ValidatorsPage() {
               onClick={() => setSortBy('stake')}
               className={`px-3 py-1 text-[10px] font-medium transition-all ${
                 sortBy === 'stake'
-                  ? 'bg-primary-gold text-black border border-primary-gold'
+                  ? 'bg-[#0201ff] text-black border border-[#0201ff]'
                   : 'text-white hover:bg-white hover:text-black border border-transparent hover:border-white'
               }`}
             >
@@ -191,7 +191,7 @@ export default function ValidatorsPage() {
               onClick={() => setSortBy('uptime')}
               className={`px-3 py-1 text-[10px] font-medium transition-all ${
                 sortBy === 'uptime'
-                  ? 'bg-primary-gold text-black border border-primary-gold'
+                  ? 'bg-[#0201ff] text-black border border-[#0201ff]'
                   : 'text-white hover:bg-white hover:text-black border border-transparent hover:border-white'
               }`}
             >
@@ -201,7 +201,7 @@ export default function ValidatorsPage() {
               onClick={() => setSortBy('rewards')}
               className={`px-3 py-1 text-[10px] font-medium transition-all ${
                 sortBy === 'rewards'
-                  ? 'bg-primary-gold text-black border border-primary-gold'
+                  ? 'bg-[#0201ff] text-black border border-[#0201ff]'
                   : 'text-white hover:bg-white hover:text-black border border-transparent hover:border-white'
               }`}
             >
@@ -265,9 +265,9 @@ export default function ValidatorsPage() {
                         <td className="py-2 px-3">
                           <div className="flex items-center gap-1">
                             {idx < 3 && (
-                              <Star className="w-3 h-3 text-primary-gold fill-primary-gold" />
+                              <Star className="w-3 h-3 text-[#0201ff] fill-[#0201ff]" />
                             )}
-                            <span className={`font-bold text-xs ${idx === 0 ? 'text-primary-gold' : 'text-white'}`}>
+                            <span className={`font-bold text-xs ${idx === 0 ? 'text-[#0201ff]' : 'text-white'}`}>
                               #{validator.rank}
                             </span>
                           </div>

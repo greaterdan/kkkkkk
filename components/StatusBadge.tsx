@@ -13,9 +13,9 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
     success: {
       icon: CheckCircle,
       text: 'Success',
-      color: 'text-primary-gold',
-      bg: 'bg-primary-gold/10',
-      border: 'border-primary-gold/30',
+      color: 'text-[#0201ff]',
+      bg: 'bg-[#0201ff]/10',
+      border: 'border-[#0201ff]/30',
     },
     failed: {
       icon: XCircle,

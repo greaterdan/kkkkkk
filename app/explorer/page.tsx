@@ -379,7 +379,7 @@ export default function ExplorerPage() {
               <Box className="w-4 h-4" />
               [ LATEST_BLOCKS ]
               {realBlocks.length > 0 && (
-                <span className="text-xs text-primary-gold animate-pulse">
+                <span className="text-xs text-[#0201ff] animate-pulse">
                   LIVE
                 </span>
               )}
@@ -418,7 +418,7 @@ export default function ExplorerPage() {
                   onClick={() => setTxTab('latest')}
                   className={`px-3 py-1 text-[10px] font-medium transition-all ${
                     txTab === 'latest'
-                      ? 'bg-primary-gold text-black border border-primary-gold'
+                      ? 'bg-[#0201ff] text-black border border-[#0201ff]'
                       : 'text-white hover:bg-white hover:text-black border border-transparent hover:border-white'
                   }`}
                 >
@@ -428,7 +428,7 @@ export default function ExplorerPage() {
                   onClick={() => setTxTab('deposits')}
                   className={`px-3 py-1 text-[10px] font-medium transition-all ${
                     txTab === 'deposits'
-                      ? 'bg-primary-gold text-black border border-primary-gold'
+                      ? 'bg-[#0201ff] text-black border border-[#0201ff]'
                       : 'text-white hover:bg-white hover:text-black border border-transparent hover:border-white'
                   }`}
                 >
@@ -538,7 +538,7 @@ function TransactionCard({ tx, delay }: { tx: Transaction; delay: number }) {
             <div className="flex-shrink-0">
               <div className={`p-2 border ${
                 tx.status === 'success' 
-                  ? 'border-primary-gold/30 bg-primary-gold/10' 
+                  ? 'border-[#0201ff]/30 bg-[#0201ff]/10' 
                   : tx.status === 'failed'
                   ? 'border-red-400/30 bg-red-400/10'
                   : 'border-gray-400/30 bg-gray-400/10'
@@ -574,7 +574,7 @@ function TransactionCard({ tx, delay }: { tx: Transaction; delay: number }) {
                 <span className="text-gray-400">Fee: {tx.gasFee}</span>
               </div>
               {(tx as any).aiService && (
-                <div className="mt-1 text-[9px] text-primary-gold">
+                <div className="mt-1 text-[9px] text-[#0201ff]">
                   AI Service: {(tx as any).aiService}
                 </div>
               )}

@@ -179,7 +179,7 @@ export default function Home() {
             </div>
             <div className="text-xs text-gray-500 font-mono mb-4">
               <span className="text-white">{'>'}</span> Connection: [01A_L2_NETWORK] Status: <span className="text-white">ONLINE</span>
-              {isMining && <span className="text-primary-gold ml-2">⛏️ MINING</span>}
+              {isMining && <span className="text-[#0201ff] ml-2">⛏️ MINING</span>}
             </div>
           </motion.div>
 
@@ -213,7 +213,7 @@ export default function Home() {
             className="flex flex-col sm:flex-row items-start gap-2 pt-2 font-mono"
           >
             <Link href="/explorer">
-              <button className="px-4 py-2 border border-primary-gold text-white hover:bg-primary-gold hover:text-black hover:border-primary-gold transition-all text-xs">
+              <button className="px-4 py-2 border border-[#0201ff] text-white hover:bg-[#0201ff] hover:text-black hover:border-[#0201ff] transition-all text-xs">
                 [EXPLORE_NETWORK]
               </button>
             </Link>

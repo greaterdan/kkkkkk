@@ -124,7 +124,7 @@ export default function TasksPage() {
       case 'pending':
         return <Clock className="w-4 h-4 text-gray-400" />;
       case 'processing':
-        return <Zap className="w-4 h-4 text-primary-gold animate-pulse" />;
+        return <Zap className="w-4 h-4 text-[#0201ff] animate-pulse" />;
       case 'completed':
         return <CheckCircle className="w-4 h-4 text-green-400" />;
       case 'failed':
@@ -210,7 +210,7 @@ export default function TasksPage() {
                         onClick={() => setTaskType(task.id)}
                         className={`p-3 border transition-all ${
                           taskType === task.id
-                            ? 'border-primary-gold bg-primary-gold/10'
+                            ? 'border-[#0201ff] bg-[#0201ff]/10'
                             : 'border-white/20 hover:border-white/40'
                         }`}
                       >
@@ -252,12 +252,12 @@ export default function TasksPage() {
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
-                    className="p-4 border border-primary-gold/30 bg-primary-gold/5"
+                    className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5"
                   >
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-[10px] text-gray-500 uppercase">ESTIMATED_COST</p>
-                        <p className="text-xl font-bold text-primary-gold mt-1">
+                        <p className="text-xl font-bold text-[#0201ff] mt-1">
                           {estimatedCost} 01A
                         </p>
                       </div>
@@ -277,8 +277,8 @@ export default function TasksPage() {
                     !mounted || !address || !prompt
                       ? 'border-white/20 text-gray-600 cursor-not-allowed'
                       : isSubmitting
-                      ? 'border-primary-gold text-primary-gold cursor-wait'
-                      : 'border-primary-gold text-primary-gold hover:bg-primary-gold hover:text-black'
+                      ? 'border-primary-gold text-[#0201ff] cursor-wait'
+                      : 'border-[#0201ff] text-[#0201ff] hover:bg-[#0201ff] hover:text-black'
                   }`}
                 >
                   {!mounted
@@ -331,7 +331,7 @@ export default function TasksPage() {
                                 : task.status === 'failed'
                                 ? 'border-red-400/30 text-red-400'
                                 : task.status === 'processing'
-                                ? 'border-primary-gold/30 text-primary-gold'
+                                ? 'border-[#0201ff]/30 text-[#0201ff]'
                                 : 'border-gray-400/30 text-gray-400'
                             }`}
                           >
@@ -374,23 +374,23 @@ export default function TasksPage() {
                 <h3 className="text-sm font-bold text-white">[ HOW_IT_WORKS ]</h3>
                 <div className="space-y-2 text-[10px] text-gray-400">
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">1.</span>
+                    <span className="text-[#0201ff] mt-0.5">1.</span>
                     <p>Submit your AI task with parameters</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">2.</span>
+                    <span className="text-[#0201ff] mt-0.5">2.</span>
                     <p>Task is routed to specialized subnet</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">3.</span>
+                    <span className="text-[#0201ff] mt-0.5">3.</span>
                     <p>Miners compete to process your task</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">4.</span>
+                    <span className="text-[#0201ff] mt-0.5">4.</span>
                     <p>Validators verify the result</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">5.</span>
+                    <span className="text-[#0201ff] mt-0.5">5.</span>
                     <p>You receive the result on-chain</p>
                   </div>
                 </div>

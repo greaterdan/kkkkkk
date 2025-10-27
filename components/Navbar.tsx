@@ -46,7 +46,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-12 lg:h-14">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
-            <span className="text-lg font-bold text-white font-mono tracking-wider border border-white px-2 py-1 hover:bg-primary-gold hover:text-black hover:border-primary-gold transition-all">
+            <span className="text-lg font-bold text-white font-mono tracking-wider border border-white px-2 py-1 hover:bg-[#0201ff] hover:text-black hover:border-[#0201ff] transition-all">
               01A LABS
             </span>
             <span className="text-xs text-gray-400 hidden md:inline-block font-mono">
@@ -65,7 +65,7 @@ export function Navbar() {
                 className={cn(
                   'px-3 py-1.5 rounded-none text-xs font-medium transition-all duration-200',
                   pathname === link.href
-                    ? 'bg-primary-gold text-black border border-primary-gold'
+                    ? 'bg-[#0201ff] text-black border border-[#0201ff]'
                     : 'text-white hover:bg-white hover:text-black border border-transparent hover:border-white'
                 )}
               >
@@ -77,7 +77,7 @@ export function Navbar() {
           {/* Bridge & Connect Buttons */}
           <div className="hidden lg:flex items-center gap-2">
             <Link href="/bridge">
-              <button className="px-3 py-1.5 border border-primary-gold text-primary-gold hover:bg-primary-gold hover:text-black transition-all text-xs font-mono">
+              <button className="px-3 py-1.5 border border-[#0201ff] text-[#0201ff] hover:bg-[#0201ff] hover:text-black transition-all text-xs font-mono">
                 [BRIDGE]
               </button>
             </Link>
@@ -137,7 +137,7 @@ export function Navbar() {
                           </button>
                           <button
                             onClick={openAccountModal}
-                            className="px-3 py-1.5 border border-primary-gold text-white hover:bg-primary-gold hover:text-black transition-all text-xs font-mono"
+                            className="px-3 py-1.5 border border-[#0201ff] text-white hover:bg-[#0201ff] hover:text-black transition-all text-xs font-mono"
                           >
                             [{account.displayName}]
                           </button>
@@ -193,7 +193,7 @@ export function Navbar() {
               ))}
               <div className="pt-4 border-t border-white/10 space-y-2 font-mono">
                 <Link href="/bridge" onClick={() => setIsOpen(false)}>
-                  <button className="w-full px-4 py-3 border border-primary-gold text-primary-gold hover:bg-primary-gold hover:text-black transition-all text-sm font-medium">
+                  <button className="w-full px-4 py-3 border border-[#0201ff] text-[#0201ff] hover:bg-[#0201ff] hover:text-black transition-all text-sm font-medium">
                     [BRIDGE]
                   </button>
                 </Link>
@@ -230,7 +230,7 @@ export function Navbar() {
                         </button>
                         <button
                           onClick={openAccountModal}
-                          className="w-full px-4 py-3 border border-primary-gold text-white hover:bg-primary-gold hover:text-black transition-all text-sm font-medium"
+                          className="w-full px-4 py-3 border border-[#0201ff] text-white hover:bg-[#0201ff] hover:text-black transition-all text-sm font-medium"
                         >
                           [{account.displayName}]
                         </button>

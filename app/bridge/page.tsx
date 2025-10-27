@@ -183,7 +183,7 @@ export default function BridgePage() {
                 <div className="glass-panel p-4">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 border border-primary-gold flex items-center justify-center">
+                      <div className="w-8 h-8 border border-[#0201ff] flex items-center justify-center">
                         <span className="text-xs font-bold text-white">
                           {fromChain === 'bnb' ? 'BNB' : '01A'}
                         </span>
@@ -272,7 +272,7 @@ export default function BridgePage() {
                   </div>
                   <div className="flex justify-between text-[10px]">
                     <span className="text-gray-500">You Will Receive:</span>
-                    <span className="text-primary-gold font-bold">
+                    <span className="text-[#0201ff] font-bold">
                       ~{(parseFloat(amount) - parseFloat(bridgeFee.split(' ')[0])).toFixed(4)}{' '}
                       {toChain === 'bnb' ? 'BNB' : '01A'}
                     </span>
@@ -288,12 +288,12 @@ export default function BridgePage() {
                   !address || !amount || parseFloat(amount) <= 0 || !walletClient
                     ? 'border-white/20 text-gray-600 cursor-not-allowed'
                     : bridgeStatus === 'pending'
-                    ? 'border-primary-gold text-primary-gold cursor-wait'
+                    ? 'border-[#0201ff] text-[#0201ff] cursor-wait'
                     : bridgeStatus === 'success'
                     ? 'border-green-400 text-green-400'
                     : bridgeStatus === 'error'
                     ? 'border-red-400 text-red-400'
-                    : 'border-primary-gold text-primary-gold hover:bg-primary-gold hover:text-black'
+                    : 'border-[#0201ff] text-[#0201ff] hover:bg-[#0201ff] hover:text-black'
                 }`}
               >
                 {!address
@@ -319,7 +319,7 @@ export default function BridgePage() {
           <GlassCard className="p-6" gradient>
             <div className="space-y-4 font-mono">
               <div className="flex items-center gap-2 text-white">
-                <ExternalLink className="w-4 h-4 text-primary-gold" />
+                <ExternalLink className="w-4 h-4 text-[#0201ff]" />
                 <h3 className="text-sm font-bold">[ ADD_01A_NETWORK_TO_METAMASK ]</h3>
               </div>
               <p className="text-xs text-gray-400">
@@ -346,23 +346,23 @@ export default function BridgePage() {
                 </div>
                 <div className="space-y-2 text-[10px] text-gray-400">
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">1.</span>
+                    <span className="text-[#0201ff] mt-0.5">1.</span>
                     <p>Connect your wallet and select the chain</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">2.</span>
+                    <span className="text-[#0201ff] mt-0.5">2.</span>
                     <p>Enter the amount you want to bridge</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">3.</span>
+                    <span className="text-[#0201ff] mt-0.5">3.</span>
                     <p>Approve the transaction in your wallet</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">4.</span>
+                    <span className="text-[#0201ff] mt-0.5">4.</span>
                     <p>Wait for the bridge to process (~30 seconds on BNB Testnet)</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">5.</span>
+                    <span className="text-[#0201ff] mt-0.5">5.</span>
                     <p>Receive tokens on the destination chain</p>
                   </div>
                 </div>
@@ -409,19 +409,19 @@ export default function BridgePage() {
         >
           <GlassCard className="p-4">
             <div className="flex items-start gap-3 font-mono">
-              <Info className="w-4 h-4 text-primary-gold flex-shrink-0 mt-0.5" />
+              <Info className="w-4 h-4 text-[#0201ff] flex-shrink-0 mt-0.5" />
               <div className="space-y-1">
                 <p className="text-[10px] text-gray-400">
                   <span className="text-white font-bold">Real Contracts Deployed:</span> 
-                  <br />• Token01A: <span className="text-primary-gold">0x28EBd5A87ABA39F5f0D30b0843EaaaF890a785eb</span>
-                  <br />• Bridge: <span className="text-primary-gold">0xC5e9e02A9Df870368D28dC71F50eb0e17A3a9F4c</span>
+                  <br />• Token01A: <span className="text-[#0201ff]">0x28EBd5A87ABA39F5f0D30b0843EaaaF890a785eb</span>
+                  <br />• Bridge: <span className="text-[#0201ff]">0xC5e9e02A9Df870368D28dC71F50eb0e17A3a9F4c</span>
                   <br />• Network: BNB Testnet (Chain ID: 97)
                 </p>
                 <a
                   href="https://testnet.bscscan.com/address/0x28EBd5A87ABA39F5f0D30b0843EaaaF890a785eb"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[10px] text-primary-gold hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1 text-[10px] text-[#0201ff] hover:text-white transition-colors"
                 >
                   View Token01A on BSCScan Testnet
                   <ExternalLink className="w-3 h-3" />

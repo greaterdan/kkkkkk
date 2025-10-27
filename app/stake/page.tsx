@@ -284,7 +284,7 @@ function StakePageContent() {
                           onClick={() => setSelectedSubnet(subnet.id)}
                           className={`w-full p-3 border transition-all text-left ${
                             selectedSubnet === subnet.id
-                              ? 'border-primary-gold bg-primary-gold/10'
+                              ? 'border-[#0201ff] bg-[#0201ff]/10'
                               : 'border-white/20 hover:border-white/40'
                           }`}
                         >
@@ -296,7 +296,7 @@ function StakePageContent() {
                               </p>
                             </div>
                             {selectedSubnet === subnet.id && (
-                              <span className="text-primary-gold text-xs">✓</span>
+                              <span className="text-[#0201ff] text-xs">✓</span>
                             )}
                           </div>
                           <div className="flex items-center justify-between text-[10px]">
@@ -308,7 +308,7 @@ function StakePageContent() {
                         {/* Tooltip */}
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-3 py-2 bg-black/90 border border-white/20 rounded text-xs text-white max-w-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">
                           <div className="text-center">
-                            <p className="font-bold text-primary-gold mb-1">{subnet.name}</p>
+                            <p className="font-bold text-[#0201ff] mb-1">{subnet.name}</p>
                             <p className="text-gray-300 text-[10px] leading-relaxed">{subnet.description}</p>
                           </div>
                           {/* Tooltip arrow */}
@@ -356,16 +356,16 @@ function StakePageContent() {
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
-                    className="p-4 border border-primary-gold/30 bg-primary-gold/5"
+                    className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5"
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div>
                         <p className="text-[10px] text-gray-500 uppercase">ESTIMATED_DAILY_REWARDS</p>
-                        <p className="text-2xl font-bold text-primary-gold mt-1">
+                        <p className="text-2xl font-bold text-[#0201ff] mt-1">
                           {estimatedRewards} 01A
                         </p>
                       </div>
-                      <TrendingUp className="w-5 h-5 text-primary-gold" />
+                      <TrendingUp className="w-5 h-5 text-[#0201ff]" />
                     </div>
                     <div className="space-y-1 text-[10px] text-gray-400">
                       <div className="flex justify-between">
@@ -395,8 +395,8 @@ function StakePageContent() {
                     !address || !amount || parseFloat(amount) < minStake
                       ? 'border-white/20 text-gray-600 cursor-not-allowed'
                       : isStaking
-                      ? 'border-primary-gold text-primary-gold cursor-wait'
-                      : 'border-primary-gold text-primary-gold hover:bg-primary-gold hover:text-black'
+                      ? 'border-[#0201ff] text-[#0201ff] cursor-wait'
+                      : 'border-[#0201ff] text-[#0201ff] hover:bg-[#0201ff] hover:text-black'
                   }`}
                 >
                   {!address
@@ -455,23 +455,23 @@ function StakePageContent() {
                 </div>
                 <div className="space-y-2 text-[10px] text-gray-400">
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold">✓</span>
+                    <span className="text-[#0201ff]">✓</span>
                     <p>Minimum {minStake.toLocaleString()} 01A tokens</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold">✓</span>
+                    <span className="text-[#0201ff]">✓</span>
                     <p>Stable internet connection (99% uptime)</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold">✓</span>
+                    <span className="text-[#0201ff]">✓</span>
                     <p>8GB RAM, 4 CPU cores minimum</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold">✓</span>
+                    <span className="text-[#0201ff]">✓</span>
                     <p>500GB SSD storage</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold">✓</span>
+                    <span className="text-[#0201ff]">✓</span>
                     <p>Technical knowledge for node setup</p>
                   </div>
                 </div>
@@ -484,19 +484,19 @@ function StakePageContent() {
                 <h3 className="text-sm font-bold text-white">[ SETUP_GUIDE ]</h3>
                 <div className="space-y-2 text-[10px] text-gray-400">
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">1.</span>
+                    <span className="text-[#0201ff] mt-0.5">1.</span>
                     <p>Stake your 01A tokens above</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">2.</span>
+                    <span className="text-[#0201ff] mt-0.5">2.</span>
                     <p>Setup validator node using our CLI</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">3.</span>
+                    <span className="text-[#0201ff] mt-0.5">3.</span>
                     <p>Configure your validator keys</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary-gold mt-0.5">4.</span>
+                    <span className="text-[#0201ff] mt-0.5">4.</span>
                     <p>Start validating and earn rewards</p>
                   </div>
                 </div>

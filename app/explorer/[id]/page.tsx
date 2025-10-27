@@ -502,7 +502,7 @@ export default function DetailPage({ params }: { params: { id: string } }) {
                               <span className="text-gray-400 font-mono text-sm">Verified:</span>
                               <span className={`font-mono text-sm ${addressData.contractInfo.verified ? 'text-green-400' : 'text-red-400'}`}>
                                 {addressData.contractInfo.verified ? 'Yes' : 'No'}
-                              </span>
+                    </span>
                             </div>
                           </div>
                         </div>

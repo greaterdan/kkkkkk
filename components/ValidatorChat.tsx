@@ -105,9 +105,9 @@ export function ValidatorChat({ validatorData, transactionData }: ValidatorChatP
   return (
     <div className="h-[600px] flex flex-col bg-gradient-to-br from-black/40 to-black/20 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b border-white/10 bg-gradient-to-r from-primary-gold/10 to-transparent flex-shrink-0">
+      <div className="p-4 border-b border-white/10 bg-gradient-to-r from-[#0201ff]/10 to-transparent flex-shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-primary-gold to-yellow-400 rounded-full flex items-center justify-center">
+          <div className="w-8 h-8 bg-gradient-to-br from-[#0201ff] to-[#0100cc] rounded-full flex items-center justify-center">
             <Bot className="w-4 h-4 text-black" />
           </div>
           <div>
@@ -148,7 +148,7 @@ export function ValidatorChat({ validatorData, transactionData }: ValidatorChatP
                     {new Date(message.timestamp).toLocaleTimeString()}
                   </span>
                   {message.sender === 'user' && (
-                    <div className="w-6 h-6 bg-gradient-to-br from-primary-gold to-yellow-400 rounded-full flex items-center justify-center">
+                    <div className="w-6 h-6 bg-gradient-to-br from-[#0201ff] to-[#0100cc] rounded-full flex items-center justify-center">
                       <User className="w-3 h-3 text-black" />
                     </div>
                   )}
@@ -158,7 +158,7 @@ export function ValidatorChat({ validatorData, transactionData }: ValidatorChatP
                 <div
                   className={`relative p-4 rounded-2xl ${
                     message.sender === 'user'
-                      ? 'bg-gradient-to-br from-primary-gold to-yellow-400 text-black shadow-lg'
+                      ? 'bg-gradient-to-br from-[#0201ff] to-[#0100cc] text-black shadow-lg'
                       : 'bg-gradient-to-br from-white/10 to-white/5 text-white border border-white/10 shadow-lg'
                   }`}
                 >
@@ -168,7 +168,7 @@ export function ValidatorChat({ validatorData, transactionData }: ValidatorChatP
                   <div
                     className={`absolute top-4 w-0 h-0 ${
                       message.sender === 'user'
-                        ? 'right-[-8px] border-l-[8px] border-l-primary-gold border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent'
+                        ? 'right-[-8px] border-l-[8px] border-l-[#0201ff] border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent'
                         : 'left-[-8px] border-r-[8px] border-r-white/10 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent'
                     }`}
                   />
@@ -216,14 +216,14 @@ export function ValidatorChat({ validatorData, transactionData }: ValidatorChatP
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Ask about validators, transactions, or network activity..."
-              className="w-full bg-black/30 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-primary-gold focus:ring-2 focus:ring-primary-gold/20 transition-all duration-200"
+              className="w-full bg-black/30 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-[#0201ff] focus:ring-2 focus:ring-[#0201ff]/20 transition-all duration-200"
               disabled={isLoading}
             />
           </div>
           <button
             onClick={sendMessage}
             disabled={!inputMessage.trim() || isLoading}
-            className="px-6 py-3 bg-gradient-to-r from-primary-gold to-yellow-400 text-black rounded-xl hover:from-yellow-400 hover:to-primary-gold disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:transform-none"
+            className="px-6 py-3 bg-gradient-to-r from-[#0201ff] to-[#0100cc] text-black rounded-xl hover:from-[#0100cc] hover:to-[#0201ff] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:transform-none"
           >
             <Send className="w-4 h-4" />
           </button>
