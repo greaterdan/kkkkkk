@@ -65,7 +65,7 @@ export function Navbar() {
                 className={cn(
                   'px-3 py-1.5 rounded-none text-xs font-medium transition-all duration-200',
                   pathname === link.href
-                    ? 'bg-[#0201ff] text-black border border-[#0201ff]'
+                    ? 'bg-[#0201ff] text-white border border-[#0201ff]'
                     : 'text-white hover:bg-white hover:text-black border border-transparent hover:border-white'
                 )}
               >
