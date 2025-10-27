@@ -139,11 +139,11 @@ export default function SubnetsPage() {
 
   const getNodeColor = (taskType: string) => {
     switch (taskType) {
-      case 'LLM': return '#ffd700';
-      case 'Vision': return '#ff8c00';
-      case 'Embedding': return '#ffa500';
-      case 'Audio': return '#ffb347';
-      default: return '#ffd700';
+      case 'LLM': return '#0201ff';
+      case 'Vision': return '#0201ff';
+      case 'Embedding': return '#0201ff';
+      case 'Audio': return '#0201ff';
+      default: return '#0201ff';
     }
   };
 
@@ -159,7 +159,7 @@ export default function SubnetsPage() {
           </p>
           <div className="space-y-3">
             <Link href="/" className="block">
-              <button className="w-full px-6 py-3 border border-primary-gold text-primary-gold hover:bg-primary-gold hover:text-black transition-all text-sm font-mono">
+              <button className="w-full px-6 py-3 border border-[#0201ff] text-[#0201ff] hover:bg-[#0201ff] hover:text-black transition-all text-sm font-mono">
                 [RETURN_TO_DASHBOARD]
               </button>
             </Link>
@@ -192,7 +192,7 @@ export default function SubnetsPage() {
                   onClick={() => handleChartClick('regression')}
                 >
                   <LinearRegressionChart subnetTasks={allSubnetTasks} />
-                  <div className="absolute top-2 right-2 bg-orange-500/20 backdrop-blur-sm rounded px-2 py-1 text-xs text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute top-2 right-2 bg-[#0201ff]/20 backdrop-blur-sm rounded px-2 py-1 text-xs text-[#0201ff] opacity-0 group-hover:opacity-100 transition-opacity">
                     Click to expand
                   </div>
                 </div>
@@ -201,7 +201,7 @@ export default function SubnetsPage() {
                   onClick={() => handleChartClick('clustering')}
                 >
                   <KMeansChart subnetTasks={allSubnetTasks} />
-                  <div className="absolute top-2 right-2 bg-orange-500/20 backdrop-blur-sm rounded px-2 py-1 text-xs text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute top-2 right-2 bg-[#0201ff]/20 backdrop-blur-sm rounded px-2 py-1 text-xs text-[#0201ff] opacity-0 group-hover:opacity-100 transition-opacity">
                     Click to expand
                   </div>
                 </div>
@@ -214,7 +214,7 @@ export default function SubnetsPage() {
               {Array.from({ length: 200 }, (_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute w-1 h-1 bg-primary-gold/30 rounded-full"
+                  className="absolute w-1 h-1 bg-[#0201ff]/30 rounded-full"
                   style={{
                     left: `${Math.random() * 100}%`,
                     top: `${Math.random() * 100}%`
@@ -424,10 +424,10 @@ export default function SubnetsPage() {
 
                     {/* Node Label */}
                     <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 text-center">
-                      <div className="text-xs text-white font-bold bg-black/70 px-2 py-1 rounded border border-primary-gold/50">
+                      <div className="text-xs text-white font-bold bg-black/70 px-2 py-1 rounded border border-[#0201ff]/50">
                         {subnet.name}
                       </div>
-                      <div className="text-xs text-primary-gold mt-1">
+                      <div className="text-xs text-[#0201ff] mt-1">
                         {activeTasks} Tasks
                       </div>
                     </div>
@@ -439,11 +439,11 @@ export default function SubnetsPage() {
               {Array.from({ length: 20 }, (_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute w-2 h-2 bg-primary-gold rounded-full"
+                  className="absolute w-2 h-2 bg-[#0201ff] rounded-full"
                   style={{
                     left: `${20 + (i * 4)}%`,
                     top: `${20 + (i * 3)}%`,
-                    boxShadow: '0 0 8px #ffd700'
+                    boxShadow: '0 0 8px #0201ff'
                   }}
                   animate={{
                     opacity: [0, 1, 0],
@@ -490,7 +490,7 @@ export default function SubnetsPage() {
             const IconComponent = taskTypeIcons[subnet.taskType as keyof typeof taskTypeIcons];
                     
             return (
-                      <GlassCard className="max-w-sm bg-black/60 backdrop-blur-md border border-orange-500/30" gradient>
+                      <GlassCard className="max-w-sm bg-black/60 backdrop-blur-md border border-[#0201ff]/30" gradient>
                         <div className="p-4 space-y-3">
                           <div className="flex items-center gap-3">
                             <div className="p-3 border border-white/20 rounded-lg">
@@ -512,12 +512,12 @@ export default function SubnetsPage() {
                                   initial={{ opacity: 0, x: 20 }}
                                   animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                                  className="p-3 rounded-lg border border-orange-500/20 bg-black/40 backdrop-blur-sm hover:bg-black/60 hover:border-orange-500/40 transition-all cursor-pointer"
+                                  className="p-3 rounded-lg border border-[#0201ff]/20 bg-black/40 backdrop-blur-sm hover:bg-black/60 hover:border-[#0201ff]/40 transition-all cursor-pointer"
                                   onClick={() => handleTaskClick(task)}
                                 >
                                   <div className="flex items-center gap-2 mb-2">
                                     <div className={`w-2 h-2 rounded-full ${
-                                      task.status === 'processing' ? 'bg-orange-500 animate-pulse' : 'bg-green-400'
+                                      task.status === 'processing' ? 'bg-[#0201ff] animate-pulse' : 'bg-green-400'
                                     }`} />
                                     <span className="text-sm font-bold text-white">{task.title}</span>
                                   </div>
@@ -532,9 +532,9 @@ export default function SubnetsPage() {
                                         <span className="text-gray-400">Progress</span>
                                         <span className="text-white">{task.progress}%</span>
                                       </div>
-                                      <div className="w-full bg-black/60 rounded-full h-1 border border-orange-500/20">
+                                      <div className="w-full bg-black/60 rounded-full h-1 border border-[#0201ff]/20">
                                         <div 
-                                          className="bg-orange-500 h-1 rounded-full transition-all duration-300"
+                                          className="bg-[#0201ff] h-1 rounded-full transition-all duration-300"
                                           style={{ width: `${task.progress}%` }}
                                         />
                                       </div>
@@ -566,7 +566,7 @@ export default function SubnetsPage() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="relative bg-black/90 backdrop-blur-md rounded-lg border border-orange-500/50 p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+                    className="relative bg-black/90 backdrop-blur-md rounded-lg border border-[#0201ff]/50 p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto"
                   >
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-xl font-bold text-white">Real-time Task Details</h3>
@@ -582,7 +582,7 @@ export default function SubnetsPage() {
                       {/* Task Header */}
                       <div className="flex items-center gap-3">
                         <div className={`w-3 h-3 rounded-full ${
-                          selectedTask.status === 'processing' ? 'bg-orange-500 animate-pulse' : 'bg-green-400'
+                          selectedTask.status === 'processing' ? 'bg-[#0201ff] animate-pulse' : 'bg-green-400'
                         }`} />
                         <div>
                           <h4 className="text-lg font-bold text-white">{selectedTask.title}</h4>
@@ -591,7 +591,7 @@ export default function SubnetsPage() {
                       </div>
 
                       {/* Task Description */}
-                      <div className="p-4 bg-black/60 rounded-lg border border-orange-500/20">
+                      <div className="p-4 bg-black/60 rounded-lg border border-[#0201ff]/20">
                         <h5 className="text-sm font-bold text-white mb-2">Task Description</h5>
                         <p className="text-sm text-gray-300">{selectedTask.description}</p>
                       </div>
@@ -604,9 +604,9 @@ export default function SubnetsPage() {
                             <span className="text-gray-400">Progress</span>
                             <span className="text-white">{selectedTask.progress}%</span>
                           </div>
-                          <div className="w-full bg-black/60 rounded-full h-2 border border-orange-500/20">
+                          <div className="w-full bg-black/60 rounded-full h-2 border border-[#0201ff]/20">
                             <div 
-                              className="bg-orange-500 h-2 rounded-full transition-all duration-500"
+                              className="bg-[#0201ff] h-2 rounded-full transition-all duration-500"
                               style={{ width: `${selectedTask.progress}%` }}
                             />
                           </div>
@@ -614,20 +614,20 @@ export default function SubnetsPage() {
                       </div>
 
                       {/* Network Impact */}
-                      <div className="p-4 bg-black/60 rounded-lg border border-orange-500/20">
+                      <div className="p-4 bg-black/60 rounded-lg border border-[#0201ff]/20">
                         <h5 className="text-sm font-bold text-white mb-2">Network Impact</h5>
-                        <p className="text-sm text-orange-400 font-bold">{selectedTask.impact}</p>
+                        <p className="text-sm text-[#0201ff] font-bold">{selectedTask.impact}</p>
                       </div>
 
                       {/* Task Details */}
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="p-3 bg-black/60 rounded-lg border border-orange-500/20">
+                        <div className="p-3 bg-black/60 rounded-lg border border-[#0201ff]/20">
                           <h6 className="text-xs text-gray-400 mb-1">Status</h6>
                           <p className="text-sm text-white capitalize">{selectedTask.status}</p>
                         </div>
-                        <div className="p-3 bg-black/60 rounded-lg border border-orange-500/20">
+                        <div className="p-3 bg-black/60 rounded-lg border border-[#0201ff]/20">
                           <h6 className="text-xs text-gray-400 mb-1">Reward</h6>
-                          <p className="text-sm text-orange-400 font-bold">{selectedTask.reward}</p>
+                          <p className="text-sm text-[#0201ff] font-bold">{selectedTask.reward}</p>
                         </div>
                       </div>
 
@@ -636,7 +636,7 @@ export default function SubnetsPage() {
                       <div className="flex justify-end">
                         <button
                           onClick={() => setSelectedTask(null)}
-                          className="px-4 py-2 bg-orange-500/20 border border-orange-500/50 text-orange-400 hover:bg-orange-500/30 transition-all text-sm"
+                          className="px-4 py-2 bg-[#0201ff]/20 border border-[#0201ff]/50 text-[#0201ff] hover:bg-[#0201ff]/30 transition-all text-sm"
                         >
                           Close
                         </button>
@@ -660,7 +660,7 @@ export default function SubnetsPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-                    className="relative bg-black/90 backdrop-blur-sm rounded border border-orange-500/30 p-4 max-w-7xl w-full max-h-[95vh] flex flex-col"
+                    className="relative bg-black/90 backdrop-blur-sm rounded border border-[#0201ff]/30 p-4 max-w-7xl w-full max-h-[95vh] flex flex-col"
                   >
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-lg font-medium text-white">
@@ -677,23 +677,23 @@ export default function SubnetsPage() {
                     <div className="space-y-2 flex flex-col h-full">
                       {/* Minimal Stats */}
                       <div className="grid grid-cols-4 gap-2 flex-shrink-0">
-                        <div className="bg-black/40 rounded p-2 border border-orange-500/10">
+                        <div className="bg-black/40 rounded p-2 border border-[#0201ff]/10">
                           <h4 className="text-xs text-gray-400 mb-1">Tasks</h4>
                           <p className="text-sm font-medium text-white">{allSubnetTasks.length}</p>
                         </div>
-                        <div className="bg-black/40 rounded p-2 border border-orange-500/10">
+                        <div className="bg-black/40 rounded p-2 border border-[#0201ff]/10">
                           <h4 className="text-xs text-gray-400 mb-1">Active</h4>
-                          <p className="text-sm font-medium text-orange-400">
+                          <p className="text-sm font-medium text-[#0201ff]">
                             {allSubnetTasks.filter(t => t.status === 'processing').length}
                           </p>
                         </div>
-                        <div className="bg-black/40 rounded p-2 border border-orange-500/10">
+                        <div className="bg-black/40 rounded p-2 border border-[#0201ff]/10">
                           <h4 className="text-xs text-gray-400 mb-1">Done</h4>
                           <p className="text-sm font-medium text-green-400">
                             {allSubnetTasks.filter(t => t.status === 'completed').length}
                           </p>
                         </div>
-                        <div className="bg-black/40 rounded p-2 border border-orange-500/10">
+                        <div className="bg-black/40 rounded p-2 border border-[#0201ff]/10">
                           <h4 className="text-xs text-gray-400 mb-1">Progress</h4>
                           <p className="text-sm font-medium text-white">
                             {Math.round(allSubnetTasks.reduce((acc, t) => acc + (t.progress || 0), 0) / allSubnetTasks.length)}%
@@ -702,7 +702,7 @@ export default function SubnetsPage() {
                       </div>
 
                       {/* Large Chart */}
-                      <div className="bg-black/20 rounded border border-orange-500/10 flex-1 min-h-0">
+                      <div className="bg-black/20 rounded border border-[#0201ff]/10 flex-1 min-h-0">
                         {selectedChart === 'regression' ? (
                           <div className="h-full w-full">
                             <LinearRegressionChart subnetTasks={allSubnetTasks} />
@@ -715,7 +715,7 @@ export default function SubnetsPage() {
                       </div>
 
                       {/* Minimal Task Feed */}
-                      <div className="bg-black/20 rounded p-1 border border-orange-500/10 flex-shrink-0">
+                      <div className="bg-black/20 rounded p-1 border border-[#0201ff]/10 flex-shrink-0">
                         <h4 className="text-xs font-medium text-white mb-1">Recent Tasks</h4>
                         <div className="grid grid-cols-1 md:grid-cols-8 gap-1">
                           {allSubnetTasks.slice(0, 8).map((task, idx) => (
@@ -724,18 +724,18 @@ export default function SubnetsPage() {
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: idx * 0.05 }}
-                              className="p-1 rounded border border-orange-500/10 bg-black/30"
+                              className="p-1 rounded border border-[#0201ff]/10 bg-black/30"
                             >
                               <div className="flex items-center gap-1 mb-1">
                                 <div className={`w-1 h-1 rounded-full ${
-                                  task.status === 'processing' ? 'bg-orange-500 animate-pulse' : 'bg-green-400'
+                                  task.status === 'processing' ? 'bg-[#0201ff] animate-pulse' : 'bg-green-400'
                                 }`} />
                                 <span className="text-xs font-medium text-white truncate">{task.title}</span>
                               </div>
                               <p className="text-xs text-gray-400 mb-1 truncate">{task.description}</p>
                               <div className="flex justify-between text-xs">
                                 <span className="text-gray-500">{task.validator}</span>
-                                <span className="text-orange-400">{task.impact}</span>
+                                <span className="text-[#0201ff]">{task.impact}</span>
                               </div>
                             </motion.div>
                           ))}
@@ -746,7 +746,7 @@ export default function SubnetsPage() {
                       <div className="flex justify-end">
                         <button
                           onClick={() => setSelectedChart(null)}
-                          className="px-4 py-2 bg-black/40 border border-orange-500/20 text-orange-400 hover:bg-orange-500/10 transition-all text-sm"
+                          className="px-4 py-2 bg-black/40 border border-[#0201ff]/20 text-[#0201ff] hover:bg-[#0201ff]/10 transition-all text-sm"
                         >
                           Close
                         </button>
@@ -794,7 +794,7 @@ export default function SubnetsPage() {
         }
         
         .chart-title {
-          background: linear-gradient(45deg, #ffd700, #ff8c00);
+          background: linear-gradient(45deg, #0201ff, #0100cc);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
