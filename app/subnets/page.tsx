@@ -149,7 +149,31 @@ export default function SubnetsPage() {
 
   return (
     <div className="min-h-screen overflow-hidden">
-      <div className="w-full h-screen overflow-hidden">
+      {/* Mobile Warning - Only show on mobile */}
+      <div className="lg:hidden fixed inset-0 z-50 bg-black flex items-center justify-center p-4">
+        <div className="text-center space-y-6">
+          <div className="text-6xl">🖥️</div>
+          <h1 className="text-2xl font-bold text-white font-mono">DESKTOP REQUIRED</h1>
+          <p className="text-gray-300 text-sm max-w-sm mx-auto">
+            The AI Subnet Neural Network visualization requires a desktop experience for optimal interaction.
+          </p>
+          <div className="space-y-3">
+            <Link href="/" className="block">
+              <button className="w-full px-6 py-3 border border-primary-gold text-primary-gold hover:bg-primary-gold hover:text-black transition-all text-sm font-mono">
+                [RETURN_TO_DASHBOARD]
+              </button>
+            </Link>
+            <Link href="/docs" className="block">
+              <button className="w-full px-6 py-3 border border-white text-white hover:bg-white hover:text-black transition-all text-sm font-mono">
+                [VIEW_DOCUMENTATION]
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Neural Network - Hidden on mobile */}
+      <div className="hidden lg:block w-full h-screen overflow-hidden">
 
         {loading ? (
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xl">Loading neural network...</div>
@@ -749,6 +773,7 @@ export default function SubnetsPage() {
             </div>
           </>
         )}
+      </div>
       </div>
 
       {/* Prevent scrolling and custom styles */}
