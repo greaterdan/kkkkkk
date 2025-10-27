@@ -1,23 +1,20 @@
 // 01A Network Configuration for MetaMask
-// Using BNB Testnet as the actual network since 01A is built on BNB
+// Using Base Sepolia Testnet as the actual network since 01A is built on Base
 export const O1A_NETWORK_CONFIG = {
-  chainId: '0x61', // 97 in decimal - BNB Testnet
-  chainName: '01A Labs Network (BNB Testnet)',
+  chainId: '0x14A34', // 84532 in decimal - Base Sepolia Testnet
+  chainName: '01A Labs Network (Base Sepolia)',
   nativeCurrency: {
-    name: 'BNB',
-    symbol: 'BNB',
+    name: 'ETH',
+    symbol: 'ETH',
     decimals: 18,
   },
   rpcUrls: [
-    'https://data-seed-prebsc-1-s1.binance.org:8545/',
-    'https://data-seed-prebsc-2-s1.binance.org:8545/',
-    'https://data-seed-prebsc-1-s2.binance.org:8545/',
-    'https://data-seed-prebsc-2-s2.binance.org:8545/',
-    'https://data-seed-prebsc-1-s3.binance.org:8545/',
-    'https://data-seed-prebsc-2-s3.binance.org:8545/'
+    'https://sepolia.base.org',
+    'https://base-sepolia.g.alchemy.com/v2/demo',
+    'https://base-sepolia.public.blastapi.io'
   ],
   blockExplorerUrls: [
-    'https://testnet.bscscan.com'
+    'https://sepolia.basescan.org'
   ],
   iconUrls: [
     'https://01a.network/logo.png'
@@ -26,27 +23,20 @@ export const O1A_NETWORK_CONFIG = {
 
 // Alternative configuration for mainnet (when 01A mainnet is ready)
 export const O1A_TESTNET_CONFIG = {
-  chainId: '0x38', // 56 in decimal - BNB Smart Chain Mainnet
-  chainName: '01A Labs Network (BNB Smart Chain)',
+  chainId: '0x2105', // 8453 in decimal - Base Mainnet
+  chainName: '01A Labs Network (Base Mainnet)',
   nativeCurrency: {
-    name: 'BNB',
-    symbol: 'BNB',
+    name: 'ETH',
+    symbol: 'ETH',
     decimals: 18,
   },
   rpcUrls: [
-    'https://bsc-dataseed1.binance.org/',
-    'https://bsc-dataseed2.binance.org/',
-    'https://bsc-dataseed3.binance.org/',
-    'https://bsc-dataseed4.binance.org/',
-    'https://bsc-dataseed1.defibit.io/',
-    'https://bsc-dataseed2.defibit.io/',
-    'https://bsc-dataseed3.defibit.io/',
-    'https://bsc-dataseed1.ninicoin.io/',
-    'https://bsc-dataseed2.ninicoin.io/',
-    'https://bsc-dataseed3.ninicoin.io/'
+    'https://mainnet.base.org',
+    'https://base-mainnet.g.alchemy.com/v2/demo',
+    'https://base.public.blastapi.io'
   ],
   blockExplorerUrls: [
-    'https://bscscan.com'
+    'https://basescan.org'
   ],
   iconUrls: [
     'https://01a.network/logo.png'
@@ -119,11 +109,11 @@ export const MANUAL_NETWORK_INSTRUCTIONS = {
     'Open MetaMask and click on the network dropdown',
     'Click "Add Network" or "Custom RPC"',
     'Enter the following details:',
-    'Network Name: 01A Labs Network (BNB Testnet)',
-    'RPC URL: https://data-seed-prebsc-1-s1.binance.org:8545/',
-    'Chain ID: 97',
-    'Currency Symbol: BNB',
-    'Block Explorer: https://testnet.bscscan.com',
+    'Network Name: 01A Labs Network (Base Sepolia)',
+    'RPC URL: https://sepolia.base.org',
+    'Chain ID: 84532',
+    'Currency Symbol: ETH',
+    'Block Explorer: https://sepolia.basescan.org',
     'Click "Save" to add the network'
   ]
 };

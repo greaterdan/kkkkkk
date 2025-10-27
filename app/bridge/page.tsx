@@ -6,7 +6,7 @@ import { ArrowDown, ArrowRight, Info, ExternalLink, CheckCircle, Clock } from 'l
 import { GlassCard } from '@/components/GlassCard';
 import { AddNetworkButton } from '@/components/AddNetworkButton';
 import { useAccount, useBalance, useSwitchChain, useWalletClient } from 'wagmi';
-import { bsc, bscTestnet } from 'wagmi/chains';
+import { baseSepolia } from 'wagmi/chains';
 import { ethers } from 'ethers';
 
 export default function BridgePage() {
@@ -14,20 +14,20 @@ export default function BridgePage() {
   const { switchChain } = useSwitchChain();
   const { data: walletClient } = useWalletClient();
   
-  const [fromChain, setFromChain] = useState<'bnb' | '01a'>('bnb');
+  const [fromChain, setFromChain] = useState<'eth' | '01a'>('eth');
   const [amount, setAmount] = useState('');
   const [bridgeStatus, setBridgeStatus] = useState<'idle' | 'pending' | 'success' | 'error'>('idle');
 
   // Get balance for current chain
   const { data: balance } = useBalance({
     address,
-    chainId: fromChain === 'bnb' ? bscTestnet.id : bscTestnet.id, // Both use BNB Testnet
+    chainId: fromChain === 'eth' ? baseSepolia.id : baseSepolia.id, // Both use Base Sepolia
   });
 
-  const toChain = fromChain === 'bnb' ? '01a' : 'bnb';
+  const toChain = fromChain === 'eth' ? '01a' : 'eth';
 
   const handleSwapDirection = () => {
-    setFromChain(fromChain === 'bnb' ? '01a' : 'bnb');
+    setFromChain(fromChain === 'eth' ? '01a' : 'eth');
     setAmount('');
   };
 
@@ -45,15 +45,15 @@ export default function BridgePage() {
     setBridgeStatus('pending');
 
     try {
-      // 1. Check if on correct chain (BNB Testnet for both)
-      const correctChainId = bscTestnet.id;
+      // 1. Check if on correct chain (Base Sepolia for both)
+      const correctChainId = baseSepolia.id;
       if (chain?.id !== correctChainId) {
         await switchChain({ chainId: correctChainId });
       }
 
-      // 2. For BNB to 01A bridging
-      if (fromChain === 'bnb') {
-        // Bridge BNB to 01A tokens
+      // 2. For ETH to 01A bridging
+      if (fromChain === 'eth') {
+        // Bridge ETH to 01A tokens
         const provider = new ethers.BrowserProvider(walletClient);
         const signer = await provider.getSigner();
         
@@ -66,20 +66,20 @@ export default function BridgePage() {
           signer
         );
 
-        // Deposit BNB to bridge
+        // Deposit ETH to bridge
         const tx = await bridgeContract.deposit({
           value: ethers.parseEther(amount)
         });
         
         await tx.wait();
-        console.log('✅ BNB deposited to bridge');
+        console.log('✅ ETH deposited to bridge');
         
         // Note: Current bridge contract only records deposits
         // In a full implementation, this would mint 01A tokens
         console.log('⚠️ Note: Current bridge contract only records deposits');
         console.log('📝 For full functionality, the bridge needs to mint 01A tokens');
       } else {
-        // Bridge 01A tokens back to BNB
+        // Bridge 01A tokens back to ETH
         const provider = new ethers.BrowserProvider(walletClient);
         const signer = await provider.getSigner();
         
@@ -101,17 +101,17 @@ export default function BridgePage() {
         // Withdraw from bridge
         const bridgeTx = await bridgeContract.withdraw(ethers.parseEther(amount));
         await bridgeTx.wait();
-        console.log('✅ BNB withdrawn from bridge');
+        console.log('✅ ETH withdrawn from bridge');
         
-        // Note: Current bridge contract only handles BNB deposits/withdrawals
+        // Note: Current bridge contract only handles ETH deposits/withdrawals
         console.log('⚠️ Note: Current bridge contract only handles BNB deposits/withdrawals');
         console.log('📝 For full token bridging, the bridge needs to handle 01A tokens');
       }
 
-      // 3. Log bridge transaction with real BNB Testnet contracts
-      console.log(`✅ Bridging ${amount} ${fromChain === 'bnb' ? 'BNB' : '01A'} to ${toChain === 'bnb' ? 'BNB' : '01A'} on BNB Testnet`);
-      console.log('📄 01A Token Contract (BNB Testnet):', '0x055491ceb4eC353ceEE6F59CD189Bc8ef799610c');
-      console.log('🌉 Bridge Contract (BNB Testnet):', '0x7985466c60A4875300a2A88Cbe50fc262F9be054');
+      // 3. Log bridge transaction with real Base Sepolia contracts
+      console.log(`✅ Bridging ${amount} ${fromChain === 'eth' ? 'ETH' : '01A'} to ${toChain === 'eth' ? 'ETH' : '01A'} on Base Sepolia`);
+      console.log('📄 01A Token Contract (Base Sepolia):', '0x055491ceb4eC353ceEE6F59CD189Bc8ef799610c');
+      console.log('🌉 Bridge Contract (Base Sepolia):', '0x7985466c60A4875300a2A88Cbe50fc262F9be054');
 
       // Simulate bridge transaction
       await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -128,9 +128,9 @@ export default function BridgePage() {
       // Show user-friendly error messages
       const errorMessage = error instanceof Error ? error.message : String(error);
       if (errorMessage.includes('insufficient funds')) {
-        alert('Insufficient BNB balance. Please add BNB to your wallet.');
+        alert('Insufficient ETH balance. Please add ETH to your wallet.');
       } else if (errorMessage.includes('Insufficient bridge balance')) {
-        alert('Insufficient balance in bridge. Please deposit BNB first.');
+        alert('Insufficient balance in bridge. Please deposit ETH first.');
       } else {
         alert(`Bridge transaction failed: ${errorMessage}`);
       }
@@ -139,8 +139,8 @@ export default function BridgePage() {
     }
   };
 
-  const estimatedTime = '~30 seconds'; // BNB Testnet is fast
-  const bridgeFee = '0.001 BNB'; // Gas fee for BNB Testnet
+  const estimatedTime = '~30 seconds'; // Base Sepolia is fast
+  const bridgeFee = '0.001 ETH'; // Gas fee for Base Sepolia
 
   return (
     <div className="min-h-screen pt-20 pb-12 px-4">
@@ -155,10 +155,10 @@ export default function BridgePage() {
             <span className="text-white">$</span> bridge.init()
           </div>
           <h1 className="text-3xl md:text-4xl font-black text-white font-mono">
-            [ BNB ↔ 01A_BRIDGE ]
+            [ ETH ↔ 01A_BRIDGE ]
           </h1>
           <p className="text-xs text-gray-400 font-mono">
-            {'>'} Bridge BNB to 01A tokens on BNB Testnet
+            {'>'} Bridge ETH to 01A tokens on Base Sepolia
           </p>
         </motion.div>
 
@@ -185,12 +185,12 @@ export default function BridgePage() {
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 border border-[#0201ff] flex items-center justify-center">
                         <span className="text-xs font-bold text-white">
-                          {fromChain === 'bnb' ? 'BNB' : '01A'}
+                          {fromChain === 'eth' ? 'ETH' : '01A'}
                         </span>
                       </div>
                       <div>
                         <p className="text-sm font-bold text-white">
-                          {fromChain === 'bnb' ? 'BNB Chain' : '01A LABS Network'}
+                          {fromChain === 'eth' ? 'Base Sepolia' : '01A LABS Network'}
                         </p>
                         <p className="text-[10px] text-gray-400">
                           {fromChain === 'bnb' ? 'Layer 1' : 'Layer 2'}
@@ -236,15 +236,15 @@ export default function BridgePage() {
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 border border-white/30 flex items-center justify-center">
                         <span className="text-xs font-bold text-white">
-                          {toChain === 'bnb' ? 'BNB' : '01A'}
+                          {toChain === 'eth' ? 'ETH' : '01A'}
                         </span>
                       </div>
                       <div>
                         <p className="text-sm font-bold text-white">
-                          {toChain === 'bnb' ? 'BNB Testnet' : '01A Tokens'}
+                          {toChain === 'eth' ? 'Base Sepolia' : '01A Tokens'}
                         </p>
                         <p className="text-[10px] text-gray-400">
-                          {toChain === 'bnb' ? 'Native BNB' : '01A Token Contract'}
+                          {toChain === 'eth' ? 'Native ETH' : '01A Token Contract'}
                         </p>
                       </div>
                     </div>
@@ -274,7 +274,7 @@ export default function BridgePage() {
                     <span className="text-gray-500">You Will Receive:</span>
                     <span className="text-[#0201ff] font-bold">
                       ~{(parseFloat(amount) - parseFloat(bridgeFee.split(' ')[0])).toFixed(4)}{' '}
-                      {toChain === 'bnb' ? 'BNB' : '01A'}
+                      {toChain === 'eth' ? 'ETH' : '01A'}
                     </span>
                   </div>
                 </motion.div>
@@ -359,7 +359,7 @@ export default function BridgePage() {
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-[#0201ff] mt-0.5">4.</span>
-                    <p>Wait for the bridge to process (~30 seconds on BNB Testnet)</p>
+                    <p>Wait for the bridge to process (~30 seconds on Base Sepolia)</p>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-[#0201ff] mt-0.5">5.</span>
@@ -389,7 +389,7 @@ export default function BridgePage() {
                     <div className="flex items-center justify-between p-2 border border-white/10">
                       <div className="flex items-center gap-2">
                         <CheckCircle className="w-3 h-3 text-green-400" />
-                        <span className="text-[10px] text-white">1.5 BNB → 01A</span>
+                        <span className="text-[10px] text-white">1.5 ETH → 01A</span>
                       </div>
                       <span className="text-[10px] text-gray-400">2h ago</span>
                     </div>
@@ -415,15 +415,15 @@ export default function BridgePage() {
                   <span className="text-white font-bold">Real Contracts Deployed:</span> 
                   <br />• Token01A: <span className="text-[#0201ff]">0x28EBd5A87ABA39F5f0D30b0843EaaaF890a785eb</span>
                   <br />• Bridge: <span className="text-[#0201ff]">0xC5e9e02A9Df870368D28dC71F50eb0e17A3a9F4c</span>
-                  <br />• Network: BNB Testnet (Chain ID: 97)
+                  <br />• Network: Base Sepolia (Chain ID: 84532)
                 </p>
                 <a
-                  href="https://testnet.bscscan.com/address/0x28EBd5A87ABA39F5f0D30b0843EaaaF890a785eb"
+                  href="https://sepolia.basescan.org/address/0x28EBd5A87ABA39F5f0D30b0843EaaaF890a785eb"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-[10px] text-[#0201ff] hover:text-white transition-colors"
                 >
-                  View Token01A on BSCScan Testnet
+                  View Token01A on BaseScan Sepolia
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
