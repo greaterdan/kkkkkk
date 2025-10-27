@@ -176,7 +176,13 @@ input[type="range"]::-moz-range-thumb:hover {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4a519;
+  background: #0100cc;
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0201ff #000000;
 }
 
 /* Font Import */

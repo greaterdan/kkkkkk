@@ -12,7 +12,7 @@ A production-ready Next.js 14 application for the 01A Network, an AI-focused Lay
 ### ✅ Completed Features
 
 #### 🎨 Frontend UI
-- **Minimalist Terminal Design**: Black & white interface with strategic gold (#f1bc1e) accents
+- **Minimalist Terminal Design**: Black & white interface with strategic blue (#0201ff) accents
 - **Fully Responsive**: Mobile-first design that works on all devices
 - **Smooth Animations**: Framer Motion animations throughout
 - **Particle Background**: Subtle animated particle effects
@@ -262,7 +262,7 @@ npm run lint --fix
 - **Primary Darker**: `#0a0a0a` - Elevated surfaces
 - **Primary Accent**: `#ffffff` - Text and borders
 - **Primary Gray**: `#808080` - Secondary text
-- **Primary Gold**: `#f1bc1e` - Accent color for CTAs
+- **Primary Blue**: `#0201ff` - Accent color for CTAs
 
 ### Typography
 - **Primary Font**: Inter Tight (sans-serif)
