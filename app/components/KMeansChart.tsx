@@ -141,13 +141,13 @@ export default function KMeansChart({ subnetTasks = [] }: KMeansChartProps) {
       const animatedY = originalY + (targetY - originalY) * animationProgress * 0.3;
       
       // Set color based on cluster with gradient
-      const colors = point.cluster === 0 ? ['#ff8c00', '#ffa500'] : ['#ff4500', '#ff6347'];
+      const colors = point.cluster === 0 ? ['#0201ff', '#0100cc'] : ['#ff4500', '#ff6347'];
       const gradient = ctx.createRadialGradient(animatedX, animatedY, 0, animatedX, animatedY, 6);
       gradient.addColorStop(0, colors[0]);
       gradient.addColorStop(1, colors[1]);
       
       ctx.fillStyle = gradient;
-      ctx.shadowColor = point.cluster === 0 ? '#ff8c00' : '#ff4500';
+      ctx.shadowColor = point.cluster === 0 ? '#0201ff' : '#ff4500';
       ctx.shadowBlur = 8;
       
       ctx.beginPath();
@@ -165,9 +165,9 @@ export default function KMeansChart({ subnetTasks = [] }: KMeansChartProps) {
       const scale = animationProgress;
       
       // Draw centroid with pulsing effect
-      ctx.strokeStyle = '#ff8c00';
+      ctx.strokeStyle = '#0201ff';
       ctx.lineWidth = 4;
-      ctx.shadowColor = '#ff8c00';
+      ctx.shadowColor = '#0201ff';
       ctx.shadowBlur = 12;
       
       // Draw X marker with pulsing
@@ -183,7 +183,7 @@ export default function KMeansChart({ subnetTasks = [] }: KMeansChartProps) {
       ctx.stroke();
       
       // Add inner circle
-      ctx.fillStyle = '#ff8c00';
+      ctx.fillStyle = '#0201ff';
       ctx.shadowBlur = 6;
       ctx.beginPath();
       ctx.arc(x, y, 3 * scale, 0, 2 * Math.PI);

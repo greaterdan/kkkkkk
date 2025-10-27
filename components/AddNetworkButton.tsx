@@ -51,7 +51,7 @@ export function AddNetworkButton({ isTestnet = false, className = '' }: AddNetwo
       <div className="flex justify-center">
         <button
           onClick={() => setShowManual(!showManual)}
-          className="px-6 py-3 border border-primary-gold text-primary-gold hover:bg-primary-gold hover:text-black transition-all text-sm font-mono"
+          className="px-6 py-3 border border-primary-gold text-[#0201ff] hover:bg-[#0201ff] hover:text-black transition-all text-sm font-mono"
         >
           {showManual ? '[HIDE_MANUAL_SETUP]' : '[SHOW_MANUAL_SETUP]'}
         </button>
@@ -65,14 +65,14 @@ export function AddNetworkButton({ isTestnet = false, className = '' }: AddNetwo
           className="space-y-4 p-4 bg-black/20 border border-white/10 rounded"
         >
           <div className="flex items-center gap-2 text-white font-mono">
-            <Info className="w-4 h-4 text-primary-gold" />
+            <Info className="w-4 h-4 text-[#0201ff]" />
             <h3 className="text-sm font-bold">{MANUAL_NETWORK_INSTRUCTIONS.title}</h3>
           </div>
           
           <div className="space-y-3 text-xs font-mono">
             {MANUAL_NETWORK_INSTRUCTIONS.steps.map((step, index) => (
               <div key={index} className="flex items-start gap-2">
-                <span className="text-primary-gold mt-0.5">{index + 1}.</span>
+                <span className="text-[#0201ff] mt-0.5">{index + 1}.</span>
                 <span className="text-gray-300">{step}</span>
               </div>
             ))}

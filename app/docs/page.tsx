@@ -45,7 +45,7 @@ export default function DocsPage() {
                         onClick={() => setActiveSection(section.id)}
                         className={`w-full flex items-center gap-3 px-3 py-2 text-xs transition-all ${
                           activeSection === section.id
-                            ? 'bg-primary-gold text-black border border-primary-gold'
+                            ? 'bg-[#0201ff] text-black border border-[#0201ff]'
                             : 'text-white hover:bg-white hover:text-black border border-transparent hover:border-white'
                         }`}
                       >
@@ -159,19 +159,19 @@ function OverviewSection() {
         <h2 className="text-xl font-bold text-white mb-3">Why 01A Labs Network?</h2>
         <div className="space-y-3 text-sm text-gray-300">
           <div className="flex items-start gap-3">
-            <span className="text-primary-gold mt-1">→</span>
+            <span className="text-[#0201ff] mt-1">→</span>
             <p><strong>AI-Native Architecture:</strong> Built from the ground up for AI workloads, not retrofitted</p>
           </div>
           <div className="flex items-start gap-3">
-            <span className="text-primary-gold mt-1">→</span>
+            <span className="text-[#0201ff] mt-1">→</span>
             <p><strong>Decentralized AI:</strong> No single point of failure, censorship-resistant AI services</p>
           </div>
           <div className="flex items-start gap-3">
-            <span className="text-primary-gold mt-1">→</span>
+            <span className="text-[#0201ff] mt-1">→</span>
             <p><strong>Economic Efficiency:</strong> Token-based pricing eliminates traditional cloud vendor lock-in</p>
           </div>
           <div className="flex items-start gap-3">
-            <span className="text-primary-gold mt-1">→</span>
+            <span className="text-[#0201ff] mt-1">→</span>
             <p><strong>Global Access:</strong> Anyone can participate as a validator or consume AI services</p>
           </div>
         </div>
@@ -257,7 +257,7 @@ function ArchitectureSection() {
           <h2 className="text-xl font-bold text-white mb-4">✅ TECHNICAL IMPLEMENTATION</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">Real-time Features</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">Real-time Features</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• Live blockchain explorer with real transaction data</li>
                 <li>• Real-time AI task processing and status updates</li>
@@ -267,7 +267,7 @@ function ArchitectureSection() {
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">Data Integration</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">Data Integration</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• ChatGPT API for intelligent validator responses</li>
                 <li>• Dynamic blockchain data generation</li>
@@ -375,7 +375,7 @@ function AIIntegrationSection() {
           <h2 className="text-xl font-bold text-white mb-4">✅ AI INTEGRATION TECHNICAL STACK</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">AI APIs & Services</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">AI APIs & Services</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• ChatGPT API for intelligent responses</li>
                 <li>• Real-time AI task processing</li>
@@ -385,7 +385,7 @@ function AIIntegrationSection() {
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">Data Processing</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">Data Processing</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• Real-time task status updates</li>
                 <li>• Dynamic reward calculations</li>
@@ -569,7 +569,7 @@ function ValidatorsSection() {
           <h2 className="text-xl font-bold text-white mb-4">Validator Requirements</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">Minimum Requirements</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">Minimum Requirements</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• <strong>Stake:</strong> 10,000 01A tokens minimum</li>
                 <li>• <strong>Hardware:</strong> 8GB RAM, 4 CPU cores</li>
@@ -579,7 +579,7 @@ function ValidatorsSection() {
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">Recommended Setup</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">Recommended Setup</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• <strong>Stake:</strong> 50,000+ 01A tokens</li>
                 <li>• <strong>Hardware:</strong> 32GB RAM, 8+ CPU cores</li>
@@ -594,16 +594,16 @@ function ValidatorsSection() {
         <div className="p-6 border border-white/20 bg-white/5">
           <h2 className="text-xl font-bold text-white mb-4">Validator Rewards</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">Staking Rewards</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">Staking Rewards</h3>
               <p className="text-gray-300 text-sm">Earn 8-12% APY on staked tokens</p>
             </div>
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">AI Task Rewards</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">AI Task Rewards</h3>
               <p className="text-gray-300 text-sm">Earn 01A tokens for processing AI tasks</p>
             </div>
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">Network Fees</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">Network Fees</h3>
               <p className="text-gray-300 text-sm">Share in transaction fee rewards</p>
             </div>
           </div>
@@ -639,28 +639,28 @@ function ValidatorsSection() {
           <h2 className="text-xl font-bold text-white mb-4">How to Become a Validator</h2>
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg font-bold">1.</span>
+              <span className="text-[#0201ff] text-lg font-bold">1.</span>
               <div>
                 <h3 className="font-bold text-white">Acquire 01A Tokens</h3>
                 <p className="text-gray-300 text-sm">Buy or earn 01A tokens through bridge or mining</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg font-bold">2.</span>
+              <span className="text-[#0201ff] text-lg font-bold">2.</span>
               <div>
                 <h3 className="font-bold text-white">Stake Tokens</h3>
                 <p className="text-gray-300 text-sm">Use the staking interface to register as a validator</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg font-bold">3.</span>
+              <span className="text-[#0201ff] text-lg font-bold">3.</span>
               <div>
                 <h3 className="font-bold text-white">Setup Node</h3>
                 <p className="text-gray-300 text-sm">Install and configure your validator node</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg font-bold">4.</span>
+              <span className="text-[#0201ff] text-lg font-bold">4.</span>
               <div>
                 <h3 className="font-bold text-white">Start Validating</h3>
                 <p className="text-gray-300 text-sm">Begin processing transactions and earning rewards</p>
@@ -723,7 +723,7 @@ function BridgeSection() {
           <h2 className="text-xl font-bold text-white mb-4">Bridge Architecture</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">BNB Chain Side</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">BNB Chain Side</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• Smart contract handles deposits</li>
                 <li>• Validates and locks BNB</li>
@@ -732,7 +732,7 @@ function BridgeSection() {
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">01A Labs Side</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">01A Labs Side</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• Mints equivalent 01A tokens</li>
                 <li>• Tracks bridge transactions</li>
@@ -773,7 +773,7 @@ function BridgeSection() {
           <h2 className="text-xl font-bold text-white mb-4">Bridge Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <h3 className="font-bold text-primary-gold mb-2">Security</h3>
+              <h3 className="font-bold text-[#0201ff] mb-2">Security</h3>
               <ul className="text-gray-300 text-sm space-y-1">
                 <li>• Multi-signature validation</li>
                 <li>• Time-locked withdrawals</li>
@@ -782,7 +782,7 @@ function BridgeSection() {
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-primary-gold mb-2">Efficiency</h3>
+              <h3 className="font-bold text-[#0201ff] mb-2">Efficiency</h3>
               <ul className="text-gray-300 text-sm space-y-1">
                 <li>• Fast settlement times</li>
                 <li>• Low transaction fees</li>
@@ -813,7 +813,7 @@ function TokenomicsSection() {
           <h2 className="text-xl font-bold text-white mb-4">Token Distribution</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">Initial Supply</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">Initial Supply</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• <strong>Total Supply:</strong> 1,000,000,000 01A</li>
                 <li>• <strong>Circulating:</strong> 100,000,000 01A</li>
@@ -824,7 +824,7 @@ function TokenomicsSection() {
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">Token Utility</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">Token Utility</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• <strong>AI Services:</strong> Pay for AI inference and training</li>
                 <li>• <strong>Staking:</strong> Secure the network and earn rewards</li>
@@ -839,16 +839,16 @@ function TokenomicsSection() {
         <div className="p-6 border border-white/20 bg-white/5">
           <h2 className="text-xl font-bold text-white mb-4">Economic Model</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">Inflation Control</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">Inflation Control</h3>
               <p className="text-gray-300 text-sm">Controlled inflation through burning mechanisms</p>
             </div>
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">Deflationary Burns</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">Deflationary Burns</h3>
               <p className="text-gray-300 text-sm">Burn tokens from failed transactions</p>
             </div>
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">Reward Distribution</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">Reward Distribution</h3>
               <p className="text-gray-300 text-sm">Fair distribution to validators and stakers</p>
             </div>
           </div>
@@ -874,7 +874,7 @@ function ConsensusSection() {
           <h2 className="text-xl font-bold text-white mb-4">Consensus Algorithm</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">Proof-of-Stake</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">Proof-of-Stake</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• Validators stake 01A tokens</li>
                 <li>• Higher stake = higher selection probability</li>
@@ -898,28 +898,28 @@ function ConsensusSection() {
           <h2 className="text-xl font-bold text-white mb-4">Block Production</h2>
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">1.</span>
+              <span className="text-[#0201ff] text-lg">1.</span>
               <div>
                 <h3 className="font-bold text-white">Validator Selection</h3>
                 <p className="text-gray-300 text-sm">Validators are randomly selected based on stake weight</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">2.</span>
+              <span className="text-[#0201ff] text-lg">2.</span>
               <div>
                 <h3 className="font-bold text-white">Block Creation</h3>
                 <p className="text-gray-300 text-sm">Selected validator creates and proposes new block</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">3.</span>
+              <span className="text-[#0201ff] text-lg">3.</span>
               <div>
                 <h3 className="font-bold text-white">Validation</h3>
                 <p className="text-gray-300 text-sm">Other validators validate and vote on the block</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">4.</span>
+              <span className="text-[#0201ff] text-lg">4.</span>
               <div>
                 <h3 className="font-bold text-white">Finalization</h3>
                 <p className="text-gray-300 text-sm">Block is finalized and added to the chain</p>
@@ -948,7 +948,7 @@ function ScalabilitySection() {
           <h2 className="text-xl font-bold text-white mb-4">Scaling Solutions</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">Horizontal Scaling</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">Horizontal Scaling</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• Unlimited AI subnets</li>
                 <li>• Dynamic validator allocation</li>
@@ -957,7 +957,7 @@ function ScalabilitySection() {
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">Vertical Scaling</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">Vertical Scaling</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• High-performance validators</li>
                 <li>• GPU acceleration</li>
@@ -971,16 +971,16 @@ function ScalabilitySection() {
         <div className="p-6 border border-white/20 bg-white/5">
           <h2 className="text-xl font-bold text-white mb-4">Performance Metrics</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">Throughput</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">Throughput</h3>
               <p className="text-gray-300 text-sm">100,000+ TPS</p>
             </div>
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">Latency</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">Latency</h3>
               <p className="text-gray-300 text-sm">~100ms block time</p>
             </div>
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">Capacity</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">Capacity</h3>
               <p className="text-gray-300 text-sm">Unlimited validators</p>
             </div>
           </div>
@@ -1006,7 +1006,7 @@ function SecuritySection() {
           <h2 className="text-xl font-bold text-white mb-4">Security Layers</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">Network Security</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">Network Security</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• Proof-of-Stake consensus</li>
                 <li>• Slashing mechanisms</li>
@@ -1015,7 +1015,7 @@ function SecuritySection() {
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">AI Security</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">AI Security</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• Model verification</li>
                 <li>• Result validation</li>
@@ -1030,7 +1030,7 @@ function SecuritySection() {
           <h2 className="text-xl font-bold text-white mb-4">Audit & Compliance</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <h3 className="font-bold text-primary-gold mb-2">Smart Contract Audits</h3>
+              <h3 className="font-bold text-[#0201ff] mb-2">Smart Contract Audits</h3>
               <ul className="text-gray-300 text-sm space-y-1">
                 <li>• Regular security audits</li>
                 <li>• Bug bounty programs</li>
@@ -1039,7 +1039,7 @@ function SecuritySection() {
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-primary-gold mb-2">Compliance</h3>
+              <h3 className="font-bold text-[#0201ff] mb-2">Compliance</h3>
               <ul className="text-gray-300 text-sm space-y-1">
                 <li>• GDPR compliance</li>
                 <li>• Data protection standards</li>
@@ -1070,28 +1070,28 @@ function GovernanceSection() {
           <h2 className="text-xl font-bold text-white mb-4">Governance Process</h2>
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">1.</span>
+              <span className="text-[#0201ff] text-lg">1.</span>
               <div>
                 <h3 className="font-bold text-white">Proposal Creation</h3>
                 <p className="text-gray-300 text-sm">Token holders create governance proposals</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">2.</span>
+              <span className="text-[#0201ff] text-lg">2.</span>
               <div>
                 <h3 className="font-bold text-white">Discussion Period</h3>
                 <p className="text-gray-300 text-sm">Community discusses and debates proposals</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">3.</span>
+              <span className="text-[#0201ff] text-lg">3.</span>
               <div>
                 <h3 className="font-bold text-white">Voting</h3>
                 <p className="text-gray-300 text-sm">Token holders vote on proposals</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">4.</span>
+              <span className="text-[#0201ff] text-lg">4.</span>
               <div>
                 <h3 className="font-bold text-white">Implementation</h3>
                 <p className="text-gray-300 text-sm">Approved proposals are implemented</p>
@@ -1104,7 +1104,7 @@ function GovernanceSection() {
           <h2 className="text-xl font-bold text-white mb-4">Voting Power</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <h3 className="font-bold text-primary-gold mb-2">Token-based Voting</h3>
+              <h3 className="font-bold text-[#0201ff] mb-2">Token-based Voting</h3>
               <ul className="text-gray-300 text-sm space-y-1">
                 <li>• 1 01A token = 1 vote</li>
                 <li>• Delegation allowed</li>
@@ -1113,7 +1113,7 @@ function GovernanceSection() {
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-primary-gold mb-2">Proposal Types</h3>
+              <h3 className="font-bold text-[#0201ff] mb-2">Proposal Types</h3>
               <ul className="text-gray-300 text-sm space-y-1">
                 <li>• Network upgrades</li>
                 <li>• Parameter changes</li>
@@ -1238,16 +1238,16 @@ function APIsSection() {
         <div className="p-6 border border-white/20 bg-white/5">
           <h2 className="text-xl font-bold text-white mb-4">SDK Languages</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">JavaScript/TypeScript</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">JavaScript/TypeScript</h3>
               <p className="text-gray-300 text-sm">Web and Node.js applications</p>
             </div>
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">Python</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">Python</h3>
               <p className="text-gray-300 text-sm">Data science and AI applications</p>
             </div>
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">Go</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">Go</h3>
               <p className="text-gray-300 text-sm">High-performance applications</p>
             </div>
           </div>
@@ -1411,7 +1411,7 @@ function ComparisonSection() {
           <h2 className="text-xl font-bold text-white mb-4">vs Traditional Blockchains</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">01A Labs Network</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">01A Labs Network</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• AI-native architecture</li>
                 <li>• 44x faster for AI workloads</li>
@@ -1437,7 +1437,7 @@ function ComparisonSection() {
           <h2 className="text-xl font-bold text-white mb-4">vs Cloud AI Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-bold text-primary-gold mb-3">01A Labs Network</h3>
+              <h3 className="font-bold text-[#0201ff] mb-3">01A Labs Network</h3>
               <ul className="text-gray-300 text-sm space-y-2">
                 <li>• Decentralized infrastructure</li>
                 <li>• 65% cost reduction</li>
@@ -1462,16 +1462,16 @@ function ComparisonSection() {
         <div className="p-6 border border-white/20 bg-white/5">
           <h2 className="text-xl font-bold text-white mb-4">Performance Comparison</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">Speed</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">Speed</h3>
               <p className="text-gray-300 text-sm">44x faster than Ethereum</p>
             </div>
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">Cost</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">Cost</h3>
               <p className="text-gray-300 text-sm">65% cheaper than cloud AI</p>
             </div>
-            <div className="p-4 border border-primary-gold/30 bg-primary-gold/5">
-              <h3 className="font-bold text-primary-gold mb-2">Scalability</h3>
+            <div className="p-4 border border-[#0201ff]/30 bg-[#0201ff]/5">
+              <h3 className="font-bold text-[#0201ff] mb-2">Scalability</h3>
               <p className="text-gray-300 text-sm">Unlimited validators</p>
             </div>
           </div>
@@ -1497,21 +1497,21 @@ function GettingStartedSection() {
           <h2 className="text-xl font-bold text-white mb-4">For Users</h2>
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">1.</span>
+              <span className="text-[#0201ff] text-lg">1.</span>
               <div>
                 <h3 className="font-bold text-white">Connect Wallet</h3>
                 <p className="text-gray-300 text-sm">Connect your wallet to the 01A Labs platform</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">2.</span>
+              <span className="text-[#0201ff] text-lg">2.</span>
               <div>
                 <h3 className="font-bold text-white">Get 01A Tokens</h3>
                 <p className="text-gray-300 text-sm">Bridge BNB or buy 01A tokens from exchanges</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">3.</span>
+              <span className="text-[#0201ff] text-lg">3.</span>
               <div>
                 <h3 className="font-bold text-white">Use AI Services</h3>
                 <p className="text-gray-300 text-sm">Submit AI tasks and pay with 01A tokens</p>
@@ -1524,21 +1524,21 @@ function GettingStartedSection() {
           <h2 className="text-xl font-bold text-white mb-4">For Validators</h2>
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">1.</span>
+              <span className="text-[#0201ff] text-lg">1.</span>
               <div>
                 <h3 className="font-bold text-white">Acquire Tokens</h3>
                 <p className="text-gray-300 text-sm">Get at least 10,000 01A tokens for staking</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">2.</span>
+              <span className="text-[#0201ff] text-lg">2.</span>
               <div>
                 <h3 className="font-bold text-white">Setup Hardware</h3>
                 <p className="text-gray-300 text-sm">Configure your validator node with required specs</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">3.</span>
+              <span className="text-[#0201ff] text-lg">3.</span>
               <div>
                 <h3 className="font-bold text-white">Start Validating</h3>
                 <p className="text-gray-300 text-sm">Register as validator and start earning rewards</p>
@@ -1551,21 +1551,21 @@ function GettingStartedSection() {
           <h2 className="text-xl font-bold text-white mb-4">For Developers</h2>
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">1.</span>
+              <span className="text-[#0201ff] text-lg">1.</span>
               <div>
                 <h3 className="font-bold text-white">Install SDK</h3>
                 <p className="text-gray-300 text-sm">Install the 01A Labs SDK for your preferred language</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">2.</span>
+              <span className="text-[#0201ff] text-lg">2.</span>
               <div>
                 <h3 className="font-bold text-white">Get API Keys</h3>
                 <p className="text-gray-300 text-sm">Register for API access and get your keys</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-primary-gold text-lg">3.</span>
+              <span className="text-[#0201ff] text-lg">3.</span>
               <div>
                 <h3 className="font-bold text-white">Build Applications</h3>
                 <p className="text-gray-300 text-sm">Integrate AI services into your applications</p>
@@ -1578,21 +1578,21 @@ function GettingStartedSection() {
           <h2 className="text-xl font-bold text-white mb-4">Quick Links</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <h3 className="font-bold text-primary-gold mb-2">Resources</h3>
+              <h3 className="font-bold text-[#0201ff] mb-2">Resources</h3>
               <ul className="text-gray-300 text-sm space-y-1">
-                <li>• <a href="#" className="text-primary-gold hover:underline">Developer Documentation</a></li>
-                <li>• <a href="#" className="text-primary-gold hover:underline">API Reference</a></li>
-                <li>• <a href="#" className="text-primary-gold hover:underline">SDK Downloads</a></li>
-                <li>• <a href="#" className="text-primary-gold hover:underline">Validator Guide</a></li>
+                <li>• <a href="#" className="text-[#0201ff] hover:underline">Developer Documentation</a></li>
+                <li>• <a href="#" className="text-[#0201ff] hover:underline">API Reference</a></li>
+                <li>• <a href="#" className="text-[#0201ff] hover:underline">SDK Downloads</a></li>
+                <li>• <a href="#" className="text-[#0201ff] hover:underline">Validator Guide</a></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-primary-gold mb-2">Community</h3>
+              <h3 className="font-bold text-[#0201ff] mb-2">Community</h3>
               <ul className="text-gray-300 text-sm space-y-1">
-                <li>• <a href="#" className="text-primary-gold hover:underline">Discord Server</a></li>
-                <li>• <a href="#" className="text-primary-gold hover:underline">Telegram Group</a></li>
-                <li>• <a href="#" className="text-primary-gold hover:underline">GitHub Repository</a></li>
-                <li>• <a href="#" className="text-primary-gold hover:underline">Twitter</a></li>
+                <li>• <a href="#" className="text-[#0201ff] hover:underline">Discord Server</a></li>
+                <li>• <a href="#" className="text-[#0201ff] hover:underline">Telegram Group</a></li>
+                <li>• <a href="#" className="text-[#0201ff] hover:underline">GitHub Repository</a></li>
+                <li>• <a href="#" className="text-[#0201ff] hover:underline">Twitter</a></li>
               </ul>
             </div>
           </div>

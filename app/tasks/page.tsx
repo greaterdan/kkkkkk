@@ -277,7 +277,7 @@ export default function TasksPage() {
                     !mounted || !address || !prompt
                       ? 'border-white/20 text-gray-600 cursor-not-allowed'
                       : isSubmitting
-                      ? 'border-primary-gold text-[#0201ff] cursor-wait'
+                      ? 'border-[#0201ff] text-[#0201ff] cursor-wait'
                       : 'border-[#0201ff] text-[#0201ff] hover:bg-[#0201ff] hover:text-black'
                   }`}
                 >

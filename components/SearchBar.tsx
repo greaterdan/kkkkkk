@@ -230,11 +230,11 @@ export function SearchBar({
                 }}
                 className={`w-full px-4 py-3 text-left flex items-center gap-3 transition-colors font-mono ${
                   index === selectedIndex
-                    ? 'bg-primary-gold text-black'
+                    ? 'bg-[#0201ff] text-black'
                     : 'hover:bg-white/5 text-white'
                 }`}
               >
-                <span className="text-primary-gold text-sm">
+                <span className="text-[#0201ff] text-sm">
                   {getTypeIcon(suggestion.type)}
                 </span>
                 <div className="flex-1 min-w-0">

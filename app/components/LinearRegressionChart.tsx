@@ -106,8 +106,8 @@ export default function LinearRegressionChart({ subnetTasks = [] }: LinearRegres
     }
 
     // Draw data points
-    ctx.fillStyle = '#ff8c00';
-    ctx.shadowColor = '#ff8c00';
+    ctx.fillStyle = '#0201ff';
+    ctx.shadowColor = '#0201ff';
     ctx.shadowBlur = 8;
     data.forEach(point => {
       const x = scaleX(point.x);
