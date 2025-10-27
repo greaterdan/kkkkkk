@@ -12,16 +12,16 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to L2 network
-const L2_RPC_URL = process.env.L2_RPC_URL || 'https://l2-rpc-production.up.railway.app/rpc';
+const L2_RPC_URL = process.env.L2_RPC_URL || 'https://sepolia.base.org';
 const provider = new ethers.JsonRpcProvider(L2_RPC_URL, {
   name: '01A LABS L2',
-  chainId: 26
+  chainId: 84532
 });
 
 // Disable automatic network detection to prevent startup issues
 provider._detectNetwork = async () => ({
   name: '01A LABS L2',
-  chainId: 26
+  chainId: 84532
 });
 
 console.log(`Connecting to L2 network at: ${L2_RPC_URL}`);

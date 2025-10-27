@@ -34,11 +34,11 @@ interface AddressDetails {
   type: string;
   balance: {
     '01A': string;
-    'BNB': string;
+    'ETH': string;
   };
   usdValue: {
     '01A': number;
-    'BNB': number;
+    'ETH': number;
   };
   statistics: {
     totalTransactions: number;
@@ -328,7 +328,7 @@ export default function DetailPage({ params }: { params: { id: string } }) {
                       </div>
                       <div className="p-3 bg-black/20 rounded border border-white/10">
                         <span className="text-sm text-gray-400 font-mono block mb-2">Transaction Fee:</span>
-                        <span className="text-white font-mono text-sm">{transactionData.transactionFee} BNB</span>
+                        <span className="text-white font-mono text-sm">{transactionData.transactionFee} ETH</span>
                       </div>
                     </div>
                   </div>
@@ -437,15 +437,15 @@ export default function DetailPage({ params }: { params: { id: string } }) {
                       </div>
 
                       <div className="p-4 bg-black/20 rounded border border-white/10">
-                        <h4 className="text-sm font-bold text-white font-mono mb-3">BNB Balance</h4>
+                        <h4 className="text-sm font-bold text-white font-mono mb-3">ETH Balance</h4>
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
                             <span className="text-gray-400 font-mono text-sm">Balance:</span>
-                            <span className="text-white font-mono text-sm">{addressData.balance['BNB']} BNB</span>
+                            <span className="text-white font-mono text-sm">{addressData.balance['ETH']} ETH</span>
                           </div>
                           <div className="flex items-center justify-between">
                             <span className="text-gray-400 font-mono text-sm">USD Value:</span>
-                            <span className="text-white font-mono text-sm">${addressData.usdValue['BNB'].toFixed(2)}</span>
+                            <span className="text-white font-mono text-sm">${addressData.usdValue['ETH'].toFixed(2)}</span>
                           </div>
                         </div>
                       </div>
@@ -575,7 +575,7 @@ export default function DetailPage({ params }: { params: { id: string } }) {
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
                               <span className="text-gray-400 font-mono text-sm">Fee:</span>
-                              <span className="text-white font-mono text-sm">{transactionData.transactionFee} BNB</span>
+                              <span className="text-white font-mono text-sm">{transactionData.transactionFee} ETH</span>
                             </div>
                             <div className="flex items-center justify-between">
                               <span className="text-gray-400 font-mono text-sm">USD Fee:</span>

@@ -13,11 +13,11 @@ export async function GET(
     
     // Generate varied balances based on address
     const o1aBalance = (seed % 50000 + 1000).toFixed(4); // 1,000 to 51,000 01A
-    const bnbBalance = (seed % 50 + 0.1).toFixed(4); // 0.1 to 50.1 BNB
+    const ethBalance = (seed % 50 + 0.1).toFixed(4); // 0.1 to 50.1 ETH
     
-    // Calculate USD values (01A = $3.42, BNB = $600)
+    // Calculate USD values (01A = $3.42, ETH = $3000)
     const o1aUsd = (parseFloat(o1aBalance) * 3.42).toFixed(2);
-    const bnbUsd = (parseFloat(bnbBalance) * 600).toFixed(2);
+    const ethUsd = (parseFloat(ethBalance) * 3000).toFixed(2);
     
     // Generate realistic transaction stats
     const totalTxns = (seed % 5000 + 100); // 100 to 5,100 transactions
@@ -37,11 +37,11 @@ export async function GET(
       type: addressType,
       balance: {
         '01A': o1aBalance,
-        'BNB': bnbBalance
+        'ETH': ethBalance
       },
       usdValue: {
         '01A': parseFloat(o1aUsd),
-        'BNB': parseFloat(bnbUsd)
+        'ETH': parseFloat(ethUsd)
       },
       statistics: {
         totalTransactions: totalTxns,

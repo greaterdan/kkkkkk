@@ -38,11 +38,11 @@ export function AddNetworkButton({ isTestnet = false, className = '' }: AddNetwo
   };
 
   const networkConfig = {
-    name: isTestnet ? '01A Labs Network (BNB Smart Chain)' : '01A Labs Network (BNB Testnet)',
-    rpcUrl: isTestnet ? 'https://bsc-dataseed1.binance.org/' : 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-    chainId: isTestnet ? '56' : '97',
-    symbol: 'BNB',
-    explorer: isTestnet ? 'https://bscscan.com' : 'https://testnet.bscscan.com'
+    name: isTestnet ? '01A Labs Network (Base Mainnet)' : '01A Labs Network (Base Sepolia)',
+    rpcUrl: isTestnet ? 'https://mainnet.base.org' : 'https://sepolia.base.org',
+    chainId: isTestnet ? '8453' : '84532',
+    symbol: 'ETH',
+    explorer: isTestnet ? 'https://basescan.org' : 'https://sepolia.basescan.org'
   };
 
   return (
