@@ -774,7 +774,6 @@ export default function SubnetsPage() {
           </>
         )}
       </div>
-      </div>
 
       {/* Prevent scrolling and custom styles */}
       <style jsx global>{`
